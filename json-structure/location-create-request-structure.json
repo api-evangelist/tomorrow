@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tomorrow/refs/heads/main/json-structure/location-create-request-structure.json",
+  "name": "LocationCreateRequest",
+  "description": "Payload to create a new saved location.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "Boston HQ Rooftop"
+    },
+    "geometry": {
+      "type": "object",
+      "description": "GeoJSON geometry \u2014 Point, LineString, or Polygon.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "Point",
+            "LineString",
+            "Polygon"
+          ],
+          "example": "Point"
+        },
+        "coordinates": {
+          "type": "array",
+          "items": {},
+          "example": [
+            -71.0466,
+            42.3478
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "coordinates"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "field-asset",
+        "rooftop"
+      ]
+    }
+  },
+  "required": [
+    "name",
+    "geometry"
+  ]
+}

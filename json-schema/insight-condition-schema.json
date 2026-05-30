@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tomorrow/refs/heads/main/json-schema/insight-condition-schema.json",
+  "title": "InsightCondition",
+  "description": "A single condition that must hold for an insight to fire.",
+  "type": "object",
+  "properties": {
+    "field": {
+      "type": "string",
+      "example": "windSpeed"
+    },
+    "operator": {
+      "type": "string",
+      "enum": [
+        "eq",
+        "neq",
+        "gt",
+        "gte",
+        "lt",
+        "lte"
+      ],
+      "example": "gt"
+    },
+    "value": {
+      "type": "number",
+      "format": "double",
+      "example": 15
+    }
+  },
+  "required": [
+    "field",
+    "operator",
+    "value"
+  ]
+}

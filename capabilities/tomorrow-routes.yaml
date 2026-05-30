@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Tomorrow.io Weather API — Routes
+  description: 'Routes surface of the Tomorrow.io Weather API. 1 operations. Lead operation: Tomorrow.io Post Route. Self-contained Naftiko capability covering one Tomorrow.io business surface.'
+  tags:
+  - Tomorrow.io
+  - Weather
+  - Routes
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds:
+- namespace: env
+  keys:
+    TOMORROW_API_KEY: TOMORROW_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tomorrow-routes
+    baseUri: https://api.tomorrow.io/v4
+    description: Tomorrow.io Weather API — Routes business capability. Self-contained, no shared references.
+    authentication:
+      type: apikey
+      key: apikey
+      value: '{{env.TOMORROW_API_KEY}}'
+      placement: query
+    resources:
+    - name: route
+      path: /route
+      operations:
+      - name: postRoute
+        method: POST
+        description: Tomorrow.io Post Route
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body payload.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: tomorrow-routes-rest
+    port: 8080
+    description: REST adapter for Tomorrow.io Weather API — Routes. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/route
+      name: route
+      description: REST surface for route.
+      operations:
+      - method: POST
+        name: postRoute
+        description: Tomorrow.io Post Route
+        call: tomorrow-routes.postRoute
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tomorrow-routes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Tomorrow.io Weather API — Routes. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: io-post-route
+      description: Tomorrow.io Post Route
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tomorrow-routes.postRoute
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

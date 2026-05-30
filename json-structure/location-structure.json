@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tomorrow/refs/heads/main/json-structure/location-structure.json",
+  "name": "Location",
+  "description": "A saved location resource.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "6183d156022c1b0008685cc6"
+    },
+    "name": {
+      "type": "string",
+      "example": "Boston HQ Rooftop"
+    },
+    "geometry": {
+      "type": "object",
+      "description": "GeoJSON geometry \u2014 Point, LineString, or Polygon.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "Point",
+            "LineString",
+            "Polygon"
+          ],
+          "example": "Point"
+        },
+        "coordinates": {
+          "type": "array",
+          "items": {},
+          "example": [
+            -71.0466,
+            42.3478
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "coordinates"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "field-asset",
+        "rooftop"
+      ]
+    },
+    "createdAt": {
+      "type": "datetime",
+      "example": "2026-05-30T12:34:56Z"
+    },
+    "updatedAt": {
+      "type": "datetime",
+      "example": "2026-05-30T12:34:56Z"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "geometry"
+  ]
+}

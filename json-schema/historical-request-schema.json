@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tomorrow/refs/heads/main/json-schema/historical-request-schema.json",
+  "title": "HistoricalRequest",
+  "description": "Historical Timelines request body.",
+  "type": "object",
+  "properties": {
+    "location": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object",
+          "description": "GeoJSON geometry \u2014 Point, LineString, or Polygon.",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "Point",
+                "LineString",
+                "Polygon"
+              ],
+              "example": "Point"
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {},
+              "example": [
+                -71.0466,
+                42.3478
+              ]
+            }
+          },
+          "required": [
+            "type",
+            "coordinates"
+          ]
+        }
+      ]
+    },
+    "fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "temperature",
+        "precipitationIntensity"
+      ]
+    },
+    "units": {
+      "type": "string",
+      "enum": [
+        "metric",
+        "imperial"
+      ],
+      "default": "metric"
+    },
+    "timesteps": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "1h",
+          "1d"
+        ]
+      },
+      "example": [
+        "1d"
+      ]
+    },
+    "startTime": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2024-01-01T00:00:00Z"
+    },
+    "endTime": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2024-01-31T23:59:59Z"
+    },
+    "timezone": {
+      "type": "string",
+      "default": "UTC"
+    }
+  },
+  "required": [
+    "location",
+    "fields",
+    "startTime",
+    "endTime"
+  ]
+}

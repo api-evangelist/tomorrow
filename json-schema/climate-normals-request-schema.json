@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tomorrow/refs/heads/main/json-schema/climate-normals-request-schema.json",
+  "title": "ClimateNormalsRequest",
+  "description": "Climate Normals request body.",
+  "type": "object",
+  "properties": {
+    "location": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object",
+          "description": "GeoJSON geometry \u2014 Point, LineString, or Polygon.",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "Point",
+                "LineString",
+                "Polygon"
+              ],
+              "example": "Point"
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {},
+              "example": [
+                -71.0466,
+                42.3478
+              ]
+            }
+          },
+          "required": [
+            "type",
+            "coordinates"
+          ]
+        }
+      ]
+    },
+    "fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "temperatureAvg",
+        "precipitationAccumulationSum"
+      ]
+    },
+    "units": {
+      "type": "string",
+      "enum": [
+        "metric",
+        "imperial"
+      ],
+      "default": "metric"
+    }
+  },
+  "required": [
+    "location",
+    "fields"
+  ]
+}

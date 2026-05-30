@@ -1,0 +1,230 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tomorrow/refs/heads/main/json-schema/timelines-response-schema.json",
+  "title": "TimelinesResponse",
+  "description": "Tomorrow.io Timelines response envelope.",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "timelines": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "One timeline at a specific resolution.",
+            "properties": {
+              "timestep": {
+                "type": "string",
+                "example": "1h"
+              },
+              "startTime": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "endTime": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "intervals": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "description": "A single timestep entry in a timeline.",
+                  "properties": {
+                    "startTime": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2026-05-30T13:00:00Z"
+                    },
+                    "values": {
+                      "type": "object",
+                      "description": "Map of weather data field names to numeric values for one timestep.",
+                      "additionalProperties": true,
+                      "properties": {
+                        "temperature": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "Air temperature (Celsius for metric, Fahrenheit for imperial).",
+                          "example": 21.2
+                        },
+                        "temperatureApparent": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 20.4
+                        },
+                        "humidity": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 64.0
+                        },
+                        "dewPoint": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 13.4
+                        },
+                        "windSpeed": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 3.1
+                        },
+                        "windDirection": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 220
+                        },
+                        "windGust": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 6.2
+                        },
+                        "pressureSeaLevel": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 1013.2
+                        },
+                        "pressureSurfaceLevel": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 1010.5
+                        },
+                        "precipitationIntensity": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 0.0
+                        },
+                        "precipitationProbability": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 5
+                        },
+                        "precipitationType": {
+                          "type": "integer",
+                          "example": 0
+                        },
+                        "cloudCover": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 12
+                        },
+                        "cloudBase": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 1.5
+                        },
+                        "cloudCeiling": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 2.4
+                        },
+                        "visibility": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 16
+                        },
+                        "weatherCode": {
+                          "type": "integer",
+                          "example": 1000
+                        },
+                        "uvIndex": {
+                          "type": "integer",
+                          "example": 6
+                        },
+                        "uvHealthConcern": {
+                          "type": "integer",
+                          "example": 2
+                        },
+                        "epaIndex": {
+                          "type": "integer",
+                          "example": 42
+                        },
+                        "epaHealthConcern": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "epaPrimaryPollutant": {
+                          "type": "integer",
+                          "example": 0
+                        },
+                        "particulateMatter25": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 8.4
+                        },
+                        "particulateMatter10": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 14.1
+                        },
+                        "pollutantO3": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 28
+                        },
+                        "pollutantNO2": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 11
+                        },
+                        "pollutantCO": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 0.4
+                        },
+                        "pollutantSO2": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 1
+                        },
+                        "treeIndex": {
+                          "type": "integer",
+                          "example": 2
+                        },
+                        "grassIndex": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "weedIndex": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "fireIndex": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 8.2
+                        },
+                        "solarGHI": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 480
+                        },
+                        "solarDIF": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 120
+                        },
+                        "solarDIR": {
+                          "type": "number",
+                          "format": "double",
+                          "example": 360
+                        },
+                        "moonPhase": {
+                          "type": "integer",
+                          "example": 3
+                        },
+                        "hailBinary": {
+                          "type": "integer",
+                          "example": 0
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

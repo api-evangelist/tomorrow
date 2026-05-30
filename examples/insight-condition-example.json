@@ -1,0 +1,5 @@
+{
+  "field": "windSpeed",
+  "operator": "gt",
+  "value": 15
+}

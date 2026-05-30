@@ -1,0 +1,604 @@
+vocabulary: 1.0.0
+info:
+  provider: Tomorrow.io
+  description: Unified vocabulary for the Tomorrow.io v4 Weather API — operational
+    dimension (OpenAPI resources, actions, schemas) and capability dimension (Naftiko
+    workflows + MCP tools), with a cross-reference linking each resource to its workflows
+    and personas.
+  created: '2026-05-30'
+  modified: '2026-05-30'
+operational:
+  apis:
+  - name: Tomorrow.io Weather API
+    namespace: tomorrow-weather-api
+    version: 4.0.1
+    baseUrl: https://api.tomorrow.io/v4
+    status: active
+  resources:
+  - name: Alerts
+    apis: &id001
+    - tomorrow-weather-api
+    actions: &id002
+    - activate
+    - create
+    - deactivate
+    - delete
+    - get
+    - link
+    - list
+    - unlink
+    - update
+  - name: Climate
+    apis: &id003
+    - tomorrow-weather-api
+    actions: &id004
+    - post
+  - name: Events
+    apis: &id005
+    - tomorrow-weather-api
+    actions: &id006
+    - get
+    - post
+  - name: Forecast
+    apis: &id007
+    - tomorrow-weather-api
+    actions: &id008
+    - get
+  - name: Historical
+    apis: &id009
+    - tomorrow-weather-api
+    actions: &id010
+    - post
+  - name: Insights
+    apis: &id011
+    - tomorrow-weather-api
+    actions: &id012
+    - create
+    - delete
+    - get
+    - list
+    - update
+  - name: Locations
+    apis: &id013
+    - tomorrow-weather-api
+    actions: &id014
+    - add
+    - create
+    - delete
+    - get
+    - list
+    - remove
+    - update
+  - name: Map Tiles
+    apis: &id015
+    - tomorrow-weather-api
+    actions: &id016
+    - get
+  - name: Realtime
+    apis: &id017
+    - tomorrow-weather-api
+    actions: &id018
+    - get
+  - name: Routes
+    apis: &id019
+    - tomorrow-weather-api
+    actions: &id020
+    - post
+  - name: Timelines
+    apis: &id021
+    - tomorrow-weather-api
+    actions: &id022
+    - get
+    - post
+  actions:
+  - name: activate
+    httpMethods:
+    - POST
+    pattern: write
+  - name: add
+    httpMethods:
+    - POST
+    pattern: write
+  - name: create
+    httpMethods:
+    - POST
+    pattern: write
+  - name: deactivate
+    httpMethods:
+    - POST
+    pattern: write
+  - name: delete
+    httpMethods:
+    - DELETE
+    pattern: destructive
+  - name: get
+    httpMethods:
+    - GET
+    pattern: read
+  - name: link
+    httpMethods:
+    - POST
+    pattern: write
+  - name: list
+    httpMethods:
+    - GET
+    pattern: read
+  - name: post
+    httpMethods:
+    - POST
+    pattern: write
+  - name: remove
+    httpMethods:
+    - POST
+    pattern: destructive
+  - name: unlink
+    httpMethods:
+    - POST
+    pattern: destructive
+  - name: update
+    httpMethods:
+    - PUT
+    pattern: write
+  schemas:
+    core:
+    - WeatherValues
+    - GeoJSONGeometry
+    - RealtimeWeatherResponse
+    locations:
+    - Location
+    - LocationCreateRequest
+    - LocationUpdateRequest
+    - LocationTagsRequest
+    - AlertLocationLinkRequest
+    insights:
+    - InsightCondition
+    - Insight
+    - InsightCreateRequest
+    alerts:
+    - Alert
+    - AlertCreateRequest
+    events:
+    - EventsRequest
+    - Event
+    - EventsResponse
+    forecast:
+    - TimelinesRequest
+    - TimelineInterval
+    - Timeline
+    - TimelinesResponse
+    - ForecastResponse
+    - HistoricalRequest
+    routes:
+    - RouteWaypoint
+    - RouteRequest
+    - RouteResponse
+    climate:
+    - ClimateNormalsRequest
+    - ClimateNormalsResponse
+    errors:
+    - Error
+    - SimpleAck
+  parameters:
+    identifiers:
+    - location
+    - locationId
+    - insightId
+    - alertId
+    filters:
+    - insights
+    - timesteps
+    - fields
+    - units
+    - startTime
+    - endTime
+    - timezone
+    - buffer
+    - dailyStartHour
+    pagination: []
+    tile:
+    - zoom
+    - x
+    - y
+    - field
+    - timeFormat
+  enums:
+    units:
+    - metric
+    - imperial
+    timesteps:
+    - 1m
+    - 5m
+    - 15m
+    - 30m
+    - 1h
+    - 1d
+    - current
+    precipitationTypes:
+    - N/A
+    - Rain
+    - Snow
+    - Freezing Rain
+    - Ice Pellets
+    severity:
+    - low
+    - medium
+    - high
+    - critical
+    epaHealthConcern:
+    - Good
+    - Moderate
+    - Unhealthy for Sensitive Groups
+    - Unhealthy
+    - Very Unhealthy
+    - Hazardous
+    pollenLevels:
+    - None
+    - Very Low
+    - Low
+    - Medium
+    - High
+    - Very High
+    logicalOperators:
+    - and
+    - or
+    conditionOperators:
+    - eq
+    - neq
+    - gt
+    - gte
+    - lt
+    - lte
+  authentication:
+    schemes:
+    - name: apiKeyQuery
+      type: apiKey
+      in: query
+      paramName: apikey
+      description: Tomorrow.io API key passed as `apikey` query parameter.
+    usedBy:
+    - tomorrow-weather-api
+capability:
+  workflows:
+  - name: Tomorrow.io Weather API — Alerts
+    file: capabilities/tomorrow-alerts.yaml
+    description: 'Alerts surface of the Tomorrow.io Weather API. 10 operations. Lead
+      operation: Tomorrow.io List Alerts. Self-contained Naftiko capability covering
+      one Tomorrow.io business surface.'
+    apis:
+    - tomorrow-weather-api
+    toolCount: 10
+    namespaces:
+      consumed: tomorrow-alerts
+      rest: tomorrow-alerts-rest
+      mcp: tomorrow-alerts-mcp
+    tags:
+    - Tomorrow.io
+    - Weather
+    - Alerts
+  - name: Tomorrow.io Weather API — Climate
+    file: capabilities/tomorrow-climate.yaml
+    description: 'Climate surface of the Tomorrow.io Weather API. 1 operations. Lead
+      operation: Tomorrow.io Post Climate Normals. Self-contained Naftiko capability
+      covering one Tomorrow.io business surface.'
+    apis:
+    - tomorrow-weather-api
+    toolCount: 1
+    namespaces:
+      consumed: tomorrow-climate
+      rest: tomorrow-climate-rest
+      mcp: tomorrow-climate-mcp
+    tags:
+    - Tomorrow.io
+    - Weather
+    - Climate
+  - name: Tomorrow.io Weather API — Events
+    file: capabilities/tomorrow-events.yaml
+    description: 'Events surface of the Tomorrow.io Weather API. 2 operations. Lead
+      operation: Tomorrow.io Get Events. Self-contained Naftiko capability covering
+      one Tomorrow.io business surface.'
+    apis:
+    - tomorrow-weather-api
+    toolCount: 2
+    namespaces:
+      consumed: tomorrow-events
+      rest: tomorrow-events-rest
+      mcp: tomorrow-events-mcp
+    tags:
+    - Tomorrow.io
+    - Weather
+    - Events
+  - name: Tomorrow.io Weather API — Forecast
+    file: capabilities/tomorrow-forecast.yaml
+    description: 'Forecast surface of the Tomorrow.io Weather API. 1 operations. Lead
+      operation: Tomorrow.io Get Weather Forecast. Self-contained Naftiko capability
+      covering one Tomorrow.io business surface.'
+    apis:
+    - tomorrow-weather-api
+    toolCount: 1
+    namespaces:
+      consumed: tomorrow-forecast
+      rest: tomorrow-forecast-rest
+      mcp: tomorrow-forecast-mcp
+    tags:
+    - Tomorrow.io
+    - Weather
+    - Forecast
+  - name: Tomorrow.io Weather API — Historical
+    file: capabilities/tomorrow-historical.yaml
+    description: 'Historical surface of the Tomorrow.io Weather API. 1 operations.
+      Lead operation: Tomorrow.io Post Historical Timeline. Self-contained Naftiko
+      capability covering one Tomorrow.io business surface.'
+    apis:
+    - tomorrow-weather-api
+    toolCount: 1
+    namespaces:
+      consumed: tomorrow-historical
+      rest: tomorrow-historical-rest
+      mcp: tomorrow-historical-mcp
+    tags:
+    - Tomorrow.io
+    - Weather
+    - Historical
+  - name: Tomorrow.io Weather API — Insights
+    file: capabilities/tomorrow-insights.yaml
+    description: 'Insights surface of the Tomorrow.io Weather API. 5 operations. Lead
+      operation: Tomorrow.io List Insights. Self-contained Naftiko capability covering
+      one Tomorrow.io business surface.'
+    apis:
+    - tomorrow-weather-api
+    toolCount: 5
+    namespaces:
+      consumed: tomorrow-insights
+      rest: tomorrow-insights-rest
+      mcp: tomorrow-insights-mcp
+    tags:
+    - Tomorrow.io
+    - Weather
+    - Insights
+  - name: Tomorrow.io Weather API — Locations
+    file: capabilities/tomorrow-locations.yaml
+    description: 'Locations surface of the Tomorrow.io Weather API. 7 operations.
+      Lead operation: Tomorrow.io List Locations. Self-contained Naftiko capability
+      covering one Tomorrow.io business surface.'
+    apis:
+    - tomorrow-weather-api
+    toolCount: 7
+    namespaces:
+      consumed: tomorrow-locations
+      rest: tomorrow-locations-rest
+      mcp: tomorrow-locations-mcp
+    tags:
+    - Tomorrow.io
+    - Weather
+    - Locations
+  - name: Tomorrow.io Weather API — Map Tiles
+    file: capabilities/tomorrow-map-tiles.yaml
+    description: 'Map Tiles surface of the Tomorrow.io Weather API. 1 operations.
+      Lead operation: Tomorrow.io Get Map Tile. Self-contained Naftiko capability
+      covering one Tomorrow.io business surface.'
+    apis:
+    - tomorrow-weather-api
+    toolCount: 1
+    namespaces:
+      consumed: tomorrow-map-tiles
+      rest: tomorrow-map-tiles-rest
+      mcp: tomorrow-map-tiles-mcp
+    tags:
+    - Tomorrow.io
+    - Weather
+    - Map Tiles
+  - name: Tomorrow.io Weather API — Realtime
+    file: capabilities/tomorrow-realtime.yaml
+    description: 'Realtime surface of the Tomorrow.io Weather API. 1 operations. Lead
+      operation: Tomorrow.io Get Realtime Weather. Self-contained Naftiko capability
+      covering one Tomorrow.io business surface.'
+    apis:
+    - tomorrow-weather-api
+    toolCount: 1
+    namespaces:
+      consumed: tomorrow-realtime
+      rest: tomorrow-realtime-rest
+      mcp: tomorrow-realtime-mcp
+    tags:
+    - Tomorrow.io
+    - Weather
+    - Realtime
+  - name: Tomorrow.io Weather API — Routes
+    file: capabilities/tomorrow-routes.yaml
+    description: 'Routes surface of the Tomorrow.io Weather API. 1 operations. Lead
+      operation: Tomorrow.io Post Route. Self-contained Naftiko capability covering
+      one Tomorrow.io business surface.'
+    apis:
+    - tomorrow-weather-api
+    toolCount: 1
+    namespaces:
+      consumed: tomorrow-routes
+      rest: tomorrow-routes-rest
+      mcp: tomorrow-routes-mcp
+    tags:
+    - Tomorrow.io
+    - Weather
+    - Routes
+  - name: Tomorrow.io Weather API — Timelines
+    file: capabilities/tomorrow-timelines.yaml
+    description: 'Timelines surface of the Tomorrow.io Weather API. 2 operations.
+      Lead operation: Tomorrow.io Get Timelines. Self-contained Naftiko capability
+      covering one Tomorrow.io business surface.'
+    apis:
+    - tomorrow-weather-api
+    toolCount: 2
+    namespaces:
+      consumed: tomorrow-timelines
+      rest: tomorrow-timelines-rest
+      mcp: tomorrow-timelines-mcp
+    tags:
+    - Tomorrow.io
+    - Weather
+    - Timelines
+  personas:
+  - id: aviation-ops
+    name: Aviation Operations Engineer
+    description: Plans and reroutes flights; ingests ceiling/visibility/turbulence
+      and storm cells.
+    workflows:
+    - tomorrow-realtime
+    - tomorrow-forecast
+    - tomorrow-routes
+    - tomorrow-alerts
+  - id: logistics-ops
+    name: Logistics Operations Manager
+    description: Routes trucks and crews around hail, lightning, and severe weather.
+    workflows:
+    - tomorrow-routes
+    - tomorrow-alerts
+    - tomorrow-events
+  - id: energy-trader
+    name: Energy Trader / Forecaster
+    description: Forecasts wind and solar generation; tracks lightning for grid outage
+      risk.
+    workflows:
+    - tomorrow-forecast
+    - tomorrow-historical
+    - tomorrow-climate
+  - id: farm-advisor
+    name: Agronomy Advisor
+    description: Drives irrigation, planting and spray windows from soil and ET data.
+    workflows:
+    - tomorrow-forecast
+    - tomorrow-historical
+    - tomorrow-insights
+  - id: cat-underwriter
+    name: Catastrophe Underwriter
+    description: Uses historical perils and climate normals to price risk.
+    workflows:
+    - tomorrow-historical
+    - tomorrow-climate
+  - id: event-ops
+    name: Live-Event Operations
+    description: Decides delays for stadiums and outdoor venues on lightning radius.
+    workflows:
+    - tomorrow-realtime
+    - tomorrow-alerts
+  - id: emergency-manager
+    name: Public-Safety / Emergency Manager
+    description: Drives municipal alerts for fire, flood, AQI.
+    workflows:
+    - tomorrow-events
+    - tomorrow-alerts
+    - tomorrow-insights
+  domains:
+  - Weather
+  - Forecast
+  - Climate
+  - Routes
+  - Map Tiles
+  - Aviation
+  - Maritime
+  - Agriculture
+  - Energy
+  - Insurance
+  - Public Safety
+  namespaces:
+  - consumed: tomorrow-alerts
+    rest: tomorrow-alerts-rest
+    mcp: tomorrow-alerts-mcp
+  - consumed: tomorrow-climate
+    rest: tomorrow-climate-rest
+    mcp: tomorrow-climate-mcp
+  - consumed: tomorrow-events
+    rest: tomorrow-events-rest
+    mcp: tomorrow-events-mcp
+  - consumed: tomorrow-forecast
+    rest: tomorrow-forecast-rest
+    mcp: tomorrow-forecast-mcp
+  - consumed: tomorrow-historical
+    rest: tomorrow-historical-rest
+    mcp: tomorrow-historical-mcp
+  - consumed: tomorrow-insights
+    rest: tomorrow-insights-rest
+    mcp: tomorrow-insights-mcp
+  - consumed: tomorrow-locations
+    rest: tomorrow-locations-rest
+    mcp: tomorrow-locations-mcp
+  - consumed: tomorrow-map-tiles
+    rest: tomorrow-map-tiles-rest
+    mcp: tomorrow-map-tiles-mcp
+  - consumed: tomorrow-realtime
+    rest: tomorrow-realtime-rest
+    mcp: tomorrow-realtime-mcp
+  - consumed: tomorrow-routes
+    rest: tomorrow-routes-rest
+    mcp: tomorrow-routes-mcp
+  - consumed: tomorrow-timelines
+    rest: tomorrow-timelines-rest
+    mcp: tomorrow-timelines-mcp
+  binds:
+  - env: TOMORROW_API_KEY
+    workflows:
+    - Tomorrow.io Weather API — Alerts
+    - Tomorrow.io Weather API — Climate
+    - Tomorrow.io Weather API — Events
+    - Tomorrow.io Weather API — Forecast
+    - Tomorrow.io Weather API — Historical
+    - Tomorrow.io Weather API — Insights
+    - Tomorrow.io Weather API — Locations
+    - Tomorrow.io Weather API — Map Tiles
+    - Tomorrow.io Weather API — Realtime
+    - Tomorrow.io Weather API — Routes
+    - Tomorrow.io Weather API — Timelines
+crossReference:
+- resource: Alerts
+  apis: *id001
+  actions: *id002
+  workflows:
+  - Tomorrow.io Weather API — Alerts
+- resource: Climate
+  apis: *id003
+  actions: *id004
+  workflows:
+  - Tomorrow.io Weather API — Climate
+- resource: Events
+  apis: *id005
+  actions: *id006
+  workflows:
+  - Tomorrow.io Weather API — Events
+- resource: Forecast
+  apis: *id007
+  actions: *id008
+  workflows:
+  - Tomorrow.io Weather API — Forecast
+- resource: Historical
+  apis: *id009
+  actions: *id010
+  workflows:
+  - Tomorrow.io Weather API — Historical
+- resource: Insights
+  apis: *id011
+  actions: *id012
+  workflows:
+  - Tomorrow.io Weather API — Insights
+- resource: Locations
+  apis: *id013
+  actions: *id014
+  workflows:
+  - Tomorrow.io Weather API — Locations
+- resource: Map Tiles
+  apis: *id015
+  actions: *id016
+  workflows:
+  - Tomorrow.io Weather API — Map Tiles
+- resource: Realtime
+  apis: *id017
+  actions: *id018
+  workflows:
+  - Tomorrow.io Weather API — Realtime
+- resource: Routes
+  apis: *id019
+  actions: *id020
+  workflows:
+  - Tomorrow.io Weather API — Routes
+- resource: Timelines
+  apis: *id021
+  actions: *id022
+  workflows:
+  - Tomorrow.io Weather API — Timelines

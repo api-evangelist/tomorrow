@@ -1,0 +1,387 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "tio": "https://docs.tomorrow.io/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "AlertCreateRequest": "tio:AlertCreateRequest",
+    "AlertLocationLinkRequest": "tio:AlertLocationLinkRequest",
+    "Alert": "tio:Alert",
+    "ClimateNormalsRequest": "tio:ClimateNormalsRequest",
+    "ClimateNormalsResponse": "tio:ClimateNormalsResponse",
+    "Event": "tio:Event",
+    "EventsRequest": "tio:EventsRequest",
+    "EventsResponse": "tio:EventsResponse",
+    "ForecastResponse": "tio:ForecastResponse",
+    "GeoJSONGeometry": "tio:GeoJSONGeometry",
+    "HistoricalRequest": "tio:HistoricalRequest",
+    "InsightCondition": "tio:InsightCondition",
+    "InsightCreateRequest": "tio:InsightCreateRequest",
+    "Insight": "tio:Insight",
+    "LocationCreateRequest": "tio:LocationCreateRequest",
+    "Location": "tio:Location",
+    "LocationTagsRequest": "tio:LocationTagsRequest",
+    "LocationUpdateRequest": "tio:LocationUpdateRequest",
+    "RealtimeWeatherResponse": "tio:RealtimeWeatherResponse",
+    "RouteRequest": "tio:RouteRequest",
+    "RouteResponse": "tio:RouteResponse",
+    "RouteWaypoint": "tio:RouteWaypoint",
+    "TimelineInterval": "tio:TimelineInterval",
+    "Timeline": "tio:Timeline",
+    "TimelinesRequest": "tio:TimelinesRequest",
+    "TimelinesResponse": "tio:TimelinesResponse",
+    "WeatherValues": "tio:WeatherValues",
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "insightIds": {
+      "@id": "tio:insight_ids",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "locationIds": {
+      "@id": "tio:location_ids",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "notifications": {
+      "@id": "tio:notifications",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "type": {
+      "@id": "tio:type",
+      "@type": "xsd:string"
+    },
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "active": {
+      "@id": "tio:active",
+      "@type": "xsd:boolean"
+    },
+    "id": {
+      "@id": "tio:id",
+      "@type": "xsd:string"
+    },
+    "createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "updatedAt": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "location": {
+      "@id": "tio:location",
+      "@type": "xsd:string"
+    },
+    "fields": {
+      "@id": "tio:fields",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "units": {
+      "@id": "tio:units",
+      "@type": "xsd:string"
+    },
+    "data": {
+      "@id": "tio:data",
+      "@type": "@id"
+    },
+    "normals": {
+      "@id": "tio:normals",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "month": {
+      "@id": "tio:month",
+      "@type": "xsd:integer"
+    },
+    "values": {
+      "@id": "tio:values",
+      "@type": "@id"
+    },
+    "temperature": {
+      "@id": "tio:temperature",
+      "@type": "xsd:double"
+    },
+    "temperatureApparent": {
+      "@id": "tio:temperature_apparent",
+      "@type": "xsd:double"
+    },
+    "humidity": {
+      "@id": "tio:humidity",
+      "@type": "xsd:double"
+    },
+    "dewPoint": {
+      "@id": "tio:dew_point",
+      "@type": "xsd:double"
+    },
+    "windSpeed": {
+      "@id": "tio:wind_speed",
+      "@type": "xsd:double"
+    },
+    "windDirection": {
+      "@id": "tio:wind_direction",
+      "@type": "xsd:double"
+    },
+    "windGust": {
+      "@id": "tio:wind_gust",
+      "@type": "xsd:double"
+    },
+    "pressureSeaLevel": {
+      "@id": "tio:pressure_sea_level",
+      "@type": "xsd:double"
+    },
+    "pressureSurfaceLevel": {
+      "@id": "tio:pressure_surface_level",
+      "@type": "xsd:double"
+    },
+    "precipitationIntensity": {
+      "@id": "tio:precipitation_intensity",
+      "@type": "xsd:double"
+    },
+    "precipitationProbability": {
+      "@id": "tio:precipitation_probability",
+      "@type": "xsd:double"
+    },
+    "precipitationType": {
+      "@id": "tio:precipitation_type",
+      "@type": "xsd:integer"
+    },
+    "cloudCover": {
+      "@id": "tio:cloud_cover",
+      "@type": "xsd:double"
+    },
+    "cloudBase": {
+      "@id": "tio:cloud_base",
+      "@type": "xsd:double"
+    },
+    "cloudCeiling": {
+      "@id": "tio:cloud_ceiling",
+      "@type": "xsd:double"
+    },
+    "visibility": {
+      "@id": "tio:visibility",
+      "@type": "xsd:double"
+    },
+    "weatherCode": {
+      "@id": "tio:weather_code",
+      "@type": "xsd:integer"
+    },
+    "uvIndex": {
+      "@id": "tio:uv_index",
+      "@type": "xsd:integer"
+    },
+    "uvHealthConcern": {
+      "@id": "tio:uv_health_concern",
+      "@type": "xsd:integer"
+    },
+    "epaIndex": {
+      "@id": "tio:epa_index",
+      "@type": "xsd:integer"
+    },
+    "epaHealthConcern": {
+      "@id": "tio:epa_health_concern",
+      "@type": "xsd:integer"
+    },
+    "epaPrimaryPollutant": {
+      "@id": "tio:epa_primary_pollutant",
+      "@type": "xsd:integer"
+    },
+    "particulateMatter25": {
+      "@id": "tio:particulate_matter25",
+      "@type": "xsd:double"
+    },
+    "particulateMatter10": {
+      "@id": "tio:particulate_matter10",
+      "@type": "xsd:double"
+    },
+    "pollutantO3": {
+      "@id": "tio:pollutant_o3",
+      "@type": "xsd:double"
+    },
+    "pollutantNO2": {
+      "@id": "tio:pollutant_no2",
+      "@type": "xsd:double"
+    },
+    "pollutantCO": {
+      "@id": "tio:pollutant_co",
+      "@type": "xsd:double"
+    },
+    "pollutantSO2": {
+      "@id": "tio:pollutant_so2",
+      "@type": "xsd:double"
+    },
+    "treeIndex": {
+      "@id": "tio:tree_index",
+      "@type": "xsd:integer"
+    },
+    "grassIndex": {
+      "@id": "tio:grass_index",
+      "@type": "xsd:integer"
+    },
+    "weedIndex": {
+      "@id": "tio:weed_index",
+      "@type": "xsd:integer"
+    },
+    "fireIndex": {
+      "@id": "tio:fire_index",
+      "@type": "xsd:double"
+    },
+    "solarGHI": {
+      "@id": "tio:solar_ghi",
+      "@type": "xsd:double"
+    },
+    "solarDIF": {
+      "@id": "tio:solar_dif",
+      "@type": "xsd:double"
+    },
+    "solarDIR": {
+      "@id": "tio:solar_dir",
+      "@type": "xsd:double"
+    },
+    "moonPhase": {
+      "@id": "tio:moon_phase",
+      "@type": "xsd:integer"
+    },
+    "hailBinary": {
+      "@id": "tio:hail_binary",
+      "@type": "xsd:integer"
+    },
+    "insightId": {
+      "@id": "tio:insight_id",
+      "@type": "xsd:string"
+    },
+    "startTime": {
+      "@id": "tio:start_time",
+      "@type": "xsd:dateTime"
+    },
+    "endTime": {
+      "@id": "tio:end_time",
+      "@type": "xsd:dateTime"
+    },
+    "severity": {
+      "@id": "tio:severity",
+      "@type": "xsd:string"
+    },
+    "coordinates": {
+      "@id": "tio:coordinates",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "insights": {
+      "@id": "tio:insights",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "buffer": {
+      "@id": "tio:buffer",
+      "@type": "xsd:float"
+    },
+    "events": {
+      "@id": "tio:events",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "timelines": {
+      "@id": "tio:timelines",
+      "@type": "@id"
+    },
+    "hourly": {
+      "@id": "tio:hourly",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "daily": {
+      "@id": "tio:daily",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "lat": {
+      "@id": "tio:lat",
+      "@type": "xsd:double"
+    },
+    "lon": {
+      "@id": "tio:lon",
+      "@type": "xsd:double"
+    },
+    "timesteps": {
+      "@id": "tio:timesteps",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "timezone": {
+      "@id": "tio:timezone",
+      "@type": "xsd:string"
+    },
+    "field": {
+      "@id": "tio:field",
+      "@type": "xsd:string"
+    },
+    "operator": {
+      "@id": "tio:operator",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "tio:value",
+      "@type": "xsd:double"
+    },
+    "conditions": {
+      "@id": "tio:conditions",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "logical": {
+      "@id": "tio:logical",
+      "@type": "xsd:string"
+    },
+    "timestep": {
+      "@id": "tio:timestep",
+      "@type": "xsd:string"
+    },
+    "geometry": {
+      "@id": "tio:geometry",
+      "@type": "@id"
+    },
+    "tags": {
+      "@id": "tio:tags",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "time": {
+      "@id": "tio:time",
+      "@type": "xsd:dateTime"
+    },
+    "route": {
+      "@id": "tio:route",
+      "@type": "@id"
+    },
+    "waypoints": {
+      "@id": "tio:waypoints",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "arrivalTime": {
+      "@id": "tio:arrival_time",
+      "@type": "xsd:dateTime"
+    },
+    "intervals": {
+      "@id": "tio:intervals",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "dailyStartHour": {
+      "@id": "tio:daily_start_hour",
+      "@type": "xsd:integer"
+    }
+  }
+}

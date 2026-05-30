@@ -1,32 +1,254 @@
 aid: tomorrow
-name: Tomorrow
-description: "Weather API Powered by Proprietary Technology"
+name: Tomorrow.io
+description: >-
+  Tomorrow.io is a weather and climate intelligence platform exposing a unified
+  v4 HTTP API. The API combines real-time observations, hyperlocal forecast
+  timelines (minutely / hourly / daily), 20+ years of historical data, climate
+  normals, weather-on-routes, configurable insights and event detection,
+  per-location alerts with webhook delivery, and raster map tiles. 60+ data
+  layers cover core weather, air quality, pollen, fire, flood, soil, solar,
+  aviation, maritime, and lightning.
 url: https://docs.tomorrow.io
 specificationVersion: '0.20'
 created: '2026-05-28'
-modified: '2026-05-28'
+modified: '2026-05-30'
+x-type: company
 x-source: public-apis/public-apis
-x-category: "Weather"
-x-tier: 3
-x-tier-reason: bulk-registered-from-public-apis
+x-category: Weather
+x-tier: 2
+x-tier-reason: enriched-full-pipeline
 tags:
-  - Weather
-  - Public APIs
+- Weather
+- Climate
+- Forecast
+- Historical Weather
+- Air Quality
+- Pollen
+- Fire
+- Flood
+- Routes
+- Map Tiles
+- Aviation
+- Maritime
+- Public APIs
 apis:
-  - name: Tomorrow
-    description: "Weather API Powered by Proprietary Technology"
-    humanURL: https://docs.tomorrow.io
-    baseURL: https://docs.tomorrow.io
-    tags:
-      - Weather
-    properties:
-      - type: Documentation
-        url: https://docs.tomorrow.io
+- name: Tomorrow.io Weather API
+  description: >-
+    Unified Tomorrow.io v4 HTTP API. Exposes Realtime weather, multi-step
+    Timelines forecasts (minutely / hourly / daily), Historical data,
+    Weather-on-Routes, raster Map Tiles, plus management surfaces for
+    Locations, Insights, Alerts, and Events with configurable thresholds and
+    webhook delivery.
+  humanURL: https://docs.tomorrow.io/reference/welcome
+  baseURL: https://api.tomorrow.io/v4
+  tags:
+  - Weather
+  - Forecast
+  - Climate
+  - Routes
+  - Map Tiles
+  properties:
+  - type: Documentation
+    url: https://docs.tomorrow.io/reference/welcome
+  - type: OpenAPI
+    url: openapi/tomorrow-openapi.yml
+  - type: Postman
+    url: https://github.com/Tomorrow-IO-API/tomorrow-postman
+  - type: SignUp
+    url: https://app.tomorrow.io/signup
+  - type: Authentication
+    url: https://app.tomorrow.io/development/keys
+  - type: CodeExamples
+    url: https://github.com/Tomorrow-IO-API/tomorrow-samples
+    title: JavaScript Samples
+  - type: CodeExamples
+    url: https://github.com/Tomorrow-IO-API/tomorrow-route-mapbox
+    title: Routes + Mapbox Sample
+  - type: CodeExamples
+    url: https://github.com/Tomorrow-IO-API/tomorrow-timelines-widget
+    title: Timelines Widget Sample
+  - type: CodeExamples
+    url: https://github.com/Tomorrow-IO-API/tomorrow-events-charts
+    title: Insights Dashboard Sample
+  - type: CodeExamples
+    url: https://github.com/Tomorrow-IO-API/tomorrow-api-proxy
+    title: API Proxy (Google Cloud Function)
+  - type: CodeExamples
+    url: https://github.com/Tomorrow-IO-API/tomorrow-netlify
+    title: Netlify Function Sample
+  - type: CodeExamples
+    url: https://github.com/Tomorrow-IO-API/climate-normals
+    title: Climate Normals Visualization
+  - type: WeatherIcons
+    url: https://github.com/Tomorrow-IO-API/tomorrow-weather-codes
+  - type: MapAssets
+    url: https://github.com/Tomorrow-IO-API/tomorrow-map-spectrums
+  - type: NaftikoCapability
+    url: capabilities/tomorrow-alerts.yaml
+  - type: NaftikoCapability
+    url: capabilities/tomorrow-climate.yaml
+  - type: NaftikoCapability
+    url: capabilities/tomorrow-events.yaml
+  - type: NaftikoCapability
+    url: capabilities/tomorrow-forecast.yaml
+  - type: NaftikoCapability
+    url: capabilities/tomorrow-historical.yaml
+  - type: NaftikoCapability
+    url: capabilities/tomorrow-insights.yaml
+  - type: NaftikoCapability
+    url: capabilities/tomorrow-locations.yaml
+  - type: NaftikoCapability
+    url: capabilities/tomorrow-map-tiles.yaml
+  - type: NaftikoCapability
+    url: capabilities/tomorrow-realtime.yaml
+  - type: NaftikoCapability
+    url: capabilities/tomorrow-routes.yaml
+  - type: NaftikoCapability
+    url: capabilities/tomorrow-timelines.yaml
 common:
-  - type: Website
-    url: https://docs.tomorrow.io
-  - type: PublicAPIsListing
-    url: https://github.com/public-apis/public-apis
+- type: Website
+  url: https://www.tomorrow.io
+- type: Documentation
+  url: https://docs.tomorrow.io
+- type: Pricing
+  url: https://www.tomorrow.io/weather-api/
+- type: SignUp
+  url: https://app.tomorrow.io/signup
+- type: Authentication
+  url: https://app.tomorrow.io/development/keys
+- type: GitHubOrganization
+  url: https://github.com/Tomorrow-IO-API
+- type: GitHubOrganization
+  url: https://github.com/tomorrowio
+  title: Tomorrow.io (corporate org)
+- type: Status
+  url: https://tomorrowio.statuspage.io
+- type: Blog
+  url: https://www.tomorrow.io/blog/
+- type: Community
+  url: https://github.com/Tomorrow-IO-API/tomorrow-community
+- type: Support
+  url: https://www.tomorrow.io/support/
+- type: ReleaseNotes
+  url: https://docs.tomorrow.io/changelog
+- type: PublicAPIsListing
+  url: https://github.com/public-apis/public-apis
+- type: Plans
+  url: plans/tomorrow-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/tomorrow-rate-limits.yml
+- type: FinOps
+  url: finops/tomorrow-finops.yml
+- type: SpectralRuleset
+  url: rules/tomorrow-spectral-rules.yml
+- type: Vocabulary
+  url: vocabulary/tomorrow-vocabulary.yml
+- type: JSONLDContext
+  url: json-ld/tomorrow-weather-api-context.jsonld
+features:
+- name: 60+ Data Layers
+  description: >-
+    Core weather plus air quality (EPA/MEP indices, particulates, pollutants),
+    pollen (tree species, grass, weed), fire (FWI), solar (GHI/DIF/DIR),
+    lightning, soil moisture/temperature, marine swell and wave, aviation
+    ceiling/visibility, and road conditions.
+- name: Forecast Timelines
+  description: >-
+    Single endpoint returns minutely (1m/5m/15m/30m), hourly (1h), daily (1d)
+    and current timesteps for any combination of fields. Up to 14 days out on
+    paid plans, 5 days on Free.
+- name: Historical Data
+  description: >-
+    Up to 20 years of historical observations for the same field universe as
+    the forecast, retrievable by point or polygon.
+- name: Climate Normals
+  description: >-
+    30-year climate normals (monthly averages) for any location, useful for
+    anomaly detection and climate-trend reporting.
+- name: Weather on Routes
+  description: >-
+    POST a polyline or list of waypoints and receive weather along the route
+    at each segment with arrival-time interpolation.
+- name: Map Tiles
+  description: >-
+    Raster tile endpoint `/map/tile/{z}/{x}/{y}/{field}/{timeFormat}` for
+    Mapbox, Google Maps, Leaflet, OpenLayers, Cesium overlays.
+- name: Custom Insights and Events
+  description: >-
+    Define threshold rules (e.g. windSpeed > 15 m/s AND precipitationProbability
+    > 50%) against any field, then poll the Events endpoint for matches at a
+    location or buffer.
+- name: Alerts with Webhooks
+  description: >-
+    Persistent alert resources linked to one or more locations; activations
+    fire to a webhook destination so downstream systems can react in real time.
+- name: Locations Management
+  description: >-
+    CRUD on point, polygon, and polyline locations with tag-based grouping,
+    so monitored assets can be addressed by ID instead of repeated geometry.
+use_cases:
+- name: Aviation Operations
+  description: >-
+    Airlines use ceiling, visibility, wind shear, and storm cells along the
+    route to make ground-stop, diversion, and de-icing decisions.
+- name: Logistics and Routing
+  description: >-
+    Trucking, last-mile delivery, and rail use route-weather and lightning
+    tracking to reroute shipments and reschedule outdoor crews.
+- name: Energy and Utilities
+  description: >-
+    Wind, solar (GHI/DIF/DIR), and lightning data feed renewable forecasting,
+    grid load planning, and outage prediction.
+- name: Agriculture
+  description: >-
+    Soil moisture, soil temperature, evapotranspiration, and growing-degree
+    days drive irrigation, planting, and spray-window decisions.
+- name: Insurance Underwriting and Claims
+  description: >-
+    Historical hail, wind, and flood data inform underwriting; real-time hail
+    and lightning detection accelerates claims triage.
+- name: Sports and Live Events
+  description: >-
+    Stadium operators monitor lightning radius and precipitation probability
+    to call delays and protect spectators.
+- name: Public Safety and Government
+  description: >-
+    Fire weather (FWI), flood indices, and air-quality (EPA AQI) feed
+    municipal alerting and emergency-management workflows.
+- name: Retail and CPG
+  description: >-
+    Demand forecasting models use temperature anomalies and weekly weather
+    patterns to plan inventory and promotions.
+- name: Maritime and Offshore
+  description: >-
+    Wave height, swell direction, and wind data drive routing, port
+    operations, and offshore platform safety windows.
+integrations:
+- name: Mapbox
+  description: Vector and raster basemaps overlaid with Tomorrow.io map tiles.
+- name: Google Maps
+  description: JavaScript Maps API overlay support.
+- name: Leaflet
+  description: Open-source web map tile overlay.
+- name: OpenLayers
+  description: GIS-grade web map library tile overlay.
+- name: Cesium
+  description: 3D globe / aviation tile overlay.
+- name: Postman
+  description: Official Tomorrow.io Postman collection.
+- name: Webhooks
+  description: Alert activations delivered to any HTTP endpoint.
+solutions:
+- name: Aviation Weather Intelligence
+  description: Route weather, turbulence, icing, ceiling and visibility for flight planning.
+- name: Resilience for Logistics
+  description: Lightning, hail, and severe-weather alerting for fleets and warehouses.
+- name: Renewable Energy Forecasting
+  description: Wind and solar generation forecasts with multi-day timelines and historical baselining.
+- name: Climate Risk for Insurance
+  description: Historical perils + climate-normal anomalies for underwriting and CAT modeling.
+- name: Agriculture Decision Support
+  description: Soil + growing-condition data for irrigation, planting, and spraying.
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com

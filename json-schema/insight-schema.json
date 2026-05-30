@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tomorrow/refs/heads/main/json-schema/insight-schema.json",
+  "title": "Insight",
+  "description": "A named threshold definition over one or more weather fields.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "6183d156022c1b00086860a1"
+    },
+    "name": {
+      "type": "string",
+      "example": "High Wind"
+    },
+    "description": {
+      "type": "string",
+      "example": "Sustained wind speed above 15 m/s."
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "A single condition that must hold for an insight to fire.",
+        "properties": {
+          "field": {
+            "type": "string",
+            "example": "windSpeed"
+          },
+          "operator": {
+            "type": "string",
+            "enum": [
+              "eq",
+              "neq",
+              "gt",
+              "gte",
+              "lt",
+              "lte"
+            ],
+            "example": "gt"
+          },
+          "value": {
+            "type": "number",
+            "format": "double",
+            "example": 15
+          }
+        },
+        "required": [
+          "field",
+          "operator",
+          "value"
+        ]
+      }
+    },
+    "logical": {
+      "type": "string",
+      "enum": [
+        "and",
+        "or"
+      ],
+      "default": "and"
+    },
+    "timestep": {
+      "type": "string",
+      "example": "1h"
+    },
+    "units": {
+      "type": "string",
+      "enum": [
+        "metric",
+        "imperial"
+      ]
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "conditions"
+  ]
+}

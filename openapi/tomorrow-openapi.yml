@@ -1,0 +1,2713 @@
+openapi: 3.0.3
+info:
+  title: Tomorrow.io Weather API
+  description: >-
+    Unified Tomorrow.io v4 HTTP API for weather and climate intelligence.
+    Combines realtime observations, forecast timelines (minutely, hourly, daily,
+    current), historical data up to 20 years, weather along a route, raster map
+    tiles, plus management surfaces for Locations, Insights, Alerts, and Events.
+  version: 4.0.1
+  contact:
+    name: Tomorrow.io Support
+    url: https://www.tomorrow.io/support/
+  license:
+    name: Tomorrow.io Terms of Service
+    url: https://www.tomorrow.io/terms-of-service/
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://api.tomorrow.io/v4
+  description: Tomorrow.io v4 production API
+security:
+- apiKeyQuery: []
+tags:
+- name: Realtime
+  description: Current-conditions snapshot for a single location.
+- name: Forecast
+  description: Hourly and daily forecast timelines via a simple GET interface.
+- name: Timelines
+  description: Advanced multi-step (minutely / hourly / daily / current) forecast and historical timelines.
+- name: Historical
+  description: Historical weather data for a point or polygon, up to 20 years back.
+- name: Climate
+  description: 30-year climate normals for a location.
+- name: Routes
+  description: Weather along a polyline / list of waypoints with arrival-time interpolation.
+- name: Map Tiles
+  description: Raster tile endpoint for weather field overlays.
+- name: Locations
+  description: CRUD over monitored point / polygon / polyline locations with tags.
+- name: Insights
+  description: Define threshold rules over weather fields to detect business-significant events.
+- name: Events
+  description: Query events matching insights at a location or buffered geometry.
+- name: Alerts
+  description: Persistent alerts linked to one or more locations with webhook delivery.
+paths:
+  /weather/realtime:
+    get:
+      operationId: getRealtimeWeather
+      summary: Tomorrow.io Get Realtime Weather
+      description: Returns the current observed weather for a single location.
+      tags:
+      - Realtime
+      parameters:
+      - name: location
+        in: query
+        required: true
+        description: Place name, latlong array as `lat,lng`, GeoJSON, or a saved location ID.
+        schema:
+          type: string
+        example: 42.3478,-71.0466
+      - name: units
+        in: query
+        required: false
+        description: Unit system for returned values.
+        schema:
+          type: string
+          enum:
+          - metric
+          - imperial
+          default: metric
+        example: metric
+      responses:
+        '200':
+          description: Realtime weather snapshot.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimeWeatherResponse'
+              examples:
+                GetRealtimeWeather200Example:
+                  summary: Default getRealtimeWeather 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      time: '2026-05-30T13:00:00Z'
+                      values:
+                        temperature: 21.2
+                        temperatureApparent: 20.4
+                        humidity: 64.0
+                        dewPoint: 13.4
+                        windSpeed: 3.1
+                        windDirection: 220
+                        windGust: 6.2
+                        pressureSeaLevel: 1013.2
+                        pressureSurfaceLevel: 1010.5
+                        precipitationIntensity: 0.0
+                        precipitationProbability: 5
+                        precipitationType: 0
+                        cloudCover: 12
+                        cloudBase: 1.5
+                        cloudCeiling: 2.4
+                        visibility: 16
+                        weatherCode: 1000
+                        uvIndex: 6
+                        uvHealthConcern: 2
+                        epaIndex: 42
+                        epaHealthConcern: 1
+                        epaPrimaryPollutant: 0
+                        particulateMatter25: 8.4
+                        particulateMatter10: 14.1
+                        pollutantO3: 28
+                        pollutantNO2: 11
+                        pollutantCO: 0.4
+                        pollutantSO2: 1
+                        treeIndex: 2
+                        grassIndex: 1
+                        weedIndex: 1
+                        fireIndex: 8.2
+                        solarGHI: 480
+                        solarDIF: 120
+                        solarDIR: 360
+                        moonPhase: 3
+                        hailBinary: 0
+                    location:
+                      lat: 42.3478
+                      lon: -71.0466
+                      name: Cambridge, MA
+                      type: place
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /weather/forecast:
+    get:
+      operationId: getWeatherForecast
+      summary: Tomorrow.io Get Weather Forecast
+      description: Returns hourly and daily forecast timelines for a single location.
+      tags:
+      - Forecast
+      parameters:
+      - name: location
+        in: query
+        required: true
+        description: Place name, latlong array, GeoJSON, or saved location ID.
+        schema:
+          type: string
+        example: new york
+      - name: timesteps
+        in: query
+        required: false
+        description: Comma-separated forecast resolutions.
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - 1h
+            - 1d
+            - current
+          default:
+          - 1h
+          - 1d
+        example: 1h,1d
+      - name: units
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - metric
+          - imperial
+          default: metric
+      responses:
+        '200':
+          description: Forecast timelines.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForecastResponse'
+              examples:
+                GetWeatherForecast200Example:
+                  summary: Default getWeatherForecast 200 response
+                  x-microcks-default: true
+                  value:
+                    timelines:
+                      hourly:
+                      - startTime: '2026-05-30T13:00:00Z'
+                        values:
+                          temperature: 21.2
+                          temperatureApparent: 20.4
+                          humidity: 64.0
+                          dewPoint: 13.4
+                          windSpeed: 3.1
+                          windDirection: 220
+                          windGust: 6.2
+                          pressureSeaLevel: 1013.2
+                          pressureSurfaceLevel: 1010.5
+                          precipitationIntensity: 0.0
+                          precipitationProbability: 5
+                          precipitationType: 0
+                          cloudCover: 12
+                          cloudBase: 1.5
+                          cloudCeiling: 2.4
+                          visibility: 16
+                          weatherCode: 1000
+                          uvIndex: 6
+                          uvHealthConcern: 2
+                          epaIndex: 42
+                          epaHealthConcern: 1
+                          epaPrimaryPollutant: 0
+                          particulateMatter25: 8.4
+                          particulateMatter10: 14.1
+                          pollutantO3: 28
+                          pollutantNO2: 11
+                          pollutantCO: 0.4
+                          pollutantSO2: 1
+                          treeIndex: 2
+                          grassIndex: 1
+                          weedIndex: 1
+                          fireIndex: 8.2
+                          solarGHI: 480
+                          solarDIF: 120
+                          solarDIR: 360
+                          moonPhase: 3
+                          hailBinary: 0
+                      daily:
+                      - startTime: '2026-05-30T13:00:00Z'
+                        values:
+                          temperature: 21.2
+                          temperatureApparent: 20.4
+                          humidity: 64.0
+                          dewPoint: 13.4
+                          windSpeed: 3.1
+                          windDirection: 220
+                          windGust: 6.2
+                          pressureSeaLevel: 1013.2
+                          pressureSurfaceLevel: 1010.5
+                          precipitationIntensity: 0.0
+                          precipitationProbability: 5
+                          precipitationType: 0
+                          cloudCover: 12
+                          cloudBase: 1.5
+                          cloudCeiling: 2.4
+                          visibility: 16
+                          weatherCode: 1000
+                          uvIndex: 6
+                          uvHealthConcern: 2
+                          epaIndex: 42
+                          epaHealthConcern: 1
+                          epaPrimaryPollutant: 0
+                          particulateMatter25: 8.4
+                          particulateMatter10: 14.1
+                          pollutantO3: 28
+                          pollutantNO2: 11
+                          pollutantCO: 0.4
+                          pollutantSO2: 1
+                          treeIndex: 2
+                          grassIndex: 1
+                          weedIndex: 1
+                          fireIndex: 8.2
+                          solarGHI: 480
+                          solarDIF: 120
+                          solarDIR: 360
+                          moonPhase: 3
+                          hailBinary: 0
+                    location:
+                      lat: 1.0
+                      lon: 1.0
+                      name: example
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /timelines:
+    get:
+      operationId: getTimelines
+      summary: Tomorrow.io Get Timelines
+      description: Basic GET form of the Timelines endpoint. Returns one or more timesteps for a single location.
+      tags:
+      - Timelines
+      parameters:
+      - name: location
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Latlong, place name, GeoJSON, or saved location ID.
+        example: 42.3478,-71.0466
+      - name: fields
+        in: query
+        required: true
+        description: Comma-separated list of weather data fields to return.
+        schema:
+          type: array
+          items:
+            type: string
+        example: temperature,humidity,windSpeed
+      - name: startTime
+        in: query
+        required: false
+        schema:
+          type: string
+          default: now
+        example: now
+      - name: endTime
+        in: query
+        required: false
+        schema:
+          type: string
+          default: nowPlus6h
+        example: nowPlus6h
+      - name: timesteps
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - 1m
+            - 5m
+            - 15m
+            - 30m
+            - 1h
+            - 1d
+            - current
+        example: 1h
+      - name: units
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - metric
+          - imperial
+          default: metric
+      - name: timezone
+        in: query
+        required: false
+        schema:
+          type: string
+          default: UTC
+        example: America/New_York
+      responses:
+        '200':
+          description: Timeline response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimelinesResponse'
+              examples:
+                GetTimelines200Example:
+                  summary: Default getTimelines 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      timelines:
+                      - timestep: 1h
+                        startTime: '2026-05-30T13:00:00Z'
+                        endTime: '2026-05-30T13:00:00Z'
+                        intervals:
+                        - startTime: '2026-05-30T13:00:00Z'
+                          values:
+                            temperature: 21.2
+                            temperatureApparent: 20.4
+                            humidity: 64.0
+                            dewPoint: 13.4
+                            windSpeed: 3.1
+                            windDirection: 220
+                            windGust: 6.2
+                            pressureSeaLevel: 1013.2
+                            pressureSurfaceLevel: 1010.5
+                            precipitationIntensity: 0.0
+                            precipitationProbability: 5
+                            precipitationType: 0
+                            cloudCover: 12
+                            cloudBase: 1.5
+                            cloudCeiling: 2.4
+                            visibility: 16
+                            weatherCode: 1000
+                            uvIndex: 6
+                            uvHealthConcern: 2
+                            epaIndex: 42
+                            epaHealthConcern: 1
+                            epaPrimaryPollutant: 0
+                            particulateMatter25: 8.4
+                            particulateMatter10: 14.1
+                            pollutantO3: 28
+                            pollutantNO2: 11
+                            pollutantCO: 0.4
+                            pollutantSO2: 1
+                            treeIndex: 2
+                            grassIndex: 1
+                            weedIndex: 1
+                            fireIndex: 8.2
+                            solarGHI: 480
+                            solarDIF: 120
+                            solarDIR: 360
+                            moonPhase: 3
+                            hailBinary: 0
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: postTimelines
+      summary: Tomorrow.io Post Timelines
+      description: Advanced POST form of Timelines accepting a full JSON body, including GeoJSON geometries.
+      tags:
+      - Timelines
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimelinesRequest'
+            examples:
+              PostTimelinesRequestExample:
+                summary: Default postTimelines request
+                x-microcks-default: true
+                value:
+                  fields: &id009
+                  - temperature
+                  - humidity
+                  - windSpeed
+                  units: metric
+                  timesteps: &id010
+                  - 1h
+                  startTime: now
+                  endTime: nowPlus6h
+                  timezone: America/New_York
+                  dailyStartHour: 1
+      responses:
+        '200':
+          description: Timeline response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimelinesResponse'
+              examples:
+                PostTimelines200Example:
+                  summary: Default postTimelines 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      timelines:
+                      - timestep: 1h
+                        startTime: '2026-05-30T13:00:00Z'
+                        endTime: '2026-05-30T13:00:00Z'
+                        intervals:
+                        - startTime: '2026-05-30T13:00:00Z'
+                          values:
+                            temperature: 21.2
+                            temperatureApparent: 20.4
+                            humidity: 64.0
+                            dewPoint: 13.4
+                            windSpeed: 3.1
+                            windDirection: 220
+                            windGust: 6.2
+                            pressureSeaLevel: 1013.2
+                            pressureSurfaceLevel: 1010.5
+                            precipitationIntensity: 0.0
+                            precipitationProbability: 5
+                            precipitationType: 0
+                            cloudCover: 12
+                            cloudBase: 1.5
+                            cloudCeiling: 2.4
+                            visibility: 16
+                            weatherCode: 1000
+                            uvIndex: 6
+                            uvHealthConcern: 2
+                            epaIndex: 42
+                            epaHealthConcern: 1
+                            epaPrimaryPollutant: 0
+                            particulateMatter25: 8.4
+                            particulateMatter10: 14.1
+                            pollutantO3: 28
+                            pollutantNO2: 11
+                            pollutantCO: 0.4
+                            pollutantSO2: 1
+                            treeIndex: 2
+                            grassIndex: 1
+                            weedIndex: 1
+                            fireIndex: 8.2
+                            solarGHI: 480
+                            solarDIF: 120
+                            solarDIR: 360
+                            moonPhase: 3
+                            hailBinary: 0
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /historical:
+    post:
+      operationId: postHistoricalTimeline
+      summary: Tomorrow.io Post Historical Timeline
+      description: Returns historical weather timelines for a location, up to 20 years back.
+      tags:
+      - Historical
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HistoricalRequest'
+            examples:
+              PostHistoricalTimelineRequestExample:
+                summary: Default postHistoricalTimeline request
+                x-microcks-default: true
+                value:
+                  fields: &id011
+                  - temperature
+                  - precipitationIntensity
+                  units: metric
+                  timesteps: &id012
+                  - 1d
+                  startTime: '2024-01-01T00:00:00Z'
+                  endTime: '2024-01-31T23:59:59Z'
+                  timezone: example
+      responses:
+        '200':
+          description: Historical timeline response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimelinesResponse'
+              examples:
+                PostHistoricalTimeline200Example:
+                  summary: Default postHistoricalTimeline 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      timelines:
+                      - timestep: 1h
+                        startTime: '2026-05-30T13:00:00Z'
+                        endTime: '2026-05-30T13:00:00Z'
+                        intervals:
+                        - startTime: '2026-05-30T13:00:00Z'
+                          values:
+                            temperature: 21.2
+                            temperatureApparent: 20.4
+                            humidity: 64.0
+                            dewPoint: 13.4
+                            windSpeed: 3.1
+                            windDirection: 220
+                            windGust: 6.2
+                            pressureSeaLevel: 1013.2
+                            pressureSurfaceLevel: 1010.5
+                            precipitationIntensity: 0.0
+                            precipitationProbability: 5
+                            precipitationType: 0
+                            cloudCover: 12
+                            cloudBase: 1.5
+                            cloudCeiling: 2.4
+                            visibility: 16
+                            weatherCode: 1000
+                            uvIndex: 6
+                            uvHealthConcern: 2
+                            epaIndex: 42
+                            epaHealthConcern: 1
+                            epaPrimaryPollutant: 0
+                            particulateMatter25: 8.4
+                            particulateMatter10: 14.1
+                            pollutantO3: 28
+                            pollutantNO2: 11
+                            pollutantCO: 0.4
+                            pollutantSO2: 1
+                            treeIndex: 2
+                            grassIndex: 1
+                            weedIndex: 1
+                            fireIndex: 8.2
+                            solarGHI: 480
+                            solarDIF: 120
+                            solarDIR: 360
+                            moonPhase: 3
+                            hailBinary: 0
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /historical/normals:
+    post:
+      operationId: postClimateNormals
+      summary: Tomorrow.io Post Climate Normals
+      description: Returns 30-year monthly climate normals for a location.
+      tags:
+      - Climate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClimateNormalsRequest'
+            examples:
+              PostClimateNormalsRequestExample:
+                summary: Default postClimateNormals request
+                x-microcks-default: true
+                value:
+                  fields: &id013
+                  - temperatureAvg
+                  - precipitationAccumulationSum
+                  units: metric
+      responses:
+        '200':
+          description: Climate normals response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClimateNormalsResponse'
+              examples:
+                PostClimateNormals200Example:
+                  summary: Default postClimateNormals 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      normals:
+                      - month: 6
+                        values:
+                          temperature: 21.2
+                          temperatureApparent: 20.4
+                          humidity: 64.0
+                          dewPoint: 13.4
+                          windSpeed: 3.1
+                          windDirection: 220
+                          windGust: 6.2
+                          pressureSeaLevel: 1013.2
+                          pressureSurfaceLevel: 1010.5
+                          precipitationIntensity: 0.0
+                          precipitationProbability: 5
+                          precipitationType: 0
+                          cloudCover: 12
+                          cloudBase: 1.5
+                          cloudCeiling: 2.4
+                          visibility: 16
+                          weatherCode: 1000
+                          uvIndex: 6
+                          uvHealthConcern: 2
+                          epaIndex: 42
+                          epaHealthConcern: 1
+                          epaPrimaryPollutant: 0
+                          particulateMatter25: 8.4
+                          particulateMatter10: 14.1
+                          pollutantO3: 28
+                          pollutantNO2: 11
+                          pollutantCO: 0.4
+                          pollutantSO2: 1
+                          treeIndex: 2
+                          grassIndex: 1
+                          weedIndex: 1
+                          fireIndex: 8.2
+                          solarGHI: 480
+                          solarDIF: 120
+                          solarDIR: 360
+                          moonPhase: 3
+                          hailBinary: 0
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /route:
+    post:
+      operationId: postRoute
+      summary: Tomorrow.io Post Route
+      description: Returns weather along the route for a polyline or list of waypoints with arrival-time interpolation.
+      tags:
+      - Routes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RouteRequest'
+            examples:
+              PostRouteRequestExample:
+                summary: Default postRoute request
+                x-microcks-default: true
+                value:
+                  route:
+                    waypoints:
+                    - location: &id001
+                      - -71.0466
+                      - 42.3478
+                      arrivalTime: '2026-05-30T13:30:00Z'
+                  fields: &id014
+                  - temperature
+                  - precipitationIntensity
+                  - visibility
+                  - windSpeed
+                  units: metric
+      responses:
+        '200':
+          description: Weather-on-route response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RouteResponse'
+              examples:
+                PostRoute200Example:
+                  summary: Default postRoute 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      timelines:
+                      - timestep: 1h
+                        startTime: '2026-05-30T13:00:00Z'
+                        endTime: '2026-05-30T13:00:00Z'
+                        intervals:
+                        - startTime: '2026-05-30T13:00:00Z'
+                          values:
+                            temperature: 21.2
+                            temperatureApparent: 20.4
+                            humidity: 64.0
+                            dewPoint: 13.4
+                            windSpeed: 3.1
+                            windDirection: 220
+                            windGust: 6.2
+                            pressureSeaLevel: 1013.2
+                            pressureSurfaceLevel: 1010.5
+                            precipitationIntensity: 0.0
+                            precipitationProbability: 5
+                            precipitationType: 0
+                            cloudCover: 12
+                            cloudBase: 1.5
+                            cloudCeiling: 2.4
+                            visibility: 16
+                            weatherCode: 1000
+                            uvIndex: 6
+                            uvHealthConcern: 2
+                            epaIndex: 42
+                            epaHealthConcern: 1
+                            epaPrimaryPollutant: 0
+                            particulateMatter25: 8.4
+                            particulateMatter10: 14.1
+                            pollutantO3: 28
+                            pollutantNO2: 11
+                            pollutantCO: 0.4
+                            pollutantSO2: 1
+                            treeIndex: 2
+                            grassIndex: 1
+                            weedIndex: 1
+                            fireIndex: 8.2
+                            solarGHI: 480
+                            solarDIF: 120
+                            solarDIR: 360
+                            moonPhase: 3
+                            hailBinary: 0
+                      route:
+                      - location: *id001
+                        arrivalTime: '2026-05-30T13:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /map/tile/{zoom}/{x}/{y}/{field}/{timeFormat}:
+    get:
+      operationId: getMapTile
+      summary: Tomorrow.io Get Map Tile
+      description: Returns a raster tile for a weather field at a given time and zoom level.
+      tags:
+      - Map Tiles
+      parameters:
+      - name: zoom
+        in: path
+        required: true
+        description: Web Mercator zoom level (typically 0-12).
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 22
+        example: 6
+      - name: x
+        in: path
+        required: true
+        description: Tile column.
+        schema:
+          type: integer
+        example: 18
+      - name: y
+        in: path
+        required: true
+        description: Tile row.
+        schema:
+          type: integer
+        example: 24
+      - name: field
+        in: path
+        required: true
+        description: Data field name to render (e.g. temperature, precipitationIntensity).
+        schema:
+          type: string
+        example: temperature
+      - name: timeFormat
+        in: path
+        required: true
+        description: ISO 8601 time or relative offset.
+        schema:
+          type: string
+        example: now
+      responses:
+        '200':
+          description: PNG raster tile.
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /locations:
+    get:
+      operationId: listLocations
+      summary: Tomorrow.io List Locations
+      description: Lists saved locations for the authenticated account.
+      tags:
+      - Locations
+      responses:
+        '200':
+          description: Locations list.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+              examples:
+                ListLocations200Example:
+                  summary: Default listLocations 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: 6183d156022c1b0008685cc6
+                    name: Boston HQ Rooftop
+                    geometry:
+                      type: Point
+                      coordinates: &id002
+                      - -71.0466
+                      - 42.3478
+                    tags: &id003
+                    - field-asset
+                    - rooftop
+                    createdAt: '2026-05-30T12:34:56Z'
+                    updatedAt: '2026-05-30T12:34:56Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createLocation
+      summary: Tomorrow.io Create Location
+      description: Creates a new saved location (point, polygon, or polyline) with optional tags.
+      tags:
+      - Locations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationCreateRequest'
+            examples:
+              CreateLocationRequestExample:
+                summary: Default createLocation request
+                x-microcks-default: true
+                value:
+                  name: Boston HQ Rooftop
+                  geometry:
+                    type: Point
+                    coordinates: *id002
+                  tags: &id008
+                  - field-asset
+                  - rooftop
+      responses:
+        '201':
+          description: Location created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+              examples:
+                CreateLocation201Example:
+                  summary: Default createLocation 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 6183d156022c1b0008685cc6
+                    name: Boston HQ Rooftop
+                    geometry:
+                      type: Point
+                      coordinates: *id002
+                    tags: *id003
+                    createdAt: '2026-05-30T12:34:56Z'
+                    updatedAt: '2026-05-30T12:34:56Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /locations/{locationId}:
+    parameters:
+    - name: locationId
+      in: path
+      required: true
+      description: Tomorrow.io location identifier.
+      schema:
+        type: string
+      example: 6183d156022c1b0008685cc6
+    get:
+      operationId: getLocation
+      summary: Tomorrow.io Get Location
+      description: Retrieves a single saved location by ID.
+      tags:
+      - Locations
+      responses:
+        '200':
+          description: Location detail.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+              examples:
+                GetLocation200Example:
+                  summary: Default getLocation 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 6183d156022c1b0008685cc6
+                    name: Boston HQ Rooftop
+                    geometry:
+                      type: Point
+                      coordinates: *id002
+                    tags: *id003
+                    createdAt: '2026-05-30T12:34:56Z'
+                    updatedAt: '2026-05-30T12:34:56Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateLocation
+      summary: Tomorrow.io Update Location
+      description: Updates an existing saved location.
+      tags:
+      - Locations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationUpdateRequest'
+            examples:
+              UpdateLocationRequestExample:
+                summary: Default updateLocation request
+                x-microcks-default: true
+                value:
+                  name: example
+                  geometry:
+                    type: Point
+                    coordinates: *id002
+                  tags:
+                  - example
+      responses:
+        '200':
+          description: Updated location.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+              examples:
+                UpdateLocation200Example:
+                  summary: Default updateLocation 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 6183d156022c1b0008685cc6
+                    name: Boston HQ Rooftop
+                    geometry:
+                      type: Point
+                      coordinates: *id002
+                    tags: *id003
+                    createdAt: '2026-05-30T12:34:56Z'
+                    updatedAt: '2026-05-30T12:34:56Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteLocation
+      summary: Tomorrow.io Delete Location
+      description: Deletes a saved location by ID.
+      tags:
+      - Locations
+      responses:
+        '204':
+          description: Location deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /locations/tags/add:
+    post:
+      operationId: addLocationTags
+      summary: Tomorrow.io Add Location Tags
+      description: Adds one or more tags to a set of locations.
+      tags:
+      - Locations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationTagsRequest'
+            examples:
+              AddLocationTagsRequestExample:
+                summary: Default addLocationTags request
+                x-microcks-default: true
+                value:
+                  locationIds: &id004
+                  - 6183d156022c1b0008685cc6
+                  - 6183d156022c1b0008685cc7
+                  tags: &id005
+                  - rooftop
+      responses:
+        '200':
+          description: Tags added.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleAck'
+              examples:
+                AddLocationTags200Example:
+                  summary: Default addLocationTags 200 response
+                  x-microcks-default: true
+                  value:
+                    status: ok
+                    message: Operation completed successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /locations/tags/remove:
+    post:
+      operationId: removeLocationTags
+      summary: Tomorrow.io Remove Location Tags
+      description: Removes one or more tags from a set of locations.
+      tags:
+      - Locations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationTagsRequest'
+            examples:
+              RemoveLocationTagsRequestExample:
+                summary: Default removeLocationTags request
+                x-microcks-default: true
+                value:
+                  locationIds: *id004
+                  tags: *id005
+      responses:
+        '200':
+          description: Tags removed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleAck'
+              examples:
+                RemoveLocationTags200Example:
+                  summary: Default removeLocationTags 200 response
+                  x-microcks-default: true
+                  value:
+                    status: ok
+                    message: Operation completed successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /insights:
+    get:
+      operationId: listInsights
+      summary: Tomorrow.io List Insights
+      description: Lists user-defined and pre-defined insight definitions available to the account.
+      tags:
+      - Insights
+      responses:
+        '200':
+          description: Insights list.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Insight'
+              examples:
+                ListInsights200Example:
+                  summary: Default listInsights 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: 6183d156022c1b00086860a1
+                    name: High Wind
+                    description: Sustained wind speed above 15 m/s.
+                    conditions:
+                    - field: windSpeed
+                      operator: gt
+                      value: 15
+                    logical: and
+                    timestep: 1h
+                    units: metric
+                    createdAt: '2026-05-30T13:00:00Z'
+                    updatedAt: '2026-05-30T13:00:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createInsight
+      summary: Tomorrow.io Create Insight
+      description: Creates a new insight that defines a threshold rule over one or more weather data fields.
+      tags:
+      - Insights
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InsightCreateRequest'
+            examples:
+              CreateInsightRequestExample:
+                summary: Default createInsight request
+                x-microcks-default: true
+                value:
+                  name: example
+                  description: example
+                  conditions:
+                  - field: windSpeed
+                    operator: gt
+                    value: 15
+                  logical: and
+                  timestep: 1h
+                  units: metric
+      responses:
+        '201':
+          description: Insight created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Insight'
+              examples:
+                CreateInsight201Example:
+                  summary: Default createInsight 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 6183d156022c1b00086860a1
+                    name: High Wind
+                    description: Sustained wind speed above 15 m/s.
+                    conditions:
+                    - field: windSpeed
+                      operator: gt
+                      value: 15
+                    logical: and
+                    timestep: 1h
+                    units: metric
+                    createdAt: '2026-05-30T13:00:00Z'
+                    updatedAt: '2026-05-30T13:00:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /insights/{insightId}:
+    parameters:
+    - name: insightId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 6183d156022c1b00086860a1
+    get:
+      operationId: getInsight
+      summary: Tomorrow.io Get Insight
+      description: Retrieves a single insight by ID.
+      tags:
+      - Insights
+      responses:
+        '200':
+          description: Insight detail.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Insight'
+              examples:
+                GetInsight200Example:
+                  summary: Default getInsight 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 6183d156022c1b00086860a1
+                    name: High Wind
+                    description: Sustained wind speed above 15 m/s.
+                    conditions:
+                    - field: windSpeed
+                      operator: gt
+                      value: 15
+                    logical: and
+                    timestep: 1h
+                    units: metric
+                    createdAt: '2026-05-30T13:00:00Z'
+                    updatedAt: '2026-05-30T13:00:00Z'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateInsight
+      summary: Tomorrow.io Update Insight
+      description: Updates an existing insight.
+      tags:
+      - Insights
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InsightCreateRequest'
+            examples:
+              UpdateInsightRequestExample:
+                summary: Default updateInsight request
+                x-microcks-default: true
+                value:
+                  name: example
+                  description: example
+                  conditions:
+                  - field: windSpeed
+                    operator: gt
+                    value: 15
+                  logical: and
+                  timestep: 1h
+                  units: metric
+      responses:
+        '200':
+          description: Updated insight.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Insight'
+              examples:
+                UpdateInsight200Example:
+                  summary: Default updateInsight 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 6183d156022c1b00086860a1
+                    name: High Wind
+                    description: Sustained wind speed above 15 m/s.
+                    conditions:
+                    - field: windSpeed
+                      operator: gt
+                      value: 15
+                    logical: and
+                    timestep: 1h
+                    units: metric
+                    createdAt: '2026-05-30T13:00:00Z'
+                    updatedAt: '2026-05-30T13:00:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteInsight
+      summary: Tomorrow.io Delete Insight
+      description: Deletes an insight by ID.
+      tags:
+      - Insights
+      responses:
+        '204':
+          description: Insight deleted.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /events:
+    get:
+      operationId: getEvents
+      summary: Tomorrow.io Get Events
+      description: Returns events matching the supplied insights at a location, optionally with a kilometer-radius buffer.
+      tags:
+      - Events
+      parameters:
+      - name: location
+        in: query
+        required: true
+        schema:
+          type: string
+        example: 42.3478,-71.0466
+      - name: insights
+        in: query
+        required: true
+        description: Comma-separated insight IDs or pre-defined category names.
+        schema:
+          type: array
+          items:
+            type: string
+        example: hail,thunderstorm
+      - name: buffer
+        in: query
+        required: false
+        description: Radius around the location in kilometers.
+        schema:
+          type: number
+          format: float
+          default: 1
+        example: 1.0
+      responses:
+        '200':
+          description: Events response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventsResponse'
+              examples:
+                GetEvents200Example:
+                  summary: Default getEvents 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      events:
+                      - insightId: 6183d156022c1b00086860a1
+                        startTime: '2026-05-30T15:00:00Z'
+                        endTime: '2026-05-30T17:00:00Z'
+                        severity: high
+                        location:
+                          type: Point
+                          coordinates: *id002
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: postEvents
+      summary: Tomorrow.io Post Events
+      description: Advanced POST variant of the Events endpoint accepting a full JSON body with GeoJSON geometries.
+      tags:
+      - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventsRequest'
+            examples:
+              PostEventsRequestExample:
+                summary: Default postEvents request
+                x-microcks-default: true
+                value:
+                  insights: &id015
+                  - hail
+                  - thunderstorm
+                  buffer: 1.0
+      responses:
+        '200':
+          description: Events response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventsResponse'
+              examples:
+                PostEvents200Example:
+                  summary: Default postEvents 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      events:
+                      - insightId: 6183d156022c1b00086860a1
+                        startTime: '2026-05-30T15:00:00Z'
+                        endTime: '2026-05-30T17:00:00Z'
+                        severity: high
+                        location:
+                          type: Point
+                          coordinates: *id002
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /alerts:
+    get:
+      operationId: listAlerts
+      summary: Tomorrow.io List Alerts
+      description: Lists alerts configured for the authenticated account.
+      tags:
+      - Alerts
+      responses:
+        '200':
+          description: Alerts list.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Alert'
+              examples:
+                ListAlerts200Example:
+                  summary: Default listAlerts 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: 6183d156022c1b0008686b14
+                    name: Hail Watch — Northeast Region
+                    description: example
+                    insightIds: &id006
+                    - 6183d156022c1b00086860a1
+                    notifications:
+                    - type: webhook
+                      url: https://hooks.example.com/tomorrow-alerts
+                    active: true
+                    createdAt: '2026-05-30T13:00:00Z'
+                    updatedAt: '2026-05-30T13:00:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createAlert
+      summary: Tomorrow.io Create Alert
+      description: Creates an alert that links one or more insights to one or more locations and pushes activations to a webhook URL.
+      tags:
+      - Alerts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertCreateRequest'
+            examples:
+              CreateAlertRequestExample:
+                summary: Default createAlert request
+                x-microcks-default: true
+                value:
+                  name: Hail Watch — Northeast Region
+                  description: example
+                  insightIds:
+                  - example
+                  locationIds:
+                  - example
+                  notifications:
+                  - type: webhook
+                    url: https://example.com/path
+                  active: true
+      responses:
+        '201':
+          description: Alert created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alert'
+              examples:
+                CreateAlert201Example:
+                  summary: Default createAlert 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 6183d156022c1b0008686b14
+                    name: Hail Watch — Northeast Region
+                    description: example
+                    insightIds: *id006
+                    notifications:
+                    - type: webhook
+                      url: https://hooks.example.com/tomorrow-alerts
+                    active: true
+                    createdAt: '2026-05-30T13:00:00Z'
+                    updatedAt: '2026-05-30T13:00:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /alerts/{alertId}:
+    parameters:
+    - name: alertId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 6183d156022c1b0008686b14
+    get:
+      operationId: getAlert
+      summary: Tomorrow.io Get Alert
+      description: Retrieves a single alert by ID.
+      tags:
+      - Alerts
+      responses:
+        '200':
+          description: Alert detail.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alert'
+              examples:
+                GetAlert200Example:
+                  summary: Default getAlert 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 6183d156022c1b0008686b14
+                    name: Hail Watch — Northeast Region
+                    description: example
+                    insightIds: *id006
+                    notifications:
+                    - type: webhook
+                      url: https://hooks.example.com/tomorrow-alerts
+                    active: true
+                    createdAt: '2026-05-30T13:00:00Z'
+                    updatedAt: '2026-05-30T13:00:00Z'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateAlert
+      summary: Tomorrow.io Update Alert
+      description: Updates an existing alert.
+      tags:
+      - Alerts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertCreateRequest'
+            examples:
+              UpdateAlertRequestExample:
+                summary: Default updateAlert request
+                x-microcks-default: true
+                value:
+                  name: Hail Watch — Northeast Region
+                  description: example
+                  insightIds:
+                  - example
+                  locationIds:
+                  - example
+                  notifications:
+                  - type: webhook
+                    url: https://example.com/path
+                  active: true
+      responses:
+        '200':
+          description: Updated alert.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alert'
+              examples:
+                UpdateAlert200Example:
+                  summary: Default updateAlert 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 6183d156022c1b0008686b14
+                    name: Hail Watch — Northeast Region
+                    description: example
+                    insightIds: *id006
+                    notifications:
+                    - type: webhook
+                      url: https://hooks.example.com/tomorrow-alerts
+                    active: true
+                    createdAt: '2026-05-30T13:00:00Z'
+                    updatedAt: '2026-05-30T13:00:00Z'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteAlert
+      summary: Tomorrow.io Delete Alert
+      description: Deletes an alert by ID.
+      tags:
+      - Alerts
+      responses:
+        '204':
+          description: Alert deleted.
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /alerts/{alertId}/locations:
+    parameters:
+    - name: alertId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 6183d156022c1b0008686b14
+    get:
+      operationId: listAlertLocations
+      summary: Tomorrow.io List Alert Locations
+      description: Lists locations linked to an alert.
+      tags:
+      - Alerts
+      responses:
+        '200':
+          description: Locations linked to the alert.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+              examples:
+                ListAlertLocations200Example:
+                  summary: Default listAlertLocations 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: 6183d156022c1b0008685cc6
+                    name: Boston HQ Rooftop
+                    geometry:
+                      type: Point
+                      coordinates: *id002
+                    tags: *id003
+                    createdAt: '2026-05-30T12:34:56Z'
+                    updatedAt: '2026-05-30T12:34:56Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /alerts/{alertId}/locations/link:
+    parameters:
+    - name: alertId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 6183d156022c1b0008686b14
+    post:
+      operationId: linkAlertLocations
+      summary: Tomorrow.io Link Alert Locations
+      description: Links one or more locations to the alert.
+      tags:
+      - Alerts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertLocationLinkRequest'
+            examples:
+              LinkAlertLocationsRequestExample:
+                summary: Default linkAlertLocations request
+                x-microcks-default: true
+                value:
+                  locationIds: &id007
+                  - 6183d156022c1b0008685cc6
+      responses:
+        '200':
+          description: Locations linked.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleAck'
+              examples:
+                LinkAlertLocations200Example:
+                  summary: Default linkAlertLocations 200 response
+                  x-microcks-default: true
+                  value:
+                    status: ok
+                    message: Operation completed successfully.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /alerts/{alertId}/locations/unlink:
+    parameters:
+    - name: alertId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 6183d156022c1b0008686b14
+    post:
+      operationId: unlinkAlertLocations
+      summary: Tomorrow.io Unlink Alert Locations
+      description: Unlinks one or more locations from the alert.
+      tags:
+      - Alerts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertLocationLinkRequest'
+            examples:
+              UnlinkAlertLocationsRequestExample:
+                summary: Default unlinkAlertLocations request
+                x-microcks-default: true
+                value:
+                  locationIds: *id007
+      responses:
+        '200':
+          description: Locations unlinked.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleAck'
+              examples:
+                UnlinkAlertLocations200Example:
+                  summary: Default unlinkAlertLocations 200 response
+                  x-microcks-default: true
+                  value:
+                    status: ok
+                    message: Operation completed successfully.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /alerts/{alertId}/activate:
+    parameters:
+    - name: alertId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 6183d156022c1b0008686b14
+    post:
+      operationId: activateAlert
+      summary: Tomorrow.io Activate Alert
+      description: Marks an alert as active so its insights begin firing on linked locations.
+      tags:
+      - Alerts
+      responses:
+        '200':
+          description: Alert activated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleAck'
+              examples:
+                ActivateAlert200Example:
+                  summary: Default activateAlert 200 response
+                  x-microcks-default: true
+                  value:
+                    status: ok
+                    message: Operation completed successfully.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /alerts/{alertId}/deactivate:
+    parameters:
+    - name: alertId
+      in: path
+      required: true
+      schema:
+        type: string
+      example: 6183d156022c1b0008686b14
+    post:
+      operationId: deactivateAlert
+      summary: Tomorrow.io Deactivate Alert
+      description: Marks an alert as inactive so its insights stop firing.
+      tags:
+      - Alerts
+      responses:
+        '200':
+          description: Alert deactivated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleAck'
+              examples:
+                DeactivateAlert200Example:
+                  summary: Default deactivateAlert 200 response
+                  x-microcks-default: true
+                  value:
+                    status: ok
+                    message: Operation completed successfully.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+components:
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: apikey
+      description: Tomorrow.io API key passed as `apikey` query parameter. Obtain at https://app.tomorrow.io/development/keys.
+  responses:
+    BadRequest:
+      description: Malformed request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      description: Standard Tomorrow.io error envelope.
+      properties:
+        code:
+          type: integer
+          example: 400001
+          description: Internal error code.
+        type:
+          type: string
+          example: Invalid Body Parameters
+          description: Short error type label.
+        message:
+          type: string
+          example: The provided parameters are invalid.
+          description: Human-readable error message.
+      required:
+      - code
+      - type
+      - message
+    SimpleAck:
+      type: object
+      description: Generic success acknowledgement.
+      properties:
+        status:
+          type: string
+          example: ok
+        message:
+          type: string
+          example: Operation completed successfully.
+    WeatherValues:
+      type: object
+      description: Map of weather data field names to numeric values for one timestep.
+      additionalProperties: true
+      properties:
+        temperature:
+          type: number
+          format: double
+          description: Air temperature (Celsius for metric, Fahrenheit for imperial).
+          example: 21.2
+        temperatureApparent:
+          type: number
+          format: double
+          example: 20.4
+        humidity:
+          type: number
+          format: double
+          example: 64.0
+        dewPoint:
+          type: number
+          format: double
+          example: 13.4
+        windSpeed:
+          type: number
+          format: double
+          example: 3.1
+        windDirection:
+          type: number
+          format: double
+          example: 220
+        windGust:
+          type: number
+          format: double
+          example: 6.2
+        pressureSeaLevel:
+          type: number
+          format: double
+          example: 1013.2
+        pressureSurfaceLevel:
+          type: number
+          format: double
+          example: 1010.5
+        precipitationIntensity:
+          type: number
+          format: double
+          example: 0.0
+        precipitationProbability:
+          type: number
+          format: double
+          example: 5
+        precipitationType:
+          type: integer
+          example: 0
+        cloudCover:
+          type: number
+          format: double
+          example: 12
+        cloudBase:
+          type: number
+          format: double
+          example: 1.5
+        cloudCeiling:
+          type: number
+          format: double
+          example: 2.4
+        visibility:
+          type: number
+          format: double
+          example: 16
+        weatherCode:
+          type: integer
+          example: 1000
+        uvIndex:
+          type: integer
+          example: 6
+        uvHealthConcern:
+          type: integer
+          example: 2
+        epaIndex:
+          type: integer
+          example: 42
+        epaHealthConcern:
+          type: integer
+          example: 1
+        epaPrimaryPollutant:
+          type: integer
+          example: 0
+        particulateMatter25:
+          type: number
+          format: double
+          example: 8.4
+        particulateMatter10:
+          type: number
+          format: double
+          example: 14.1
+        pollutantO3:
+          type: number
+          format: double
+          example: 28
+        pollutantNO2:
+          type: number
+          format: double
+          example: 11
+        pollutantCO:
+          type: number
+          format: double
+          example: 0.4
+        pollutantSO2:
+          type: number
+          format: double
+          example: 1
+        treeIndex:
+          type: integer
+          example: 2
+        grassIndex:
+          type: integer
+          example: 1
+        weedIndex:
+          type: integer
+          example: 1
+        fireIndex:
+          type: number
+          format: double
+          example: 8.2
+        solarGHI:
+          type: number
+          format: double
+          example: 480
+        solarDIF:
+          type: number
+          format: double
+          example: 120
+        solarDIR:
+          type: number
+          format: double
+          example: 360
+        moonPhase:
+          type: integer
+          example: 3
+        hailBinary:
+          type: integer
+          example: 0
+    GeoJSONGeometry:
+      type: object
+      description: GeoJSON geometry — Point, LineString, or Polygon.
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+          - LineString
+          - Polygon
+          example: Point
+        coordinates:
+          type: array
+          items: {}
+          example: *id002
+      required:
+      - type
+      - coordinates
+    Location:
+      type: object
+      description: A saved location resource.
+      properties:
+        id:
+          type: string
+          example: 6183d156022c1b0008685cc6
+        name:
+          type: string
+          example: Boston HQ Rooftop
+        geometry:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+        tags:
+          type: array
+          items:
+            type: string
+          example: *id003
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
+      required:
+      - id
+      - name
+      - geometry
+    LocationCreateRequest:
+      type: object
+      description: Payload to create a new saved location.
+      properties:
+        name:
+          type: string
+          example: Boston HQ Rooftop
+        geometry:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+        tags:
+          type: array
+          items:
+            type: string
+          example: *id008
+      required:
+      - name
+      - geometry
+    LocationUpdateRequest:
+      type: object
+      description: Payload to update a saved location.
+      properties:
+        name:
+          type: string
+        geometry:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+        tags:
+          type: array
+          items:
+            type: string
+    LocationTagsRequest:
+      type: object
+      description: Payload for bulk add/remove of tags across locations.
+      properties:
+        locationIds:
+          type: array
+          items:
+            type: string
+          example: *id004
+        tags:
+          type: array
+          items:
+            type: string
+          example: *id005
+      required:
+      - locationIds
+      - tags
+    TimelinesRequest:
+      type: object
+      description: Advanced Timelines request body.
+      properties:
+        location:
+          oneOf:
+          - type: string
+            description: Pre-defined location ID, place name, or latlong string.
+            example: 42.3478,-71.0466
+          - $ref: '#/components/schemas/GeoJSONGeometry'
+        fields:
+          type: array
+          items:
+            type: string
+          example: *id009
+        units:
+          type: string
+          enum:
+          - metric
+          - imperial
+          default: metric
+        timesteps:
+          type: array
+          items:
+            type: string
+            enum:
+            - 1m
+            - 5m
+            - 15m
+            - 30m
+            - 1h
+            - 1d
+            - current
+          example: *id010
+        startTime:
+          type: string
+          example: now
+          description: Accepts `now`, relative `nowPlus/MinusXm/h/d`, or ISO 8601.
+        endTime:
+          type: string
+          example: nowPlus6h
+        timezone:
+          type: string
+          default: UTC
+          example: America/New_York
+        dailyStartHour:
+          type: integer
+          minimum: 0
+          maximum: 23
+          default: 6
+      required:
+      - location
+      - fields
+    TimelineInterval:
+      type: object
+      description: A single timestep entry in a timeline.
+      properties:
+        startTime:
+          type: string
+          format: date-time
+          example: '2026-05-30T13:00:00Z'
+        values:
+          $ref: '#/components/schemas/WeatherValues'
+    Timeline:
+      type: object
+      description: One timeline at a specific resolution.
+      properties:
+        timestep:
+          type: string
+          example: 1h
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimelineInterval'
+    TimelinesResponse:
+      type: object
+      description: Tomorrow.io Timelines response envelope.
+      properties:
+        data:
+          type: object
+          properties:
+            timelines:
+              type: array
+              items:
+                $ref: '#/components/schemas/Timeline'
+    RealtimeWeatherResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            time:
+              type: string
+              format: date-time
+              example: '2026-05-30T13:00:00Z'
+            values:
+              $ref: '#/components/schemas/WeatherValues'
+        location:
+          type: object
+          properties:
+            lat:
+              type: number
+              format: double
+              example: 42.3478
+            lon:
+              type: number
+              format: double
+              example: -71.0466
+            name:
+              type: string
+              example: Cambridge, MA
+            type:
+              type: string
+              example: place
+    ForecastResponse:
+      type: object
+      properties:
+        timelines:
+          type: object
+          properties:
+            hourly:
+              type: array
+              items:
+                $ref: '#/components/schemas/TimelineInterval'
+            daily:
+              type: array
+              items:
+                $ref: '#/components/schemas/TimelineInterval'
+        location:
+          type: object
+          properties:
+            lat:
+              type: number
+              format: double
+            lon:
+              type: number
+              format: double
+            name:
+              type: string
+    HistoricalRequest:
+      type: object
+      description: Historical Timelines request body.
+      properties:
+        location:
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/GeoJSONGeometry'
+        fields:
+          type: array
+          items:
+            type: string
+          example: *id011
+        units:
+          type: string
+          enum:
+          - metric
+          - imperial
+          default: metric
+        timesteps:
+          type: array
+          items:
+            type: string
+            enum:
+            - 1h
+            - 1d
+          example: *id012
+        startTime:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        endTime:
+          type: string
+          format: date-time
+          example: '2024-01-31T23:59:59Z'
+        timezone:
+          type: string
+          default: UTC
+      required:
+      - location
+      - fields
+      - startTime
+      - endTime
+    ClimateNormalsRequest:
+      type: object
+      description: Climate Normals request body.
+      properties:
+        location:
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/GeoJSONGeometry'
+        fields:
+          type: array
+          items:
+            type: string
+          example: *id013
+        units:
+          type: string
+          enum:
+          - metric
+          - imperial
+          default: metric
+      required:
+      - location
+      - fields
+    ClimateNormalsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            normals:
+              type: array
+              items:
+                type: object
+                properties:
+                  month:
+                    type: integer
+                    minimum: 1
+                    maximum: 12
+                    example: 6
+                  values:
+                    $ref: '#/components/schemas/WeatherValues'
+    RouteWaypoint:
+      type: object
+      description: A waypoint on the route.
+      properties:
+        location:
+          type: array
+          items:
+            type: number
+            format: double
+          minItems: 2
+          maxItems: 2
+          example: *id001
+        arrivalTime:
+          type: string
+          format: date-time
+          example: '2026-05-30T13:30:00Z'
+      required:
+      - location
+    RouteRequest:
+      type: object
+      description: Route weather request body.
+      properties:
+        route:
+          type: object
+          properties:
+            waypoints:
+              type: array
+              items:
+                $ref: '#/components/schemas/RouteWaypoint'
+              minItems: 2
+          required:
+          - waypoints
+        fields:
+          type: array
+          items:
+            type: string
+          example: *id014
+        units:
+          type: string
+          enum:
+          - metric
+          - imperial
+          default: metric
+      required:
+      - route
+      - fields
+    RouteResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            timelines:
+              type: array
+              items:
+                $ref: '#/components/schemas/Timeline'
+            route:
+              type: array
+              items:
+                $ref: '#/components/schemas/RouteWaypoint'
+    InsightCondition:
+      type: object
+      description: A single condition that must hold for an insight to fire.
+      properties:
+        field:
+          type: string
+          example: windSpeed
+        operator:
+          type: string
+          enum:
+          - eq
+          - neq
+          - gt
+          - gte
+          - lt
+          - lte
+          example: gt
+        value:
+          type: number
+          format: double
+          example: 15
+      required:
+      - field
+      - operator
+      - value
+    Insight:
+      type: object
+      description: A named threshold definition over one or more weather fields.
+      properties:
+        id:
+          type: string
+          example: 6183d156022c1b00086860a1
+        name:
+          type: string
+          example: High Wind
+        description:
+          type: string
+          example: Sustained wind speed above 15 m/s.
+        conditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/InsightCondition'
+        logical:
+          type: string
+          enum:
+          - and
+          - or
+          default: and
+        timestep:
+          type: string
+          example: 1h
+        units:
+          type: string
+          enum:
+          - metric
+          - imperial
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - name
+      - conditions
+    InsightCreateRequest:
+      type: object
+      description: Payload to create or update an insight.
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        conditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/InsightCondition'
+        logical:
+          type: string
+          enum:
+          - and
+          - or
+          default: and
+        timestep:
+          type: string
+          example: 1h
+        units:
+          type: string
+          enum:
+          - metric
+          - imperial
+      required:
+      - name
+      - conditions
+    EventsRequest:
+      type: object
+      description: Advanced Events request body.
+      properties:
+        location:
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/GeoJSONGeometry'
+        insights:
+          type: array
+          items:
+            type: string
+          example: *id015
+        buffer:
+          type: number
+          format: float
+          default: 1
+          description: Radius around the location in km.
+      required:
+      - location
+      - insights
+    Event:
+      type: object
+      description: A single insight match.
+      properties:
+        insightId:
+          type: string
+          example: 6183d156022c1b00086860a1
+        startTime:
+          type: string
+          format: date-time
+          example: '2026-05-30T15:00:00Z'
+        endTime:
+          type: string
+          format: date-time
+          example: '2026-05-30T17:00:00Z'
+        severity:
+          type: string
+          enum:
+          - low
+          - medium
+          - high
+          - critical
+          example: high
+        location:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+    EventsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            events:
+              type: array
+              items:
+                $ref: '#/components/schemas/Event'
+    Alert:
+      type: object
+      description: A persistent alert that fires insights over linked locations and pushes activations to a webhook.
+      properties:
+        id:
+          type: string
+          example: 6183d156022c1b0008686b14
+        name:
+          type: string
+          example: Hail Watch — Northeast Region
+        description:
+          type: string
+        insightIds:
+          type: array
+          items:
+            type: string
+          example: *id006
+        notifications:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum:
+                - webhook
+                example: webhook
+              url:
+                type: string
+                format: uri
+                example: https://hooks.example.com/tomorrow-alerts
+        active:
+          type: boolean
+          example: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - name
+      - insightIds
+    AlertCreateRequest:
+      type: object
+      description: Payload to create or update an alert.
+      properties:
+        name:
+          type: string
+          example: Hail Watch — Northeast Region
+        description:
+          type: string
+        insightIds:
+          type: array
+          items:
+            type: string
+        locationIds:
+          type: array
+          items:
+            type: string
+        notifications:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum:
+                - webhook
+              url:
+                type: string
+                format: uri
+        active:
+          type: boolean
+          default: true
+      required:
+      - name
+      - insightIds
+    AlertLocationLinkRequest:
+      type: object
+      properties:
+        locationIds:
+          type: array
+          items:
+            type: string
+          example: *id007
+      required:
+      - locationIds

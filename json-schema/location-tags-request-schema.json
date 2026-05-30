@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tomorrow/refs/heads/main/json-schema/location-tags-request-schema.json",
+  "title": "LocationTagsRequest",
+  "description": "Payload for bulk add/remove of tags across locations.",
+  "type": "object",
+  "properties": {
+    "locationIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "6183d156022c1b0008685cc6",
+        "6183d156022c1b0008685cc7"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "rooftop"
+      ]
+    }
+  },
+  "required": [
+    "locationIds",
+    "tags"
+  ]
+}

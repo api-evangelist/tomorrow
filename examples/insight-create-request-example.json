@@ -1,0 +1,14 @@
+{
+  "name": "Boston HQ Rooftop",
+  "description": "Saved monitoring location for the Boston headquarters rooftop sensor.",
+  "conditions": [
+    {
+      "field": "windSpeed",
+      "operator": "gt",
+      "value": 15
+    }
+  ],
+  "logical": "and",
+  "timestep": "1h",
+  "units": "imperial"
+}

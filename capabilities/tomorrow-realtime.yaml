@@ -1,0 +1,87 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Tomorrow.io Weather API — Realtime
+  description: 'Realtime surface of the Tomorrow.io Weather API. 1 operations. Lead operation: Tomorrow.io Get Realtime Weather. Self-contained Naftiko capability covering one Tomorrow.io business surface.'
+  tags:
+  - Tomorrow.io
+  - Weather
+  - Realtime
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds:
+- namespace: env
+  keys:
+    TOMORROW_API_KEY: TOMORROW_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tomorrow-realtime
+    baseUri: https://api.tomorrow.io/v4
+    description: Tomorrow.io Weather API — Realtime business capability. Self-contained, no shared references.
+    authentication:
+      type: apikey
+      key: apikey
+      value: '{{env.TOMORROW_API_KEY}}'
+      placement: query
+    resources:
+    - name: weather-realtime
+      path: /weather/realtime
+      operations:
+      - name: getRealtimeWeather
+        method: GET
+        description: Tomorrow.io Get Realtime Weather
+        inputParameters:
+        - name: location
+          in: query
+          type: string
+          required: true
+          description: Place name, latlong array as `lat,lng`, GeoJSON, or a saved location ID.
+        - name: units
+          in: query
+          type: string
+          required: false
+          description: Unit system for returned values.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: tomorrow-realtime-rest
+    port: 8080
+    description: REST adapter for Tomorrow.io Weather API — Realtime. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/weather/realtime
+      name: weather-realtime
+      description: REST surface for weather-realtime.
+      operations:
+      - method: GET
+        name: getRealtimeWeather
+        description: Tomorrow.io Get Realtime Weather
+        call: tomorrow-realtime.getRealtimeWeather
+        with:
+          location: rest.location
+          units: rest.units
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tomorrow-realtime-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Tomorrow.io Weather API — Realtime. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: io-get-realtime-weather
+      description: Tomorrow.io Get Realtime Weather
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tomorrow-realtime.getRealtimeWeather
+      with:
+        location: tools.location
+        units: tools.units
+      outputParameters:
+      - type: object
+        mapping: $.

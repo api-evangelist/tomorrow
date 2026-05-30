@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tomorrow/refs/heads/main/json-schema/location-update-request-schema.json",
+  "title": "LocationUpdateRequest",
+  "description": "Payload to update a saved location.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "geometry": {
+      "type": "object",
+      "description": "GeoJSON geometry \u2014 Point, LineString, or Polygon.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "Point",
+            "LineString",
+            "Polygon"
+          ],
+          "example": "Point"
+        },
+        "coordinates": {
+          "type": "array",
+          "items": {},
+          "example": [
+            -71.0466,
+            42.3478
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "coordinates"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "6183d156022c1b0008686b14",
+  "name": "Hail Watch \u2014 Northeast Region",
+  "description": "Saved monitoring location for the Boston headquarters rooftop sensor.",
+  "insightIds": [
+    "6183d156022c1b00086860a1"
+  ],
+  "notifications": [
+    {
+      "type": "webhook",
+      "url": "https://hooks.example.com/tomorrow-alerts"
+    }
+  ],
+  "active": true,
+  "createdAt": "2026-05-30T14:30:00Z",
+  "updatedAt": "2026-05-30T14:30:00Z"
+}

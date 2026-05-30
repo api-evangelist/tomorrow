@@ -1,0 +1,108 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Tomorrow.io Weather API — Map Tiles
+  description: 'Map Tiles surface of the Tomorrow.io Weather API. 1 operations. Lead operation: Tomorrow.io Get Map Tile. Self-contained Naftiko capability covering one Tomorrow.io business surface.'
+  tags:
+  - Tomorrow.io
+  - Weather
+  - Map Tiles
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds:
+- namespace: env
+  keys:
+    TOMORROW_API_KEY: TOMORROW_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tomorrow-map-tiles
+    baseUri: https://api.tomorrow.io/v4
+    description: Tomorrow.io Weather API — Map Tiles business capability. Self-contained, no shared references.
+    authentication:
+      type: apikey
+      key: apikey
+      value: '{{env.TOMORROW_API_KEY}}'
+      placement: query
+    resources:
+    - name: map-tile-zoom-x-y-field-time-format
+      path: /map/tile/{zoom}/{x}/{y}/{field}/{timeFormat}
+      operations:
+      - name: getMapTile
+        method: GET
+        description: Tomorrow.io Get Map Tile
+        inputParameters:
+        - name: zoom
+          in: path
+          type: integer
+          required: true
+          description: Web Mercator zoom level (typically 0-12).
+        - name: x
+          in: path
+          type: integer
+          required: true
+          description: Tile column.
+        - name: y
+          in: path
+          type: integer
+          required: true
+          description: Tile row.
+        - name: field
+          in: path
+          type: string
+          required: true
+          description: Data field name to render (e.g. temperature, precipitationIntensity).
+        - name: timeFormat
+          in: path
+          type: string
+          required: true
+          description: ISO 8601 time or relative offset.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: tomorrow-map-tiles-rest
+    port: 8080
+    description: REST adapter for Tomorrow.io Weather API — Map Tiles. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/map/tile/{zoom}/{x}/{y}/{field}/{timeFormat}
+      name: map-tile-zoom-x-y-field-time-format
+      description: REST surface for map-tile-zoom-x-y-field-time-format.
+      operations:
+      - method: GET
+        name: getMapTile
+        description: Tomorrow.io Get Map Tile
+        call: tomorrow-map-tiles.getMapTile
+        with:
+          zoom: rest.zoom
+          x: rest.x
+          y: rest.y
+          field: rest.field
+          timeFormat: rest.timeFormat
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tomorrow-map-tiles-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Tomorrow.io Weather API — Map Tiles. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: io-get-map-tile
+      description: Tomorrow.io Get Map Tile
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tomorrow-map-tiles.getMapTile
+      with:
+        zoom: tools.zoom
+        x: tools.x
+        y: tools.y
+        field: tools.field
+        timeFormat: tools.timeFormat
+      outputParameters:
+      - type: object
+        mapping: $.

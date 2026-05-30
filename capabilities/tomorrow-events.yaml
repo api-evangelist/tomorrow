@@ -1,0 +1,129 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Tomorrow.io Weather API — Events
+  description: 'Events surface of the Tomorrow.io Weather API. 2 operations. Lead operation: Tomorrow.io Get Events. Self-contained Naftiko capability covering one Tomorrow.io business surface.'
+  tags:
+  - Tomorrow.io
+  - Weather
+  - Events
+  created: '2026-05-30'
+  modified: '2026-05-30'
+binds:
+- namespace: env
+  keys:
+    TOMORROW_API_KEY: TOMORROW_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tomorrow-events
+    baseUri: https://api.tomorrow.io/v4
+    description: Tomorrow.io Weather API — Events business capability. Self-contained, no shared references.
+    authentication:
+      type: apikey
+      key: apikey
+      value: '{{env.TOMORROW_API_KEY}}'
+      placement: query
+    resources:
+    - name: events
+      path: /events
+      operations:
+      - name: getEvents
+        method: GET
+        description: Tomorrow.io Get Events
+        inputParameters:
+        - name: location
+          in: query
+          type: string
+          required: true
+          description: location
+        - name: insights
+          in: query
+          type: array
+          required: true
+          description: Comma-separated insight IDs or pre-defined category names.
+        - name: buffer
+          in: query
+          type: number
+          required: false
+          description: Radius around the location in kilometers.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: postEvents
+        method: POST
+        description: Tomorrow.io Post Events
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+          description: Request body payload.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: tomorrow-events-rest
+    port: 8080
+    description: REST adapter for Tomorrow.io Weather API — Events. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/events
+      name: events
+      description: REST surface for events.
+      operations:
+      - method: GET
+        name: getEvents
+        description: Tomorrow.io Get Events
+        call: tomorrow-events.getEvents
+        with:
+          location: rest.location
+          insights: rest.insights
+          buffer: rest.buffer
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: postEvents
+        description: Tomorrow.io Post Events
+        call: tomorrow-events.postEvents
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tomorrow-events-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Tomorrow.io Weather API — Events. One tool per consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: io-get-events
+      description: Tomorrow.io Get Events
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tomorrow-events.getEvents
+      with:
+        location: tools.location
+        insights: tools.insights
+        buffer: tools.buffer
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: io-post-events
+      description: Tomorrow.io Post Events
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tomorrow-events.postEvents
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

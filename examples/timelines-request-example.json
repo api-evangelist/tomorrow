@@ -1,0 +1,16 @@
+{
+  "location": null,
+  "fields": [
+    "temperature",
+    "humidity",
+    "windSpeed"
+  ],
+  "units": "metric",
+  "timesteps": [
+    "1h"
+  ],
+  "startTime": "now",
+  "endTime": "nowPlus6h",
+  "timezone": "America/New_York",
+  "dailyStartHour": 6
+}

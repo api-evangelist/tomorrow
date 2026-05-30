@@ -1,0 +1,1793 @@
+{
+	"info": {
+		"_postman_id": "5414f2e3-6479-4867-b422-5300a46de1af",
+		"name": "Tomorrow.io API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "timelines",
+			"item": [
+				{
+					"name": "Retrieve Timelines (Basic)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var moment = require('moment');",
+									"var now = moment.utc();",
+									"",
+									"var startTime = moment.utc(now).add(0, 'minutes');",
+									"var endTime = moment.utc(startTime).add(360, 'minutes');",
+									"var fields = [\"precipitationIntensity\"];",
+									"var timesteps = [\"1m\"];",
+									"var location = [42.3492721,-71.0573512];",
+									"var units = \"metric\"",
+									"var timezone = \"UTC\"",
+									"",
+									"pm.environment.set('startTime', startTime.toISOString());",
+									"pm.environment.set('endTime', endTime.toISOString());",
+									"pm.environment.set('fields', fields);",
+									"pm.environment.set('timesteps', timesteps);",
+									"pm.environment.set('location', location);",
+									"pm.environment.set('units', units);",
+									"pm.environment.set('timezone', timezone);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/timelines?location={{location}}&fields={{fields}}&startTime={{startTime}}&endTime={{endTime}}&timesteps={{timesteps}}&units={{units}}&timezone={{timezone}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"timelines"
+							],
+							"query": [
+								{
+									"key": "location",
+									"value": "{{location}}",
+									"description": "(Required) ID of a pre-defined location or latlong string"
+								},
+								{
+									"key": "fields",
+									"value": "{{fields}}",
+									"description": "(Required) Selected fields from our data layers (polygon/polyline default to Max, if not suffix is not specified)"
+								},
+								{
+									"key": "startTime",
+									"value": "{{startTime}}",
+									"description": "Start time in ISO 8601 format \"2019-03-20T14:09:50Z\" (defaults to now)"
+								},
+								{
+									"key": "endTime",
+									"value": "{{endTime}}",
+									"description": "End time in ISO 8601 format \"2019-03-20T14:09:50Z\" "
+								},
+								{
+									"key": "timesteps",
+									"value": "{{timesteps}}",
+									"description": "Timesteps of the timelines: \"1m\", \"5m\", \"15m\", \"30m\", \"1h\", \"1d\", and \"current\""
+								},
+								{
+									"key": "units",
+									"value": "{{units}}",
+									"description": "Units of field values, either \"metric\" or \"imperial\" (defaults to metric)"
+								},
+								{
+									"key": "timezone",
+									"value": "{{timezone}}",
+									"description": "Timezone of time values, according to IANA Timezone Names (defaults to UTC)"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Timelines (Advanced)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var moment = require('moment');",
+									"var now = moment.utc();",
+									"",
+									"var startTime = moment.utc(now).add(0, 'minutes').toISOString();",
+									"var endTime = moment.utc(startTime).add(360, 'minutes').toISOString();",
+									"var fields = [\"precipitationIntensity\"];",
+									"var timesteps = [\"1m\"];",
+									"var location = {",
+									"    \"type\": \"Point\",",
+									"    \"coordinates\": [",
+									"        -71.0573512,42.3492721",
+									"    ]",
+									"}",
+									"var units = \"metric\"",
+									"var timezone = \"UTC\"",
+									"",
+									"var body = {",
+									"    startTime, // Start time in ISO 8601 format \"2019-03-20T14:09:50Z\" (defaults to now)",
+									"    endTime, // End time in ISO 8601 format \"2019-03-20T14:09:50Z\" ",
+									"    fields, // (Required) Selected fields from our data layers (polygon/polyline default to Max, if not suffix is not specified)",
+									"    timesteps, // Timesteps of the timelines: \"1m\", \"5m\", \"15m\", \"30m\", \"1h\", \"1d\", and \"current\"",
+									"    location, // (Required) ID of a pre-defined location or latlong string",
+									"    units, // Units of field values, either \"metric\" or \"imperial\" (defaults to metric)",
+									"    timezone // Timezone of time values, according to IANA Timezone Names (defaults to UTC)",
+									"}",
+									"",
+									"pm.environment.set('body', JSON.stringify(body));"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/timelines",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"timelines"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "historical",
+			"item": [
+				{
+					"name": "Retrieve Historical Timeline",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var moment = require('moment');",
+									"var now = moment.utc();",
+									"",
+									"var startTime = moment.utc(now).add(-130, 'days').toISOString();",
+									"var endTime = moment.utc(now).add(-100, 'days').toISOString();",
+									"var fields = [\"totalPrecipitationAccumulation\",\"windSpeedMax\", \"windSpeed100\", \"temperatureMaxTime\", \"humidity\"];",
+									"var timesteps = [\"1d\"];",
+									"var location = [32.74803421602789, -97.09298781655534]",
+									"var units = \"metric\"",
+									"var timezone = \"UTC\"",
+									"",
+									"var body = {",
+									"    startTime, // Start time in ISO 8601 format \"2019-03-20T14:09:50Z\" ",
+									"    endTime, // End time in ISO 8601 format \"2019-03-20T14:09:50Z\"",
+									"    fields, // (Required) Selected fields from our data layers (polygon/polyline default to Max, if not suffix is not specified)",
+									"    timesteps, // Timesteps of the timelines: \"1h\", \"1d\"",
+									"    location, // (Required) ID of a pre-defined location, latlong string, polygon or polyline",
+									"    units, // Units of field values, either \"metric\" or \"imperial\" (defaults to metric)",
+									"    timezone // Timezone of time values, according to IANA Timezone Names (defaults to UTC)",
+									"}",
+									"",
+									"pm.environment.set('body', JSON.stringify(body));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/historical",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"historical"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Historical Timeline by polygon",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var moment = require('moment');",
+									"var now = moment.utc();",
+									"",
+									"var startTime = moment.utc(now).add(-130, 'days').toISOString();",
+									"var endTime = moment.utc(now).add(-100, 'days').toISOString();",
+									"var fields = [\"totalPrecipitationAccumulation\",\"windSpeedMax\", \"windSpeed100\", \"temperatureMaxTime\", \"humidity\"];",
+									"var timesteps = [\"1d\"];",
+									"var location = {\"type\": \"Polygon\",",
+									"    \"coordinates\": [",
+									"          [",
+									"            [",
+									"              -73.9710545539856,",
+									"              40.767232894792066",
+									"            ],",
+									"            [",
+									"              -73.97461652755737,",
+									"              40.76815921628347",
+									"            ],",
+									"            [",
+									"              -73.97667646408081,",
+									"              40.76593277267437",
+									"            ],",
+									"            [",
+									"              -73.97287845611572,",
+									"              40.76429133217449",
+									"            ],",
+									"            [",
+									"              -73.9710545539856,",
+									"              40.767232894792066",
+									"            ]",
+									"          ]",
+									"        ]",
+									"  }",
+									"var units = \"metric\"",
+									"var timezone = \"UTC\"",
+									"",
+									"var body = {",
+									"    startTime, // Start time in ISO 8601 format \"2019-03-20T14:09:50Z\" ",
+									"    endTime, // End time in ISO 8601 format \"2019-03-20T14:09:50Z\"",
+									"    fields, // (Required) Selected fields from our data layers (polygon/polyline default to Max, if not suffix is not specified)",
+									"    timesteps, // Timesteps of the timelines: \"1h\", \"1d\"",
+									"    location, // (Required) ID of a pre-defined location, latlong string, polygon or polyline",
+									"    units, // Units of field values, either \"metric\" or \"imperial\" (defaults to metric)",
+									"    timezone // Timezone of time values, according to IANA Timezone Names (defaults to UTC)",
+									"}",
+									"",
+									"pm.environment.set('body', JSON.stringify(body));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/historical",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"historical"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "events",
+			"item": [
+				{
+					"name": "Retrieve Events (Basic)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var location = [42.3492721,-71.0573512];",
+									"var insights = [\"fires\"];",
+									"var buffer = 1;",
+									"",
+									"pm.environment.set('location', location);",
+									"pm.environment.set('insights', insights);",
+									"pm.environment.set('buffer', buffer);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/events?location={{location}}&insights={{insights}}&buffer={{buffer}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"events"
+							],
+							"query": [
+								{
+									"key": "location",
+									"value": "{{location}}",
+									"description": "(Required) ID of a pre-defined location or latlong string"
+								},
+								{
+									"key": "insights",
+									"value": "{{insights}}",
+									"description": "(Required) Pre-defined category names or custom insight IDs"
+								},
+								{
+									"key": "buffer",
+									"value": "{{buffer}}",
+									"description": "The buffer around locations, in case of pre-defined insight categories (in km)"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Events (Advanced)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var location = {",
+									"    \"type\": \"Point\",",
+									"    \"coordinates\": [",
+									"        -71.0573512,42.3492721",
+									"    ]",
+									"}",
+									"var insights = [\"fires\"];",
+									"var buffer = 1;",
+									"",
+									"var body = {",
+									"    location, // ID of a pre-defined location, GeoJSON geometry or latlong array",
+									"    insights, // (Required) Pre-defined category names or custom insight IDs",
+									"    buffer // The buffer around locations, in case of pre-defined insight categories (in km, defaults to 1)",
+									"}",
+									"",
+									"pm.environment.set('body', JSON.stringify(body));"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/events",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "route",
+			"item": [
+				{
+					"name": "Retrieve a Route (Advanced)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var moment = require('moment');",
+									"var now = moment.utc();",
+									"",
+									"var startTime = moment.utc(now).add(60, 'minutes').toISOString();",
+									"var fields = [\"precipitationIntensity\"];",
+									"var timestep = \"5m\";",
+									"var legs = [{\"duration\":10,\"location\":{\"coordinates\":[[34.78187,32.08528],[34.78182,32.08529],[34.78172,32.08531],[34.78164,32.08531],[34.78152,32.08534],[34.7809,32.08549]],\"type\":\"LineString\"}},{\"duration\":5,\"location\":{\"coordinates\":[[34.7809,32.08549],[34.78098,32.08583],[34.78105,32.08614],[34.78117,32.08684],[34.78121,32.08705],[34.78135,32.08769],[34.78149,32.08832]],\"type\":\"LineString\"}}]",
+									"var units = \"metric\"",
+									"var timezone = \"UTC\"",
+									"",
+									"var body = {",
+									"    startTime, // Start time in ISO 8601 format \"2019-03-20T14:09:50Z\" (defaults to now)",
+									"    legs, // (Required) Collection of route segments, each represented as a pair of location object and a duration (in minutes)",
+									"    fields, // (Required) Selected fields from our data layers (polygon/polyline default to Max, if no suffix is specified)",
+									"    timestep, // Timestep of the route: \"5m\", \"10m\", \"15m\", \"30m\", \"60m\"",
+									"    units, // Units of field values, either \"metric\" or \"imperial\" (defaults to metric)",
+									"    timezone // Timezone of time values, according to IANA Timezone Names (defaults to UTC)",
+									"}",
+									"",
+									"pm.environment.set('body', JSON.stringify(body));"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/route",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"route"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "map",
+			"item": [
+				{
+					"name": "Retrieve a Tile (Basic)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var moment = require('moment');",
+									"var now = moment.utc();",
+									"",
+									"var zoom = 5;",
+									"var x = 2;",
+									"var y = 3;",
+									"var field = \"precipitationIntensity\";",
+									"var time = moment.utc(now).add(0, 'minutes').toISOString();",
+									"var format = \"png\"",
+									"",
+									"pm.environment.set('zoom', zoom);",
+									"pm.environment.set('x', x);",
+									"pm.environment.set('y', y);",
+									"pm.environment.set('field', field);",
+									"pm.environment.set('timeFormat', time + \".\" + format);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/map/tile/:zoom/:x/:y/:field/:timeFormat",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"map",
+								"tile",
+								":zoom",
+								":x",
+								":y",
+								":field",
+								":timeFormat"
+							],
+							"variable": [
+								{
+									"key": "zoom",
+									"value": "{{zoom}}",
+									"description": "(Required) The zoom level for the map, 1-12\n\n"
+								},
+								{
+									"key": "x",
+									"value": "{{x}}",
+									"description": "(Required) The “x” coordinate for the map"
+								},
+								{
+									"key": "y",
+									"value": "{{y}}",
+									"description": "(Required) The “y” coordinate for the map"
+								},
+								{
+									"key": "field",
+									"value": "{{field}}",
+									"description": "(Required) Selected fields from our data layers"
+								},
+								{
+									"key": "timeFormat",
+									"value": "{{timeFormat}}",
+									"description": "Timestamp in ISO 8601 format (defaults to now) and the format of the returned tiles (defaults to .png)\n\n"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "locations",
+			"item": [
+				{
+					"name": "List Locations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/locations",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve a Location",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var locationId = \"5fb7dc8fd4f7cd0008a64456\";",
+									"",
+									"pm.environment.set('locationId', locationId);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/locations/:locationId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"locations",
+								":locationId"
+							],
+							"variable": [
+								{
+									"key": "locationId",
+									"value": "{{locationId}}",
+									"description": "(Required) ID of a pre-defined location"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Location",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var name = \"Tomorrow.io Headquarters\";",
+									"var tags = [\"Group 1\", \"Tom's team\"];",
+									"var geometry = {",
+									"    \"type\": \"Point\",",
+									"    \"coordinates\": [",
+									"        -71.0573512,42.3492721",
+									"    ]",
+									"};",
+									"var body = {",
+									"    name, // (Required) The name of the location",
+									"    tags,",
+									"    geometry, // (Required) The GeoJSON geometry representation of the location object",
+									"}",
+									"",
+									"pm.environment.set('body', JSON.stringify(body));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/locations",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Location",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "<NAME GOES HERE>",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/locations/:locationId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"locations",
+								":locationId"
+							],
+							"variable": [
+								{
+									"key": "locationId",
+									"value": "{{locationId}}",
+									"description": "(Required) ID of a pre-defined location"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Location",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var locationId = \"5fb7dc8fd4f7cd0008a64456\";",
+									"",
+									"pm.environment.set('locationId', locationId);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/locations/:locationId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"locations",
+								":locationId"
+							],
+							"variable": [
+								{
+									"key": "locationId",
+									"value": "{{locationId}}",
+									"description": "(Required) ID of a pre-defined location"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Location Tags",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "locations",
+									"value": "[\"location id\", \"location id\"]",
+									"type": "text"
+								},
+								{
+									"key": "tags",
+									"value": "[\"tag1\", \"tag2\"]",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/locations/tags/add",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"locations",
+								"tags",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Location Tags",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "locations",
+									"value": "[\"location id\", \"location id\"]",
+									"type": "text"
+								},
+								{
+									"key": "tags",
+									"value": "[\"tag1\", \"tag2\"]",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/locations/tags/remove",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"locations",
+								"tags",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "insights",
+			"item": [
+				{
+					"name": "List Insights",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/insights",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"insights"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve an Insight",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var insightId = \"d73c2d38-79b2-4761-9a92-d063dea11190\";",
+									"",
+									"pm.environment.set('insightId', insightId);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/insights/:insightId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"insights",
+								":insightId"
+							],
+							"variable": [
+								{
+									"key": "insightId",
+									"value": "{{insightId}}",
+									"description": "(Required) ID of a pre-defined insight"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create an Insight",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var name = \"Mild Rain\";",
+									"var conditions = {",
+									"    \"type\": \"OPERATOR\",",
+									"    \"content\": {",
+									"        \"operator\": \"AND\"",
+									"    },",
+									"    \"children\": [{",
+									"            \"type\": \"OPERATOR\",",
+									"            \"content\": {",
+									"                \"operator\": \"EQUAL\"",
+									"            },",
+									"            \"children\": [{",
+									"                    \"type\": \"PARAMETER\",",
+									"                    \"content\": {",
+									"                        \"parameter\": \"precipitationType\"",
+									"                    }",
+									"                },",
+									"                {",
+									"                    \"type\": \"CONST\",",
+									"                    \"content\": {",
+									"                        \"const\": 1",
+									"                    }",
+									"                }",
+									"            ]",
+									"        },",
+									"        {",
+									"            \"type\": \"OPERATOR\",",
+									"            \"content\": {",
+									"                \"operator\": \"GREATER\"",
+									"            },",
+									"            \"children\": [{",
+									"                    \"type\": \"PARAMETER\",",
+									"                    \"content\": {",
+									"                        \"parameter\": \"precipitationIntensity\"",
+									"                    }",
+									"                },",
+									"                {",
+									"                    \"type\": \"CONST\",",
+									"                    \"content\": {",
+									"                        \"const\": 0.5",
+									"                    }",
+									"                }",
+									"            ]",
+									"        }",
+									"",
+									"    ]",
+									"};",
+									"",
+									"var body = {",
+									"    name, // (Required) The name of the insight",
+									"    conditions, // (Required) The conditions for which the linked locations will be checked",
+									"}",
+									"",
+									"pm.environment.set('body', JSON.stringify(body));"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/insights",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"insights"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update an Insight",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var insightId = \"d73c2d38-79b2-4761-9a92-d063dea11190\"",
+									"var name = \"Mild Rain\";",
+									"var conditions = {",
+									"    \"type\": \"OPERATOR\",",
+									"    \"content\": {",
+									"        \"operator\": \"AND\"",
+									"    },",
+									"    \"children\": [{",
+									"            \"type\": \"OPERATOR\",",
+									"            \"content\": {",
+									"                \"operator\": \"EQUAL\"",
+									"            },",
+									"            \"children\": [{",
+									"                    \"type\": \"PARAMETER\",",
+									"                    \"content\": {",
+									"                        \"parameter\": \"precipitationType\"",
+									"                    }",
+									"                },",
+									"                {",
+									"                    \"type\": \"CONST\",",
+									"                    \"content\": {",
+									"                        \"const\": 1",
+									"                    }",
+									"                }",
+									"            ]",
+									"        },",
+									"        {",
+									"            \"type\": \"OPERATOR\",",
+									"            \"content\": {",
+									"                \"operator\": \"GREATER\"",
+									"            },",
+									"            \"children\": [{",
+									"                    \"type\": \"PARAMETER\",",
+									"                    \"content\": {",
+									"                        \"parameter\": \"precipitationIntensity\"",
+									"                    }",
+									"                },",
+									"                {",
+									"                    \"type\": \"CONST\",",
+									"                    \"content\": {",
+									"                        \"const\": 0.5",
+									"                    }",
+									"                }",
+									"            ]",
+									"        }",
+									"",
+									"    ]",
+									"};",
+									"",
+									"var body = {",
+									"    name, // (Required) The name of the insight",
+									"    conditions, // (Required) The conditions for which the linked locations will be checked",
+									"}",
+									"",
+									"pm.environment.set('insightId', insightId)",
+									"pm.environment.set('body', JSON.stringify(body));"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/insights/:insightId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"insights",
+								":insightId"
+							],
+							"variable": [
+								{
+									"key": "insightId",
+									"value": "{{insightId}}",
+									"description": "(Required) ID of a pre-defined insight"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an Insight",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var insightId = \"d73c2d38-79b2-4761-9a92-d063dea11190\";",
+									"",
+									"pm.environment.set('insightId', insightId);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/insights/:insightId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"insights",
+								":insightId"
+							],
+							"variable": [
+								{
+									"key": "insightId",
+									"value": "{{insightId}}",
+									"description": "(Required) ID of a pre-defined insight"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "alerts",
+			"item": [
+				{
+					"name": "List Alerts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/alerts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"alerts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve an Alert",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var alertId = \"01e4db7d-4446-4e61-b411-45e97bcc5909\";",
+									"",
+									"pm.environment.set('alertId', alertId);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/alerts/:alertId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"alerts",
+								":alertId"
+							],
+							"variable": [
+								{
+									"key": "alertId",
+									"value": "{{alertId}}",
+									"description": "(Required) ID of a pre-defined alert"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create an Alert",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var name = \"Mild Rain at the Tomorrow.io Headquarters\";",
+									"var insight = \"3314686b-0525-4cd0-908e-f110df44ab23\";",
+									"var isActive = true;",
+									"var notifications = [",
+									"  {\"type\": \"PRIOR\", \"value\": 30},",
+									"  {\"type\": \"START\"},",
+									"  {\"type\": \"END\"}",
+									"];",
+									"",
+									"var body = {",
+									"    name,  // (Required) The name of the alert",
+									"    insight, // (Required) ID of a custom insight or pre-defined category",
+									"    isActive, // Defines whether the alert triggers notifications to the webhook",
+									"    notifications // The configuration of the notifications sent to the webhook (before, start and end of an event in which insight conditions are met)",
+									"};",
+									"",
+									"pm.environment.set('body', JSON.stringify(body));"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/alerts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"alerts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update an Alert",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var alertId = \"01e4db7d-4446-4e61-b411-45e97bcc5909\";",
+									"var name = \"Mild Rain at the Tomorrow.io Headquarters\";",
+									"var notifications = [",
+									"  {\"type\": \"PRIOR\", \"value\": 30},",
+									"  {\"type\": \"START\"},",
+									"  {\"type\": \"END\"}",
+									"];",
+									"",
+									"var body = {",
+									"    name,  // (Required) The name of the alert",
+									"    notifications // The configuration of the notifications sent to the webhook (before, start and end of an event in which insight conditions are met)",
+									"};",
+									"",
+									"pm.environment.set('body', JSON.stringify(body));",
+									"pm.environment.set('alertId', alertId);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/alerts/:alertId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"alerts",
+								":alertId"
+							],
+							"variable": [
+								{
+									"key": "alertId",
+									"value": "{{alertId}}",
+									"description": "(Required) ID of a pre-defined alert"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Linked Locations",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var alertId = \"01e4db7d-4446-4e61-b411-45e97bcc5909\";",
+									"",
+									"pm.environment.set('alertId', alertId);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/alerts/:alertId/locations",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"alerts",
+								":alertId",
+								"locations"
+							],
+							"variable": [
+								{
+									"key": "alertId",
+									"value": "{{alertId}}",
+									"description": "(Required) ID of a pre-defined alert"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Link Locations",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var alertId = \"01e4db7d-4446-4e61-b411-45e97bcc5909\";",
+									"var locations = [\"5fd9dfc6ffcd6e00075e4ac0\"];",
+									"",
+									"var body = {",
+									"    locations // (Required) The list of Point locations by ID to be linked to this alert",
+									"};",
+									"",
+									"pm.environment.set('body', JSON.stringify(body));",
+									"pm.environment.set('alertId', alertId);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/alerts/:alertId/locations/link",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"alerts",
+								":alertId",
+								"locations",
+								"link"
+							],
+							"variable": [
+								{
+									"key": "alertId",
+									"value": "{{alertId}}",
+									"description": "(Required) ID of a pre-defined alert"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unlink Locations",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var alertId = \"01e4db7d-4446-4e61-b411-45e97bcc5909\";",
+									"var locations = [\"5fd9dfc6ffcd6e00075e4ac0\"];",
+									"",
+									"var body = {",
+									"    locations // (Required) The list of Point locations by ID to be unlinked from this alert",
+									"};",
+									"",
+									"pm.environment.set('body', JSON.stringify(body));",
+									"pm.environment.set('alertId', alertId);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/alerts/:alertId/locations/unlink",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"alerts",
+								":alertId",
+								"locations",
+								"unlink"
+							],
+							"variable": [
+								{
+									"key": "alertId",
+									"value": "{{alertId}}",
+									"description": "(Required) ID of a pre-defined alert"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activate an Alert",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var alertId = \"01e4db7d-4446-4e61-b411-45e97bcc5909\";",
+									"",
+									"pm.environment.set('alertId', alertId);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/alerts/:alertId/activate",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"alerts",
+								":alertId",
+								"activate"
+							],
+							"variable": [
+								{
+									"key": "alertId",
+									"value": "{{alertId}}",
+									"description": "(Required) ID of a pre-defined alert"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate an Alert",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var alertId = \"01e4db7d-4446-4e61-b411-45e97bcc5909\";",
+									"",
+									"pm.environment.set('alertId', alertId);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/alerts/:alertId/deactivate",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"alerts",
+								":alertId",
+								"deactivate"
+							],
+							"variable": [
+								{
+									"key": "alertId",
+									"value": "{{alertId}}",
+									"description": "(Required) ID of a pre-defined alert"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an Alert",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var alertId = \"01e4db7d-4446-4e61-b411-45e97bcc5909\";",
+									"",
+									"pm.environment.set('alertId', alertId);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/alerts/:alertId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"alerts",
+								":alertId"
+							],
+							"variable": [
+								{
+									"key": "alertId",
+									"value": "{{alertId}}",
+									"description": "(Required) ID of a pre-defined alert"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "testers",
+			"item": [
+				{
+					"name": "Test Webhook Listener",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var isCustomInsight = false;",
+									"",
+									"var payload = isCustomInsight ? {",
+									"    \"data\": {",
+									"        \"alert\":{",
+									"            \"id\": \"3805b6c8-dd6f-4dac-9dc2-fb9ea2702a80\",",
+									"            \"insight\": \"bd9faf50-bf00-4d09-a5e3-413799c05609\",",
+									"            \"name\": \"Moderate Snow in Pacific Central Station, Vancouver\",",
+									"            \"isActive\": true,",
+									"            \"notifications\": [",
+									"                {",
+									"                    \"type\": \"PRIOR\",",
+									"                    \"value\": 120,",
+									"                    \"title\": \"Monitor: Moderate Snow Expected within 2 Hours\",",
+									"                    \"description\": \"Look out for surge caused by incoming moderate snow (<2mm).\",",
+									"                },",
+									"                {",
+									"                    \"type\": \"END\",",
+									"                    \"title\": \"All Clear: Moderate Snow Ended\",",
+									"                    \"description\": \"Back to normal, snowfall has ended.\",",
+									"                }",
+									"            ],",
+									"            \"createdAt\": \"2021-03-25T16:49:34+0000\"",
+									"        ",
+									"    },",
+									"        \"insight\": {",
+									"            \"id\": \"bd9faf50-bf00-4d09-a5e3-413799c05609\"",
+									"        },",
+									"        \"locations\": [",
+									"          { \"id\": \"38f689d83c264eb0b084ba39975f3413\" }, ",
+									"        ],         ",
+									"        \"notification\": {",
+									"            \"type\": \"PRIOR\",",
+									"            \"value\": 30,",
+									"            \"title\": \"Low Visibility Advisory\",",
+									"            \"description\": \"* WHAT... Visibility 1km or less * WHEN... in 30 minutes * IMPACTS... Hazardous driving conditions due to low visibility * ACTIONS... If driving, slow down, use your headlights, and leave plenty of distance ahead of you.\"",
+									"        },",
+									"        \"event\": {",
+									"            \"startTime\": \"2020-05-10T07:49:34+0000\",",
+									"            \"eventValues\": {",
+									"                \"visibility\": 0.52",
+									"            },",
+									"            \"triggerValues\": {",
+									"                \"visibility\": 0.52",
+									"            }",
+									"        }",
+									"    }",
+									"} : {",
+									"    \"data\": {",
+									"        \"alert\":             ",
+									"        {",
+									"            \"id\": \"3805b6c8-dd6f-4dac-9dc2-fb9ea2702a73\",",
+									"            \"insight\": \"floods\",",
+									"            \"name\": \"Flood Hazards\",",
+									"            \"isActive\": true,",
+									"            \"notifications\":  [",
+									"              {",
+									"                type: \"PUBLISHED\",",
+									"                title: \"Floow Hazard Report\",",
+									"                description:",
+									"                  \"Our sourced issued a new flood hazard announcement. Stay safe.\",",
+									"              },",
+									"            ],",
+									"            \"createdAt\": \"2021-03-25T06:49:34+0000\"",
+									"        },",
+									"        \"insight\": {",
+									"            \"id\": \"floods\",",
+									"        },",
+									"        \"location\": { \"id\": \"5ea83909b9dc140008627002\" }, // DEPRECATED  ",
+									"        \"locations\": [",
+									"          { \"id\": \"5ea83909b9dc140008627002\" }, ",
+									"          { \"id\": \"5ea83909b9dc140008627003\" }, ",
+									"          { \"id\": \"5ea83909b9dc140008627004\" },",
+									"        ],",
+									"        \"notification\": {",
+									"            \"type\": \"PUBLISH\",",
+									"            \"title\": \"Flood Hazard\",",
+									"            \"description\": \"A flood hazard has been published. Review hazard details. \"",
+									"        },",
+									"        \"event\": {",
+									"            \"startTime\": \"2020-10-13T18:12:00Z\",             ",
+									"            \"endTime\": \"2020-10-14T15:06:26.261668224Z\",     ",
+									"            \"updateTime\": \"2020-10-13T18:12:00Z\",            ",
+									"            \"severity\": \"unknown\",                           ",
+									"            \"certainty\": \"likely\",                         ",
+									"            \"urgency\": \"unknown\",                            ",
+									"            \"source\": \"https://alerts.weather.gov/cap/...\",  ",
+									"            \"eventValues\": {",
+									"                  \"origin\": \"NWS\",                           ",
+									"                  \"title\": \"Small Craft Advisory\",          ",
+									"                  \"description\": \"* WHAT...Northwest... \",   ",
+									"                  \"instruction\": \"Inexperienced... \",        ",
+									"                  \"response\": \"avoid\",                       ",
+									"                  \"geocodes\": [\"PZZ576\"],                    ",
+									"                  \"location\": {type:\"Point\", \"coordinates\": [-86.660156, 35.860119]},              ",
+									"                },",
+									"            }",
+									"        }",
+									"};",
+									"",
+									"var body = payload;",
+									"",
+									"pm.environment.set('body', JSON.stringify(body));"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/notifications",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"notifications"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{apikey}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "apikey",
+				"type": "string"
+			},
+			{
+				"key": "in",
+				"value": "query",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://api.tomorrow.io/v4"
+		},
+		{
+			"key": "locationId",
+			"value": "6183d156022c1b0008685cc6"
+		}
+	]
+}

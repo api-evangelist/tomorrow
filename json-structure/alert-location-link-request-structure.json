@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tomorrow/refs/heads/main/json-structure/alert-location-link-request-structure.json",
+  "name": "AlertLocationLinkRequest",
+  "description": "AlertLocationLinkRequest schema from Tomorrow.io Weather API",
+  "type": "object",
+  "properties": {
+    "locationIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "6183d156022c1b0008685cc6"
+      ]
+    }
+  },
+  "required": [
+    "locationIds"
+  ]
+}

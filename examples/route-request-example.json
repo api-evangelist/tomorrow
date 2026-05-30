@@ -1,0 +1,17 @@
+{
+  "route": {
+    "waypoints": [
+      {
+        "location": {},
+        "arrivalTime": {}
+      }
+    ]
+  },
+  "fields": [
+    "temperature",
+    "precipitationIntensity",
+    "visibility",
+    "windSpeed"
+  ],
+  "units": "metric"
+}

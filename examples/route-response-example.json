@@ -1,0 +1,18 @@
+{
+  "data": {
+    "timelines": [
+      {
+        "timestep": {},
+        "startTime": {},
+        "endTime": {},
+        "intervals": {}
+      }
+    ],
+    "route": [
+      {
+        "location": {},
+        "arrivalTime": {}
+      }
+    ]
+  }
+}

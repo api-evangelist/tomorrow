@@ -1,0 +1,184 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Tomorrow.io
+providerId: tomorrow
+created: '2026-05-30'
+modified: '2026-05-30'
+reconciled: false
+tags:
+  - Weather
+  - Climate
+  - Forecast
+  - Tiered Subscription
+  - Usage-Based
+description: >-
+  Tomorrow.io publishes a tiered subscription model with a self-service free
+  tier and three paid tiers (Hobby, Builder, Enterprise). Quotas escalate by
+  daily request volume, forecast horizon (5 days on Free, 14 days on
+  Enterprise), available data layers (core only on Free; premium layers like
+  air quality, pollen, solar, lightning, soil on paid tiers), historical
+  retention, monitored locations, and alert count. Enterprise is custom-priced
+  with SLAs, premium support, weather-on-routes, minutely resolution, and SSO.
+  Hobby and Builder prices captured here ($50 / $300 per month) reflect the
+  values supplied by the requester at profile time; verify against the
+  Tomorrow.io pricing page before quoting customers.
+sources:
+  - https://www.tomorrow.io/weather-api/
+  - https://docs.tomorrow.io
+plans:
+  - id: tomorrow-free
+    name: Free
+    type: freemium
+    description: Self-service tier for evaluation and small projects.
+    entries:
+      - label: API requests per day
+        name: requests_per_day
+        type: quota
+        metric: request
+        limit: 500
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '$0'
+      - label: API requests per hour
+        name: requests_per_hour
+        type: quota
+        metric: request
+        limit: 25
+        timeFrame: hour
+        geo: global
+        unit: 1
+        price: '$0'
+      - label: API requests per second
+        name: requests_per_second
+        type: quota
+        metric: request
+        limit: 3
+        timeFrame: second
+        geo: global
+        unit: 1
+        price: '$0'
+      - label: Monitored locations
+        name: monitored_locations
+        type: quota
+        metric: location
+        limit: 1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '$0'
+      - label: Weather-based alerts
+        name: alerts
+        type: quota
+        metric: alert
+        limit: 1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '$0'
+    elements:
+      - name: 5-day forecast horizon
+      - name: Core weather data layers
+      - name: 24 hours of historical data
+      - name: Realtime and Timelines endpoints
+      - name: Self-service API key issuance
+  - id: tomorrow-hobby
+    name: Hobby
+    type: subscription
+    description: Entry paid tier for prototyping and side projects.
+    entries:
+      - label: Monthly subscription
+        name: monthly_subscription
+        type: subscription
+        metric: month
+        limit: 1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$50'
+      - label: Higher request quotas vs Free
+        name: requests_quota
+        type: tiered
+        metric: request
+        limit: -1
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: included
+    elements:
+      - name: Extended forecast horizon
+      - name: Expanded data layers vs Free
+      - name: Email support
+      - name: Higher daily request quota
+  - id: tomorrow-builder
+    name: Builder
+    type: subscription
+    description: Scale-up paid tier for production integrations.
+    entries:
+      - label: Monthly subscription
+        name: monthly_subscription
+        type: subscription
+        metric: month
+        limit: 1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$300'
+      - label: Production-grade request quotas
+        name: requests_quota
+        type: tiered
+        metric: request
+        limit: -1
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: included
+    elements:
+      - name: Premium data layers (air quality, pollen, solar, fire)
+      - name: Multi-location monitoring
+      - name: Multiple alerts with webhooks
+      - name: Higher concurrency
+      - name: Priority email support
+  - id: tomorrow-enterprise
+    name: Enterprise
+    type: enterprise
+    description: Custom contract with SLAs, premium support, and full feature set.
+    entries:
+      - label: Custom annual contract
+        name: annual_contract
+        type: flat
+        metric: varies
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: custom
+      - label: Custom request volume
+        name: custom_requests
+        type: tiered
+        metric: request
+        limit: -1
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: contact sales
+      - label: Custom monitored locations
+        name: custom_locations
+        type: quota
+        metric: location
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: included
+    elements:
+      - name: 14-day forecast horizon
+      - name: All premium data layers (lightning, soil, marine, aviation, etc.)
+      - name: Weather on routes
+      - name: Minutely resolution data
+      - name: Custom SLAs
+      - name: Technical and meteorological support
+      - name: SAML-based SSO
+      - name: Advanced historical capabilities
+      - name: Custom alerts and webhook integrations

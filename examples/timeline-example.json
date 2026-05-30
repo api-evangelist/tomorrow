@@ -1,0 +1,49 @@
+{
+  "timestep": "1h",
+  "startTime": "2026-05-30T14:30:00Z",
+  "endTime": "2026-05-30T14:30:00Z",
+  "intervals": [
+    {
+      "startTime": "2026-05-30T13:00:00Z",
+      "values": {
+        "temperature": {},
+        "temperatureApparent": {},
+        "humidity": {},
+        "dewPoint": {},
+        "windSpeed": {},
+        "windDirection": {},
+        "windGust": {},
+        "pressureSeaLevel": {},
+        "pressureSurfaceLevel": {},
+        "precipitationIntensity": {},
+        "precipitationProbability": {},
+        "precipitationType": {},
+        "cloudCover": {},
+        "cloudBase": {},
+        "cloudCeiling": {},
+        "visibility": {},
+        "weatherCode": {},
+        "uvIndex": {},
+        "uvHealthConcern": {},
+        "epaIndex": {},
+        "epaHealthConcern": {},
+        "epaPrimaryPollutant": {},
+        "particulateMatter25": {},
+        "particulateMatter10": {},
+        "pollutantO3": {},
+        "pollutantNO2": {},
+        "pollutantCO": {},
+        "pollutantSO2": {},
+        "treeIndex": {},
+        "grassIndex": {},
+        "weedIndex": {},
+        "fireIndex": {},
+        "solarGHI": {},
+        "solarDIF": {},
+        "solarDIR": {},
+        "moonPhase": {},
+        "hailBinary": {}
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "6183d156022c1b00086860a1",
+  "name": "High Wind",
+  "description": "Sustained wind speed above 15 m/s.",
+  "conditions": [
+    {
+      "field": "windSpeed",
+      "operator": "gt",
+      "value": 15
+    }
+  ],
+  "logical": "and",
+  "timestep": "1h",
+  "units": "metric",
+  "createdAt": "2026-05-30T14:30:00Z",
+  "updatedAt": "2026-05-30T14:30:00Z"
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tomorrow/refs/heads/main/json-schema/route-waypoint-schema.json",
+  "title": "RouteWaypoint",
+  "description": "A waypoint on the route.",
+  "type": "object",
+  "properties": {
+    "location": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "format": "double"
+      },
+      "minItems": 2,
+      "maxItems": 2,
+      "example": [
+        -71.0466,
+        42.3478
+      ]
+    },
+    "arrivalTime": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-05-30T13:30:00Z"
+    }
+  },
+  "required": [
+    "location"
+  ]
+}

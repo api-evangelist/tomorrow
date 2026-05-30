@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tomorrow/refs/heads/main/json-structure/insight-create-request-structure.json",
+  "name": "InsightCreateRequest",
+  "description": "Payload to create or update an insight.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "A single condition that must hold for an insight to fire.",
+        "properties": {
+          "field": {
+            "type": "string",
+            "example": "windSpeed"
+          },
+          "operator": {
+            "type": "string",
+            "enum": [
+              "eq",
+              "neq",
+              "gt",
+              "gte",
+              "lt",
+              "lte"
+            ],
+            "example": "gt"
+          },
+          "value": {
+            "type": "double",
+            "example": 15
+          }
+        },
+        "required": [
+          "field",
+          "operator",
+          "value"
+        ]
+      }
+    },
+    "logical": {
+      "type": "string",
+      "enum": [
+        "and",
+        "or"
+      ],
+      "default": "and"
+    },
+    "timestep": {
+      "type": "string",
+      "example": "1h"
+    },
+    "units": {
+      "type": "string",
+      "enum": [
+        "metric",
+        "imperial"
+      ]
+    }
+  },
+  "required": [
+    "name",
+    "conditions"
+  ]
+}

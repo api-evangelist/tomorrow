@@ -1,0 +1,17 @@
+{
+  "id": "6183d156022c1b0008685cc6",
+  "name": "Boston HQ Rooftop",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [
+      -71.0466,
+      42.3478
+    ]
+  },
+  "tags": [
+    "field-asset",
+    "rooftop"
+  ],
+  "createdAt": "2026-05-30T12:34:56Z",
+  "updatedAt": "2026-05-30T12:34:56Z"
+}

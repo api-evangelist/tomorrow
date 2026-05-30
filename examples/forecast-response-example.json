@@ -1,0 +1,21 @@
+{
+  "timelines": {
+    "hourly": [
+      {
+        "startTime": {},
+        "values": {}
+      }
+    ],
+    "daily": [
+      {
+        "startTime": {},
+        "values": {}
+      }
+    ]
+  },
+  "location": {
+    "lat": 50.0,
+    "lon": 50.0,
+    "name": "Boston HQ Rooftop"
+  }
+}

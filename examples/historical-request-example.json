@@ -1,0 +1,14 @@
+{
+  "location": null,
+  "fields": [
+    "temperature",
+    "precipitationIntensity"
+  ],
+  "units": "metric",
+  "timesteps": [
+    "1d"
+  ],
+  "startTime": "2024-01-01T00:00:00Z",
+  "endTime": "2024-01-31T23:59:59Z",
+  "timezone": "UTC"
+}

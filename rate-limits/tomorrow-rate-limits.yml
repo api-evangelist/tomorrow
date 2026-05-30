@@ -1,0 +1,80 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Tomorrow.io
+providerId: tomorrow
+created: '2026-05-30'
+modified: '2026-05-30'
+reconciled: false
+tags:
+  - Rate Limiting
+  - Weather
+  - Forecast
+  - Climate
+description: >-
+  Tomorrow.io enforces per-API-key rate limits across three time windows:
+  requests per second, requests per hour, and requests per day. Free keys are
+  capped at roughly 3 RPS / 25 RPH / 500 RPD; paid tiers scale these limits up
+  per the subscription. Map tile requests count against the same quota as
+  Timelines/Realtime/Historical/Routes calls. Limits apply per-key, not
+  per-account, so high-volume integrations should request multiple keys or
+  upgrade to Enterprise for custom raised limits.
+sources:
+  - https://docs.tomorrow.io/reference/api-rate-limits
+  - https://docs.tomorrow.io
+  - https://www.tomorrow.io/weather-api/
+responseCodes:
+  throttled: 429
+  quotaExceeded: 429
+headers:
+  retryAfter: Retry-After
+  remaining: X-RateLimit-Remaining
+  limit: X-RateLimit-Limit
+  reset: X-RateLimit-Reset
+limits:
+  - name: Free tier — requests per second
+    scope: key
+    metric: requests_per_second
+    limit: 3
+    timeFrame: second
+    notes: Burst limit on the Free plan.
+  - name: Free tier — requests per hour
+    scope: key
+    metric: requests_per_minute
+    limit: 25
+    timeFrame: hour
+    notes: Hourly cap on the Free plan.
+  - name: Free tier — requests per day
+    scope: key
+    metric: requests_per_minute
+    limit: 500
+    timeFrame: day
+    notes: Daily cap on the Free plan.
+  - name: Hobby tier — requests per day
+    scope: key
+    metric: requests_per_minute
+    limit: 'see Hobby plan quota'
+    notes: Higher daily quota than Free; per-second and per-hour limits scale accordingly.
+  - name: Builder tier — requests per day
+    scope: key
+    metric: requests_per_minute
+    limit: 'see Builder plan quota'
+    notes: Production-grade daily quota; per-second / per-hour limits scale.
+  - name: Enterprise — custom
+    scope: account
+    metric: varies
+    limit: 'custom — negotiated per contract'
+    notes: Raised limits, custom concurrency, dedicated infrastructure available.
+policies:
+  - name: Per-key scoping
+    description: Limits apply per API key. Issue multiple keys across services to parallelise quota; do not share a single key across production tenants.
+  - name: 429 with Retry-After
+    description: On throttle the API returns HTTP 429 and a Retry-After header (seconds). Clients must back off and retry no sooner than the indicated delay.
+  - name: Exponential backoff
+    description: Recommended client policy is exponential backoff with jitter on 429 / 503 — start at the Retry-After value and double on consecutive throttles.
+  - name: Idempotent reads
+    description: Realtime, Forecast, Timelines, Historical, Climate Normals, Routes, and Map Tiles are all idempotent — retries are safe and recommended after backoff.
+  - name: Map tiles count
+    description: Each `/map/tile/{z}/{x}/{y}/{field}/{time}` request consumes one quota slot. Cache tiles aggressively on the client side.
+  - name: Raise via support
+    description: Builder and Enterprise customers can request raised per-second or daily quotas via account management; raises are not self-service.

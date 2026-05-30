@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tomorrow/refs/heads/main/json-schema/alert-schema.json",
+  "title": "Alert",
+  "description": "A persistent alert that fires insights over linked locations and pushes activations to a webhook.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "6183d156022c1b0008686b14"
+    },
+    "name": {
+      "type": "string",
+      "example": "Hail Watch \u2014 Northeast Region"
+    },
+    "description": {
+      "type": "string"
+    },
+    "insightIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "6183d156022c1b00086860a1"
+      ]
+    },
+    "notifications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "webhook"
+            ],
+            "example": "webhook"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://hooks.example.com/tomorrow-alerts"
+          }
+        }
+      }
+    },
+    "active": {
+      "type": "boolean",
+      "example": true
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "insightIds"
+  ]
+}

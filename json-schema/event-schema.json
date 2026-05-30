@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tomorrow/refs/heads/main/json-schema/event-schema.json",
+  "title": "Event",
+  "description": "A single insight match.",
+  "type": "object",
+  "properties": {
+    "insightId": {
+      "type": "string",
+      "example": "6183d156022c1b00086860a1"
+    },
+    "startTime": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-05-30T15:00:00Z"
+    },
+    "endTime": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-05-30T17:00:00Z"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "example": "high"
+    },
+    "location": {
+      "type": "object",
+      "description": "GeoJSON geometry \u2014 Point, LineString, or Polygon.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "Point",
+            "LineString",
+            "Polygon"
+          ],
+          "example": "Point"
+        },
+        "coordinates": {
+          "type": "array",
+          "items": {},
+          "example": [
+            -71.0466,
+            42.3478
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "coordinates"
+      ]
+    }
+  }
+}

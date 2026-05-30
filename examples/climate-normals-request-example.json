@@ -1,0 +1,8 @@
+{
+  "location": null,
+  "fields": [
+    "temperatureAvg",
+    "precipitationAccumulationSum"
+  ],
+  "units": "metric"
+}

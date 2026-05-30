@@ -1,0 +1,13 @@
+{
+  "insightId": "6183d156022c1b00086860a1",
+  "startTime": "2026-05-30T15:00:00Z",
+  "endTime": "2026-05-30T17:00:00Z",
+  "severity": "high",
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -71.0466,
+      42.3478
+    ]
+  }
+}

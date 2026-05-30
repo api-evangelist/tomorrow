@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tomorrow/refs/heads/main/json-schema/events-request-schema.json",
+  "title": "EventsRequest",
+  "description": "Advanced Events request body.",
+  "type": "object",
+  "properties": {
+    "location": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object",
+          "description": "GeoJSON geometry \u2014 Point, LineString, or Polygon.",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "Point",
+                "LineString",
+                "Polygon"
+              ],
+              "example": "Point"
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {},
+              "example": [
+                -71.0466,
+                42.3478
+              ]
+            }
+          },
+          "required": [
+            "type",
+            "coordinates"
+          ]
+        }
+      ]
+    },
+    "insights": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "hail",
+        "thunderstorm"
+      ]
+    },
+    "buffer": {
+      "type": "number",
+      "format": "float",
+      "default": 1,
+      "description": "Radius around the location in km."
+    }
+  },
+  "required": [
+    "location",
+    "insights"
+  ]
+}

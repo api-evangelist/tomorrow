@@ -1,0 +1,742 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tomorrow.io Weather API",
+    "version": "4.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Realtime",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tomorrow.io Get Realtime Weather",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/weather/realtime",
+            "params": [
+              {
+                "name": "location",
+                "value": "42.3478,-71.0466",
+                "type": "query",
+                "description": "Place name, latlong array as `lat,lng`, GeoJSON, or a saved location ID."
+              },
+              {
+                "name": "units",
+                "value": "metric",
+                "type": "query",
+                "description": "Unit system for returned values."
+              }
+            ]
+          },
+          "docs": "Returns the current observed weather for a single location."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Forecast",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tomorrow.io Get Weather Forecast",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/weather/forecast",
+            "params": [
+              {
+                "name": "location",
+                "value": "new york",
+                "type": "query",
+                "description": "Place name, latlong array, GeoJSON, or saved location ID."
+              },
+              {
+                "name": "timesteps",
+                "value": "1h,1d",
+                "type": "query",
+                "description": "Comma-separated forecast resolutions."
+              },
+              {
+                "name": "units",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns hourly and daily forecast timelines for a single location."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Timelines",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tomorrow.io Get Timelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/timelines",
+            "params": [
+              {
+                "name": "location",
+                "value": "42.3478,-71.0466",
+                "type": "query",
+                "description": "Latlong, place name, GeoJSON, or saved location ID."
+              },
+              {
+                "name": "fields",
+                "value": "temperature,humidity,windSpeed",
+                "type": "query",
+                "description": "Comma-separated list of weather data fields to return."
+              },
+              {
+                "name": "startTime",
+                "value": "now",
+                "type": "query"
+              },
+              {
+                "name": "endTime",
+                "value": "nowPlus6h",
+                "type": "query"
+              },
+              {
+                "name": "timesteps",
+                "value": "1h",
+                "type": "query"
+              },
+              {
+                "name": "units",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timezone",
+                "value": "America/New_York",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Basic GET form of the Timelines endpoint. Returns one or more timesteps for a single location."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Post Timelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/timelines",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Advanced POST form of Timelines accepting a full JSON body, including GeoJSON geometries."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Historical",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tomorrow.io Post Historical Timeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/historical",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns historical weather timelines for a location, up to 20 years back."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Climate",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tomorrow.io Post Climate Normals",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/historical/normals",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns 30-year monthly climate normals for a location."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Routes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tomorrow.io Post Route",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/route",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns weather along the route for a polyline or list of waypoints with arrival-time interpolation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Map Tiles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tomorrow.io Get Map Tile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/map/tile/:zoom/:x/:y/:field/:timeFormat",
+            "params": [
+              {
+                "name": "zoom",
+                "value": "6",
+                "type": "path",
+                "description": "Web Mercator zoom level (typically 0-12)."
+              },
+              {
+                "name": "x",
+                "value": "18",
+                "type": "path",
+                "description": "Tile column."
+              },
+              {
+                "name": "y",
+                "value": "24",
+                "type": "path",
+                "description": "Tile row."
+              },
+              {
+                "name": "field",
+                "value": "temperature",
+                "type": "path",
+                "description": "Data field name to render (e.g. temperature, precipitationIntensity)."
+              },
+              {
+                "name": "timeFormat",
+                "value": "now",
+                "type": "path",
+                "description": "ISO 8601 time or relative offset."
+              }
+            ]
+          },
+          "docs": "Returns a raster tile for a weather field at a given time and zoom level."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Locations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tomorrow.io List Locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/locations"
+          },
+          "docs": "Lists saved locations for the authenticated account."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Create Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/locations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new saved location (point, polygon, or polyline) with optional tags."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Get Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/locations/:locationId",
+            "params": [
+              {
+                "name": "locationId",
+                "value": "6183d156022c1b0008685cc6",
+                "type": "path",
+                "description": "Tomorrow.io location identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves a single saved location by ID."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Update Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tomorrow.io/v4/locations/:locationId",
+            "params": [
+              {
+                "name": "locationId",
+                "value": "6183d156022c1b0008685cc6",
+                "type": "path",
+                "description": "Tomorrow.io location identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing saved location."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Delete Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tomorrow.io/v4/locations/:locationId",
+            "params": [
+              {
+                "name": "locationId",
+                "value": "6183d156022c1b0008685cc6",
+                "type": "path",
+                "description": "Tomorrow.io location identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a saved location by ID."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Add Location Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/locations/tags/add",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds one or more tags to a set of locations."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Remove Location Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/locations/tags/remove",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes one or more tags from a set of locations."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Insights",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tomorrow.io List Insights",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/insights"
+          },
+          "docs": "Lists user-defined and pre-defined insight definitions available to the account."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Create Insight",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/insights",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new insight that defines a threshold rule over one or more weather data fields."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Get Insight",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/insights/:insightId",
+            "params": [
+              {
+                "name": "insightId",
+                "value": "6183d156022c1b00086860a1",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a single insight by ID."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Update Insight",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tomorrow.io/v4/insights/:insightId",
+            "params": [
+              {
+                "name": "insightId",
+                "value": "6183d156022c1b00086860a1",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing insight."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Delete Insight",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tomorrow.io/v4/insights/:insightId",
+            "params": [
+              {
+                "name": "insightId",
+                "value": "6183d156022c1b00086860a1",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes an insight by ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tomorrow.io Get Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/events",
+            "params": [
+              {
+                "name": "location",
+                "value": "42.3478,-71.0466",
+                "type": "query"
+              },
+              {
+                "name": "insights",
+                "value": "hail,thunderstorm",
+                "type": "query",
+                "description": "Comma-separated insight IDs or pre-defined category names."
+              },
+              {
+                "name": "buffer",
+                "value": "1",
+                "type": "query",
+                "description": "Radius around the location in kilometers."
+              }
+            ]
+          },
+          "docs": "Returns events matching the supplied insights at a location, optionally with a kilometer-radius buffer."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Post Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Advanced POST variant of the Events endpoint accepting a full JSON body with GeoJSON geometries."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Alerts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tomorrow.io List Alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/alerts"
+          },
+          "docs": "Lists alerts configured for the authenticated account."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Create Alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/alerts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an alert that links one or more insights to one or more locations and pushes activations to a webhook URL."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Get Alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/alerts/:alertId",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "6183d156022c1b0008686b14",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a single alert by ID."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Update Alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tomorrow.io/v4/alerts/:alertId",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "6183d156022c1b0008686b14",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing alert."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Delete Alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tomorrow.io/v4/alerts/:alertId",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "6183d156022c1b0008686b14",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes an alert by ID."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io List Alert Locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/alerts/:alertId/locations",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "6183d156022c1b0008686b14",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists locations linked to an alert."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Link Alert Locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/alerts/:alertId/locations/link",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "6183d156022c1b0008686b14",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Links one or more locations to the alert."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Unlink Alert Locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/alerts/:alertId/locations/unlink",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "6183d156022c1b0008686b14",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Unlinks one or more locations from the alert."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Activate Alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/alerts/:alertId/activate",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "6183d156022c1b0008686b14",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Marks an alert as active so its insights begin firing on linked locations."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Deactivate Alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/alerts/:alertId/deactivate",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "6183d156022c1b0008686b14",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Marks an alert as inactive so its insights stop firing."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

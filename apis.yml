@@ -50,7 +50,7 @@ apis:
         url: openapi/tomorrow-openapi.yml
       - type: Postman
         url: https://github.com/Tomorrow-IO-API/tomorrow-postman
-      - type: SignUp
+      - type: Signup
         url: https://app.tomorrow.io/signup
       - type: Authentication
         url: https://app.tomorrow.io/development/keys
@@ -86,7 +86,7 @@ common:
     url: https://docs.tomorrow.io
   - type: Pricing
     url: https://www.tomorrow.io/weather-api/
-  - type: SignUp
+  - type: Signup
     url: https://app.tomorrow.io/signup
   - type: Authentication
     url: https://app.tomorrow.io/development/keys

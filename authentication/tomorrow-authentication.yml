@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/tomorrow-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - query
+schemes:
+- name: apiKeyQuery
+  type: apiKey
+  in: query
+  parameter: apikey
+  description: Tomorrow.io API key passed as `apikey` query parameter. Obtain at https://app.tomorrow.io/development/keys.
+  sources:
+  - openapi/tomorrow-openapi.yml

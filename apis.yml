@@ -80,6 +80,8 @@ apis:
       - type: MapAssets
         url: https://github.com/Tomorrow-IO-API/tomorrow-map-spectrums
 common:
+  - type: AgenticAccess
+    url: agentic-access/tomorrow-agentic-access.yml
   - type: DomainSecurity
     url: security/tomorrow-domain-security.yml
   - type: Authentication

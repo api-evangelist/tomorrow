@@ -1,0 +1,500 @@
+openapi: 3.0.3
+info:
+  title: Tomorrow.io Weather Alerts Locations API
+  description: Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.
+  version: 4.0.1
+  contact:
+    name: Tomorrow.io Support
+    url: https://www.tomorrow.io/support/
+  license:
+    name: Tomorrow.io Terms of Service
+    url: https://www.tomorrow.io/terms-of-service/
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://api.tomorrow.io/v4
+  description: Tomorrow.io v4 production API
+security:
+- apiKeyQuery: []
+tags:
+- name: Locations
+  description: CRUD over monitored point / polygon / polyline locations with tags.
+paths:
+  /locations:
+    get:
+      operationId: listLocations
+      summary: Tomorrow.io List Locations
+      description: Lists saved locations for the authenticated account.
+      tags:
+      - Locations
+      responses:
+        '200':
+          description: Locations list.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+              examples:
+                ListLocations200Example:
+                  summary: Default listLocations 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: 6183d156022c1b0008685cc6
+                    name: Boston HQ Rooftop
+                    geometry:
+                      type: Point
+                      coordinates:
+                      - -71.0466
+                      - 42.3478
+                    tags:
+                    - field-asset
+                    - rooftop
+                    createdAt: '2026-05-30T12:34:56Z'
+                    updatedAt: '2026-05-30T12:34:56Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createLocation
+      summary: Tomorrow.io Create Location
+      description: Creates a new saved location (point, polygon, or polyline) with optional tags.
+      tags:
+      - Locations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationCreateRequest'
+            examples:
+              CreateLocationRequestExample:
+                summary: Default createLocation request
+                x-microcks-default: true
+                value:
+                  name: Boston HQ Rooftop
+                  geometry:
+                    type: Point
+                    coordinates: &id001
+                    - -71.0466
+                    - 42.3478
+                  tags:
+                  - field-asset
+                  - rooftop
+      responses:
+        '201':
+          description: Location created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+              examples:
+                CreateLocation201Example:
+                  summary: Default createLocation 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 6183d156022c1b0008685cc6
+                    name: Boston HQ Rooftop
+                    geometry:
+                      type: Point
+                      coordinates: *id001
+                    tags:
+                    - field-asset
+                    - rooftop
+                    createdAt: '2026-05-30T12:34:56Z'
+                    updatedAt: '2026-05-30T12:34:56Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /locations/{locationId}:
+    parameters:
+    - name: locationId
+      in: path
+      required: true
+      description: Tomorrow.io location identifier.
+      schema:
+        type: string
+      example: 6183d156022c1b0008685cc6
+    get:
+      operationId: getLocation
+      summary: Tomorrow.io Get Location
+      description: Retrieves a single saved location by ID.
+      tags:
+      - Locations
+      responses:
+        '200':
+          description: Location detail.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+              examples:
+                GetLocation200Example:
+                  summary: Default getLocation 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 6183d156022c1b0008685cc6
+                    name: Boston HQ Rooftop
+                    geometry:
+                      type: Point
+                      coordinates:
+                      - -71.0466
+                      - 42.3478
+                    tags:
+                    - field-asset
+                    - rooftop
+                    createdAt: '2026-05-30T12:34:56Z'
+                    updatedAt: '2026-05-30T12:34:56Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateLocation
+      summary: Tomorrow.io Update Location
+      description: Updates an existing saved location.
+      tags:
+      - Locations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationUpdateRequest'
+            examples:
+              UpdateLocationRequestExample:
+                summary: Default updateLocation request
+                x-microcks-default: true
+                value:
+                  name: example
+                  geometry:
+                    type: Point
+                    coordinates: &id002
+                    - -71.0466
+                    - 42.3478
+                  tags:
+                  - example
+      responses:
+        '200':
+          description: Updated location.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+              examples:
+                UpdateLocation200Example:
+                  summary: Default updateLocation 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 6183d156022c1b0008685cc6
+                    name: Boston HQ Rooftop
+                    geometry:
+                      type: Point
+                      coordinates: *id002
+                    tags:
+                    - field-asset
+                    - rooftop
+                    createdAt: '2026-05-30T12:34:56Z'
+                    updatedAt: '2026-05-30T12:34:56Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteLocation
+      summary: Tomorrow.io Delete Location
+      description: Deletes a saved location by ID.
+      tags:
+      - Locations
+      responses:
+        '204':
+          description: Location deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /locations/tags/add:
+    post:
+      operationId: addLocationTags
+      summary: Tomorrow.io Add Location Tags
+      description: Adds one or more tags to a set of locations.
+      tags:
+      - Locations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationTagsRequest'
+            examples:
+              AddLocationTagsRequestExample:
+                summary: Default addLocationTags request
+                x-microcks-default: true
+                value:
+                  locationIds:
+                  - 6183d156022c1b0008685cc6
+                  - 6183d156022c1b0008685cc7
+                  tags:
+                  - rooftop
+      responses:
+        '200':
+          description: Tags added.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleAck'
+              examples:
+                AddLocationTags200Example:
+                  summary: Default addLocationTags 200 response
+                  x-microcks-default: true
+                  value:
+                    status: ok
+                    message: Operation completed successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /locations/tags/remove:
+    post:
+      operationId: removeLocationTags
+      summary: Tomorrow.io Remove Location Tags
+      description: Removes one or more tags from a set of locations.
+      tags:
+      - Locations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationTagsRequest'
+            examples:
+              RemoveLocationTagsRequestExample:
+                summary: Default removeLocationTags request
+                x-microcks-default: true
+                value:
+                  locationIds:
+                  - 6183d156022c1b0008685cc6
+                  - 6183d156022c1b0008685cc7
+                  tags:
+                  - rooftop
+      responses:
+        '200':
+          description: Tags removed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleAck'
+              examples:
+                RemoveLocationTags200Example:
+                  summary: Default removeLocationTags 200 response
+                  x-microcks-default: true
+                  value:
+                    status: ok
+                    message: Operation completed successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    LocationCreateRequest:
+      type: object
+      description: Payload to create a new saved location.
+      properties:
+        name:
+          type: string
+          example: Boston HQ Rooftop
+        geometry:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+        tags:
+          type: array
+          items:
+            type: string
+          example:
+          - field-asset
+          - rooftop
+      required:
+      - name
+      - geometry
+    LocationUpdateRequest:
+      type: object
+      description: Payload to update a saved location.
+      properties:
+        name:
+          type: string
+        geometry:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+        tags:
+          type: array
+          items:
+            type: string
+    Location:
+      type: object
+      description: A saved location resource.
+      properties:
+        id:
+          type: string
+          example: 6183d156022c1b0008685cc6
+        name:
+          type: string
+          example: Boston HQ Rooftop
+        geometry:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+        tags:
+          type: array
+          items:
+            type: string
+          example:
+          - field-asset
+          - rooftop
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
+      required:
+      - id
+      - name
+      - geometry
+    GeoJSONGeometry:
+      type: object
+      description: GeoJSON geometry — Point, LineString, or Polygon.
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+          - LineString
+          - Polygon
+          example: Point
+        coordinates:
+          type: array
+          items: {}
+          example:
+          - -71.0466
+          - 42.3478
+      required:
+      - type
+      - coordinates
+    SimpleAck:
+      type: object
+      description: Generic success acknowledgement.
+      properties:
+        status:
+          type: string
+          example: ok
+        message:
+          type: string
+          example: Operation completed successfully.
+    Error:
+      type: object
+      description: Standard Tomorrow.io error envelope.
+      properties:
+        code:
+          type: integer
+          example: 400001
+          description: Internal error code.
+        type:
+          type: string
+          example: Invalid Body Parameters
+          description: Short error type label.
+        message:
+          type: string
+          example: The provided parameters are invalid.
+          description: Human-readable error message.
+      required:
+      - code
+      - type
+      - message
+    LocationTagsRequest:
+      type: object
+      description: Payload for bulk add/remove of tags across locations.
+      properties:
+        locationIds:
+          type: array
+          items:
+            type: string
+          example:
+          - 6183d156022c1b0008685cc6
+          - 6183d156022c1b0008685cc7
+        tags:
+          type: array
+          items:
+            type: string
+          example:
+          - rooftop
+      required:
+      - locationIds
+      - tags
+  responses:
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Malformed request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: apikey
+      description: Tomorrow.io API key passed as `apikey` query parameter. Obtain at https://app.tomorrow.io/development/keys.

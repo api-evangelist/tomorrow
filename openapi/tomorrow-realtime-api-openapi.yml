@@ -1,0 +1,332 @@
+openapi: 3.0.3
+info:
+  title: Tomorrow.io Weather Alerts Realtime API
+  description: Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.
+  version: 4.0.1
+  contact:
+    name: Tomorrow.io Support
+    url: https://www.tomorrow.io/support/
+  license:
+    name: Tomorrow.io Terms of Service
+    url: https://www.tomorrow.io/terms-of-service/
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://api.tomorrow.io/v4
+  description: Tomorrow.io v4 production API
+security:
+- apiKeyQuery: []
+tags:
+- name: Realtime
+  description: Current-conditions snapshot for a single location.
+paths:
+  /weather/realtime:
+    get:
+      operationId: getRealtimeWeather
+      summary: Tomorrow.io Get Realtime Weather
+      description: Returns the current observed weather for a single location.
+      tags:
+      - Realtime
+      parameters:
+      - name: location
+        in: query
+        required: true
+        description: Place name, latlong array as `lat,lng`, GeoJSON, or a saved location ID.
+        schema:
+          type: string
+        example: 42.3478,-71.0466
+      - name: units
+        in: query
+        required: false
+        description: Unit system for returned values.
+        schema:
+          type: string
+          enum:
+          - metric
+          - imperial
+          default: metric
+        example: metric
+      responses:
+        '200':
+          description: Realtime weather snapshot.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimeWeatherResponse'
+              examples:
+                GetRealtimeWeather200Example:
+                  summary: Default getRealtimeWeather 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      time: '2026-05-30T13:00:00Z'
+                      values:
+                        temperature: 21.2
+                        temperatureApparent: 20.4
+                        humidity: 64.0
+                        dewPoint: 13.4
+                        windSpeed: 3.1
+                        windDirection: 220
+                        windGust: 6.2
+                        pressureSeaLevel: 1013.2
+                        pressureSurfaceLevel: 1010.5
+                        precipitationIntensity: 0.0
+                        precipitationProbability: 5
+                        precipitationType: 0
+                        cloudCover: 12
+                        cloudBase: 1.5
+                        cloudCeiling: 2.4
+                        visibility: 16
+                        weatherCode: 1000
+                        uvIndex: 6
+                        uvHealthConcern: 2
+                        epaIndex: 42
+                        epaHealthConcern: 1
+                        epaPrimaryPollutant: 0
+                        particulateMatter25: 8.4
+                        particulateMatter10: 14.1
+                        pollutantO3: 28
+                        pollutantNO2: 11
+                        pollutantCO: 0.4
+                        pollutantSO2: 1
+                        treeIndex: 2
+                        grassIndex: 1
+                        weedIndex: 1
+                        fireIndex: 8.2
+                        solarGHI: 480
+                        solarDIF: 120
+                        solarDIR: 360
+                        moonPhase: 3
+                        hailBinary: 0
+                    location:
+                      lat: 42.3478
+                      lon: -71.0466
+                      name: Cambridge, MA
+                      type: place
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  responses:
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Malformed request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    RealtimeWeatherResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            time:
+              type: string
+              format: date-time
+              example: '2026-05-30T13:00:00Z'
+            values:
+              $ref: '#/components/schemas/WeatherValues'
+        location:
+          type: object
+          properties:
+            lat:
+              type: number
+              format: double
+              example: 42.3478
+            lon:
+              type: number
+              format: double
+              example: -71.0466
+            name:
+              type: string
+              example: Cambridge, MA
+            type:
+              type: string
+              example: place
+    WeatherValues:
+      type: object
+      description: Map of weather data field names to numeric values for one timestep.
+      additionalProperties: true
+      properties:
+        temperature:
+          type: number
+          format: double
+          description: Air temperature (Celsius for metric, Fahrenheit for imperial).
+          example: 21.2
+        temperatureApparent:
+          type: number
+          format: double
+          example: 20.4
+        humidity:
+          type: number
+          format: double
+          example: 64.0
+        dewPoint:
+          type: number
+          format: double
+          example: 13.4
+        windSpeed:
+          type: number
+          format: double
+          example: 3.1
+        windDirection:
+          type: number
+          format: double
+          example: 220
+        windGust:
+          type: number
+          format: double
+          example: 6.2
+        pressureSeaLevel:
+          type: number
+          format: double
+          example: 1013.2
+        pressureSurfaceLevel:
+          type: number
+          format: double
+          example: 1010.5
+        precipitationIntensity:
+          type: number
+          format: double
+          example: 0.0
+        precipitationProbability:
+          type: number
+          format: double
+          example: 5
+        precipitationType:
+          type: integer
+          example: 0
+        cloudCover:
+          type: number
+          format: double
+          example: 12
+        cloudBase:
+          type: number
+          format: double
+          example: 1.5
+        cloudCeiling:
+          type: number
+          format: double
+          example: 2.4
+        visibility:
+          type: number
+          format: double
+          example: 16
+        weatherCode:
+          type: integer
+          example: 1000
+        uvIndex:
+          type: integer
+          example: 6
+        uvHealthConcern:
+          type: integer
+          example: 2
+        epaIndex:
+          type: integer
+          example: 42
+        epaHealthConcern:
+          type: integer
+          example: 1
+        epaPrimaryPollutant:
+          type: integer
+          example: 0
+        particulateMatter25:
+          type: number
+          format: double
+          example: 8.4
+        particulateMatter10:
+          type: number
+          format: double
+          example: 14.1
+        pollutantO3:
+          type: number
+          format: double
+          example: 28
+        pollutantNO2:
+          type: number
+          format: double
+          example: 11
+        pollutantCO:
+          type: number
+          format: double
+          example: 0.4
+        pollutantSO2:
+          type: number
+          format: double
+          example: 1
+        treeIndex:
+          type: integer
+          example: 2
+        grassIndex:
+          type: integer
+          example: 1
+        weedIndex:
+          type: integer
+          example: 1
+        fireIndex:
+          type: number
+          format: double
+          example: 8.2
+        solarGHI:
+          type: number
+          format: double
+          example: 480
+        solarDIF:
+          type: number
+          format: double
+          example: 120
+        solarDIR:
+          type: number
+          format: double
+          example: 360
+        moonPhase:
+          type: integer
+          example: 3
+        hailBinary:
+          type: integer
+          example: 0
+    Error:
+      type: object
+      description: Standard Tomorrow.io error envelope.
+      properties:
+        code:
+          type: integer
+          example: 400001
+          description: Internal error code.
+        type:
+          type: string
+          example: Invalid Body Parameters
+          description: Short error type label.
+        message:
+          type: string
+          example: The provided parameters are invalid.
+          description: Human-readable error message.
+      required:
+      - code
+      - type
+      - message
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: apikey
+      description: Tomorrow.io API key passed as `apikey` query parameter. Obtain at https://app.tomorrow.io/development/keys.

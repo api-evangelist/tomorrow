@@ -1,0 +1,131 @@
+openapi: 3.0.3
+info:
+  title: Tomorrow.io Weather Alerts Map Tiles API
+  description: Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.
+  version: 4.0.1
+  contact:
+    name: Tomorrow.io Support
+    url: https://www.tomorrow.io/support/
+  license:
+    name: Tomorrow.io Terms of Service
+    url: https://www.tomorrow.io/terms-of-service/
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://api.tomorrow.io/v4
+  description: Tomorrow.io v4 production API
+security:
+- apiKeyQuery: []
+tags:
+- name: Map Tiles
+  description: Raster tile endpoint for weather field overlays.
+paths:
+  /map/tile/{zoom}/{x}/{y}/{field}/{timeFormat}:
+    get:
+      operationId: getMapTile
+      summary: Tomorrow.io Get Map Tile
+      description: Returns a raster tile for a weather field at a given time and zoom level.
+      tags:
+      - Map Tiles
+      parameters:
+      - name: zoom
+        in: path
+        required: true
+        description: Web Mercator zoom level (typically 0-12).
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 22
+        example: 6
+      - name: x
+        in: path
+        required: true
+        description: Tile column.
+        schema:
+          type: integer
+        example: 18
+      - name: y
+        in: path
+        required: true
+        description: Tile row.
+        schema:
+          type: integer
+        example: 24
+      - name: field
+        in: path
+        required: true
+        description: Data field name to render (e.g. temperature, precipitationIntensity).
+        schema:
+          type: string
+        example: temperature
+      - name: timeFormat
+        in: path
+        required: true
+        description: ISO 8601 time or relative offset.
+        schema:
+          type: string
+        example: now
+      responses:
+        '200':
+          description: PNG raster tile.
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  responses:
+    BadRequest:
+      description: Malformed request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      description: Standard Tomorrow.io error envelope.
+      properties:
+        code:
+          type: integer
+          example: 400001
+          description: Internal error code.
+        type:
+          type: string
+          example: Invalid Body Parameters
+          description: Short error type label.
+        message:
+          type: string
+          example: The provided parameters are invalid.
+          description: Human-readable error message.
+      required:
+      - code
+      - type
+      - message
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: apikey
+      description: Tomorrow.io API key passed as `apikey` query parameter. Obtain at https://app.tomorrow.io/development/keys.

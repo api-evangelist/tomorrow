@@ -1,0 +1,556 @@
+openapi: 3.0.3
+info:
+  title: Tomorrow.io Weather Alerts Timelines API
+  description: Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.
+  version: 4.0.1
+  contact:
+    name: Tomorrow.io Support
+    url: https://www.tomorrow.io/support/
+  license:
+    name: Tomorrow.io Terms of Service
+    url: https://www.tomorrow.io/terms-of-service/
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://api.tomorrow.io/v4
+  description: Tomorrow.io v4 production API
+security:
+- apiKeyQuery: []
+tags:
+- name: Timelines
+  description: Advanced multi-step (minutely / hourly / daily / current) forecast and historical timelines.
+paths:
+  /timelines:
+    get:
+      operationId: getTimelines
+      summary: Tomorrow.io Get Timelines
+      description: Basic GET form of the Timelines endpoint. Returns one or more timesteps for a single location.
+      tags:
+      - Timelines
+      parameters:
+      - name: location
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Latlong, place name, GeoJSON, or saved location ID.
+        example: 42.3478,-71.0466
+      - name: fields
+        in: query
+        required: true
+        description: Comma-separated list of weather data fields to return.
+        schema:
+          type: array
+          items:
+            type: string
+        example: temperature,humidity,windSpeed
+      - name: startTime
+        in: query
+        required: false
+        schema:
+          type: string
+          default: now
+        example: now
+      - name: endTime
+        in: query
+        required: false
+        schema:
+          type: string
+          default: nowPlus6h
+        example: nowPlus6h
+      - name: timesteps
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - 1m
+            - 5m
+            - 15m
+            - 30m
+            - 1h
+            - 1d
+            - current
+        example: 1h
+      - name: units
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - metric
+          - imperial
+          default: metric
+      - name: timezone
+        in: query
+        required: false
+        schema:
+          type: string
+          default: UTC
+        example: America/New_York
+      responses:
+        '200':
+          description: Timeline response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimelinesResponse'
+              examples:
+                GetTimelines200Example:
+                  summary: Default getTimelines 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      timelines:
+                      - timestep: 1h
+                        startTime: '2026-05-30T13:00:00Z'
+                        endTime: '2026-05-30T13:00:00Z'
+                        intervals:
+                        - startTime: '2026-05-30T13:00:00Z'
+                          values:
+                            temperature: 21.2
+                            temperatureApparent: 20.4
+                            humidity: 64.0
+                            dewPoint: 13.4
+                            windSpeed: 3.1
+                            windDirection: 220
+                            windGust: 6.2
+                            pressureSeaLevel: 1013.2
+                            pressureSurfaceLevel: 1010.5
+                            precipitationIntensity: 0.0
+                            precipitationProbability: 5
+                            precipitationType: 0
+                            cloudCover: 12
+                            cloudBase: 1.5
+                            cloudCeiling: 2.4
+                            visibility: 16
+                            weatherCode: 1000
+                            uvIndex: 6
+                            uvHealthConcern: 2
+                            epaIndex: 42
+                            epaHealthConcern: 1
+                            epaPrimaryPollutant: 0
+                            particulateMatter25: 8.4
+                            particulateMatter10: 14.1
+                            pollutantO3: 28
+                            pollutantNO2: 11
+                            pollutantCO: 0.4
+                            pollutantSO2: 1
+                            treeIndex: 2
+                            grassIndex: 1
+                            weedIndex: 1
+                            fireIndex: 8.2
+                            solarGHI: 480
+                            solarDIF: 120
+                            solarDIR: 360
+                            moonPhase: 3
+                            hailBinary: 0
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: postTimelines
+      summary: Tomorrow.io Post Timelines
+      description: Advanced POST form of Timelines accepting a full JSON body, including GeoJSON geometries.
+      tags:
+      - Timelines
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimelinesRequest'
+            examples:
+              PostTimelinesRequestExample:
+                summary: Default postTimelines request
+                x-microcks-default: true
+                value:
+                  fields:
+                  - temperature
+                  - humidity
+                  - windSpeed
+                  units: metric
+                  timesteps:
+                  - 1h
+                  startTime: now
+                  endTime: nowPlus6h
+                  timezone: America/New_York
+                  dailyStartHour: 1
+      responses:
+        '200':
+          description: Timeline response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimelinesResponse'
+              examples:
+                PostTimelines200Example:
+                  summary: Default postTimelines 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      timelines:
+                      - timestep: 1h
+                        startTime: '2026-05-30T13:00:00Z'
+                        endTime: '2026-05-30T13:00:00Z'
+                        intervals:
+                        - startTime: '2026-05-30T13:00:00Z'
+                          values:
+                            temperature: 21.2
+                            temperatureApparent: 20.4
+                            humidity: 64.0
+                            dewPoint: 13.4
+                            windSpeed: 3.1
+                            windDirection: 220
+                            windGust: 6.2
+                            pressureSeaLevel: 1013.2
+                            pressureSurfaceLevel: 1010.5
+                            precipitationIntensity: 0.0
+                            precipitationProbability: 5
+                            precipitationType: 0
+                            cloudCover: 12
+                            cloudBase: 1.5
+                            cloudCeiling: 2.4
+                            visibility: 16
+                            weatherCode: 1000
+                            uvIndex: 6
+                            uvHealthConcern: 2
+                            epaIndex: 42
+                            epaHealthConcern: 1
+                            epaPrimaryPollutant: 0
+                            particulateMatter25: 8.4
+                            particulateMatter10: 14.1
+                            pollutantO3: 28
+                            pollutantNO2: 11
+                            pollutantCO: 0.4
+                            pollutantSO2: 1
+                            treeIndex: 2
+                            grassIndex: 1
+                            weedIndex: 1
+                            fireIndex: 8.2
+                            solarGHI: 480
+                            solarDIF: 120
+                            solarDIR: 360
+                            moonPhase: 3
+                            hailBinary: 0
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    TimelinesResponse:
+      type: object
+      description: Tomorrow.io Timelines response envelope.
+      properties:
+        data:
+          type: object
+          properties:
+            timelines:
+              type: array
+              items:
+                $ref: '#/components/schemas/Timeline'
+    GeoJSONGeometry:
+      type: object
+      description: GeoJSON geometry — Point, LineString, or Polygon.
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+          - LineString
+          - Polygon
+          example: Point
+        coordinates:
+          type: array
+          items: {}
+          example:
+          - -71.0466
+          - 42.3478
+      required:
+      - type
+      - coordinates
+    Timeline:
+      type: object
+      description: One timeline at a specific resolution.
+      properties:
+        timestep:
+          type: string
+          example: 1h
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimelineInterval'
+    WeatherValues:
+      type: object
+      description: Map of weather data field names to numeric values for one timestep.
+      additionalProperties: true
+      properties:
+        temperature:
+          type: number
+          format: double
+          description: Air temperature (Celsius for metric, Fahrenheit for imperial).
+          example: 21.2
+        temperatureApparent:
+          type: number
+          format: double
+          example: 20.4
+        humidity:
+          type: number
+          format: double
+          example: 64.0
+        dewPoint:
+          type: number
+          format: double
+          example: 13.4
+        windSpeed:
+          type: number
+          format: double
+          example: 3.1
+        windDirection:
+          type: number
+          format: double
+          example: 220
+        windGust:
+          type: number
+          format: double
+          example: 6.2
+        pressureSeaLevel:
+          type: number
+          format: double
+          example: 1013.2
+        pressureSurfaceLevel:
+          type: number
+          format: double
+          example: 1010.5
+        precipitationIntensity:
+          type: number
+          format: double
+          example: 0.0
+        precipitationProbability:
+          type: number
+          format: double
+          example: 5
+        precipitationType:
+          type: integer
+          example: 0
+        cloudCover:
+          type: number
+          format: double
+          example: 12
+        cloudBase:
+          type: number
+          format: double
+          example: 1.5
+        cloudCeiling:
+          type: number
+          format: double
+          example: 2.4
+        visibility:
+          type: number
+          format: double
+          example: 16
+        weatherCode:
+          type: integer
+          example: 1000
+        uvIndex:
+          type: integer
+          example: 6
+        uvHealthConcern:
+          type: integer
+          example: 2
+        epaIndex:
+          type: integer
+          example: 42
+        epaHealthConcern:
+          type: integer
+          example: 1
+        epaPrimaryPollutant:
+          type: integer
+          example: 0
+        particulateMatter25:
+          type: number
+          format: double
+          example: 8.4
+        particulateMatter10:
+          type: number
+          format: double
+          example: 14.1
+        pollutantO3:
+          type: number
+          format: double
+          example: 28
+        pollutantNO2:
+          type: number
+          format: double
+          example: 11
+        pollutantCO:
+          type: number
+          format: double
+          example: 0.4
+        pollutantSO2:
+          type: number
+          format: double
+          example: 1
+        treeIndex:
+          type: integer
+          example: 2
+        grassIndex:
+          type: integer
+          example: 1
+        weedIndex:
+          type: integer
+          example: 1
+        fireIndex:
+          type: number
+          format: double
+          example: 8.2
+        solarGHI:
+          type: number
+          format: double
+          example: 480
+        solarDIF:
+          type: number
+          format: double
+          example: 120
+        solarDIR:
+          type: number
+          format: double
+          example: 360
+        moonPhase:
+          type: integer
+          example: 3
+        hailBinary:
+          type: integer
+          example: 0
+    TimelineInterval:
+      type: object
+      description: A single timestep entry in a timeline.
+      properties:
+        startTime:
+          type: string
+          format: date-time
+          example: '2026-05-30T13:00:00Z'
+        values:
+          $ref: '#/components/schemas/WeatherValues'
+    TimelinesRequest:
+      type: object
+      description: Advanced Timelines request body.
+      properties:
+        location:
+          oneOf:
+          - type: string
+            description: Pre-defined location ID, place name, or latlong string.
+            example: 42.3478,-71.0466
+          - $ref: '#/components/schemas/GeoJSONGeometry'
+        fields:
+          type: array
+          items:
+            type: string
+          example:
+          - temperature
+          - humidity
+          - windSpeed
+        units:
+          type: string
+          enum:
+          - metric
+          - imperial
+          default: metric
+        timesteps:
+          type: array
+          items:
+            type: string
+            enum:
+            - 1m
+            - 5m
+            - 15m
+            - 30m
+            - 1h
+            - 1d
+            - current
+          example:
+          - 1h
+        startTime:
+          type: string
+          example: now
+          description: Accepts `now`, relative `nowPlus/MinusXm/h/d`, or ISO 8601.
+        endTime:
+          type: string
+          example: nowPlus6h
+        timezone:
+          type: string
+          default: UTC
+          example: America/New_York
+        dailyStartHour:
+          type: integer
+          minimum: 0
+          maximum: 23
+          default: 6
+      required:
+      - location
+      - fields
+    Error:
+      type: object
+      description: Standard Tomorrow.io error envelope.
+      properties:
+        code:
+          type: integer
+          example: 400001
+          description: Internal error code.
+        type:
+          type: string
+          example: Invalid Body Parameters
+          description: Short error type label.
+        message:
+          type: string
+          example: The provided parameters are invalid.
+          description: Human-readable error message.
+      required:
+      - code
+      - type
+      - message
+  responses:
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Malformed request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: apikey
+      description: Tomorrow.io API key passed as `apikey` query parameter. Obtain at https://app.tomorrow.io/development/keys.

@@ -1,0 +1,254 @@
+openapi: 3.0.3
+info:
+  title: Tomorrow.io Weather Alerts Events API
+  description: Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.
+  version: 4.0.1
+  contact:
+    name: Tomorrow.io Support
+    url: https://www.tomorrow.io/support/
+  license:
+    name: Tomorrow.io Terms of Service
+    url: https://www.tomorrow.io/terms-of-service/
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://api.tomorrow.io/v4
+  description: Tomorrow.io v4 production API
+security:
+- apiKeyQuery: []
+tags:
+- name: Events
+  description: Query events matching insights at a location or buffered geometry.
+paths:
+  /events:
+    get:
+      operationId: getEvents
+      summary: Tomorrow.io Get Events
+      description: Returns events matching the supplied insights at a location, optionally with a kilometer-radius buffer.
+      tags:
+      - Events
+      parameters:
+      - name: location
+        in: query
+        required: true
+        schema:
+          type: string
+        example: 42.3478,-71.0466
+      - name: insights
+        in: query
+        required: true
+        description: Comma-separated insight IDs or pre-defined category names.
+        schema:
+          type: array
+          items:
+            type: string
+        example: hail,thunderstorm
+      - name: buffer
+        in: query
+        required: false
+        description: Radius around the location in kilometers.
+        schema:
+          type: number
+          format: float
+          default: 1
+        example: 1.0
+      responses:
+        '200':
+          description: Events response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventsResponse'
+              examples:
+                GetEvents200Example:
+                  summary: Default getEvents 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      events:
+                      - insightId: 6183d156022c1b00086860a1
+                        startTime: '2026-05-30T15:00:00Z'
+                        endTime: '2026-05-30T17:00:00Z'
+                        severity: high
+                        location:
+                          type: Point
+                          coordinates:
+                          - -71.0466
+                          - 42.3478
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: postEvents
+      summary: Tomorrow.io Post Events
+      description: Advanced POST variant of the Events endpoint accepting a full JSON body with GeoJSON geometries.
+      tags:
+      - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventsRequest'
+            examples:
+              PostEventsRequestExample:
+                summary: Default postEvents request
+                x-microcks-default: true
+                value:
+                  insights:
+                  - hail
+                  - thunderstorm
+                  buffer: 1.0
+      responses:
+        '200':
+          description: Events response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventsResponse'
+              examples:
+                PostEvents200Example:
+                  summary: Default postEvents 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      events:
+                      - insightId: 6183d156022c1b00086860a1
+                        startTime: '2026-05-30T15:00:00Z'
+                        endTime: '2026-05-30T17:00:00Z'
+                        severity: high
+                        location:
+                          type: Point
+                          coordinates:
+                          - -71.0466
+                          - 42.3478
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    EventsRequest:
+      type: object
+      description: Advanced Events request body.
+      properties:
+        location:
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/GeoJSONGeometry'
+        insights:
+          type: array
+          items:
+            type: string
+          example:
+          - hail
+          - thunderstorm
+        buffer:
+          type: number
+          format: float
+          default: 1
+          description: Radius around the location in km.
+      required:
+      - location
+      - insights
+    EventsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            events:
+              type: array
+              items:
+                $ref: '#/components/schemas/Event'
+    GeoJSONGeometry:
+      type: object
+      description: GeoJSON geometry — Point, LineString, or Polygon.
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+          - LineString
+          - Polygon
+          example: Point
+        coordinates:
+          type: array
+          items: {}
+          example:
+          - -71.0466
+          - 42.3478
+      required:
+      - type
+      - coordinates
+    Error:
+      type: object
+      description: Standard Tomorrow.io error envelope.
+      properties:
+        code:
+          type: integer
+          example: 400001
+          description: Internal error code.
+        type:
+          type: string
+          example: Invalid Body Parameters
+          description: Short error type label.
+        message:
+          type: string
+          example: The provided parameters are invalid.
+          description: Human-readable error message.
+      required:
+      - code
+      - type
+      - message
+    Event:
+      type: object
+      description: A single insight match.
+      properties:
+        insightId:
+          type: string
+          example: 6183d156022c1b00086860a1
+        startTime:
+          type: string
+          format: date-time
+          example: '2026-05-30T15:00:00Z'
+        endTime:
+          type: string
+          format: date-time
+          example: '2026-05-30T17:00:00Z'
+        severity:
+          type: string
+          enum:
+          - low
+          - medium
+          - high
+          - critical
+          example: high
+        location:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+  responses:
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Malformed request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: apikey
+      description: Tomorrow.io API key passed as `apikey` query parameter. Obtain at https://app.tomorrow.io/development/keys.

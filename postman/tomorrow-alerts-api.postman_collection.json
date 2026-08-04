@@ -1,0 +1,1355 @@
+{
+  "info": {
+    "_postman_id": "afb084f8-d312-4038-a507-f0fd7bec33b8",
+    "name": "Tomorrow.io Weather Alerts API",
+    "description": "Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.\n\nContact Support:\n Name: Tomorrow.io Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:17:10.000Z",
+    "updatedAt": "2026-07-28T03:17:11.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-afb084f8-d312-4038-a507-f0fd7bec33b8"
+  },
+  "item": [
+    {
+      "name": "alerts",
+      "item": [
+        {
+          "name": "{alertId}",
+          "item": [
+            {
+              "name": "locations",
+              "item": [
+                {
+                  "name": "link",
+                  "item": [
+                    {
+                      "name": "Tomorrow.io Link Alert Locations",
+                      "id": "ea82a65d-dc7c-4f16-adb9-b856b47d39da",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"locationIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/alerts/:alertId/locations/link",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "alerts",
+                            ":alertId",
+                            "locations",
+                            "link"
+                          ],
+                          "variable": [
+                            {
+                              "id": "cacb90a2-56e5-4362-a023-d330947a6e71",
+                              "key": "alertId",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Links one or more locations to the alert."
+                      },
+                      "response": [
+                        {
+                          "id": "bd86480d-a899-4fc8-a4f5-aa1dbd85ca0c",
+                          "name": "Locations linked.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"locationIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/alerts/:alertId/locations/link?apikey=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "alerts",
+                                ":alertId",
+                                "locations",
+                                "link"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "apikey",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "alertId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:17:11.000Z",
+                          "updatedAt": "2026-07-28T03:17:11.000Z",
+                          "uid": "35240-bd86480d-a899-4fc8-a4f5-aa1dbd85ca0c"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:17:11.000Z",
+                      "updatedAt": "2026-07-28T03:17:11.000Z",
+                      "uid": "35240-ea82a65d-dc7c-4f16-adb9-b856b47d39da"
+                    }
+                  ],
+                  "id": "7df06e81-4e4a-4994-a2ad-23fc165d9deb",
+                  "createdAt": "2026-07-28T03:17:11.000Z",
+                  "updatedAt": "2026-07-28T03:17:11.000Z",
+                  "uid": "35240-7df06e81-4e4a-4994-a2ad-23fc165d9deb"
+                },
+                {
+                  "name": "unlink",
+                  "item": [
+                    {
+                      "name": "Tomorrow.io Unlink Alert Locations",
+                      "id": "3b1330ed-6efd-47f8-9828-f227128e7d9b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"locationIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/alerts/:alertId/locations/unlink",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "alerts",
+                            ":alertId",
+                            "locations",
+                            "unlink"
+                          ],
+                          "variable": [
+                            {
+                              "id": "fb23c5f7-c69e-4409-9f2c-cb5fb5f49866",
+                              "key": "alertId",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Unlinks one or more locations from the alert."
+                      },
+                      "response": [
+                        {
+                          "id": "dab6cd3e-359e-4b60-b09e-53b2ffb55d17",
+                          "name": "Locations unlinked.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"locationIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/alerts/:alertId/locations/unlink?apikey=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "alerts",
+                                ":alertId",
+                                "locations",
+                                "unlink"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "apikey",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "alertId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:17:11.000Z",
+                          "updatedAt": "2026-07-28T03:17:11.000Z",
+                          "uid": "35240-dab6cd3e-359e-4b60-b09e-53b2ffb55d17"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:17:11.000Z",
+                      "updatedAt": "2026-07-28T03:17:11.000Z",
+                      "uid": "35240-3b1330ed-6efd-47f8-9828-f227128e7d9b"
+                    }
+                  ],
+                  "id": "0f300e3b-f7f2-4152-94b5-8f7f9d66ffc6",
+                  "createdAt": "2026-07-28T03:17:11.000Z",
+                  "updatedAt": "2026-07-28T03:17:11.000Z",
+                  "uid": "35240-0f300e3b-f7f2-4152-94b5-8f7f9d66ffc6"
+                },
+                {
+                  "name": "Tomorrow.io List Alert Locations",
+                  "id": "b50249a7-fbf8-45a2-a1ea-5b2402e68d65",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/alerts/:alertId/locations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "alerts",
+                        ":alertId",
+                        "locations"
+                      ],
+                      "variable": [
+                        {
+                          "id": "b3cd9c77-0c22-4f9d-b3f6-e26d7d4fdccb",
+                          "key": "alertId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Lists locations linked to an alert."
+                  },
+                  "response": [
+                    {
+                      "id": "a819415f-78e8-492a-82c3-6fa4de8dc6ee",
+                      "name": "Locations linked to the alert.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/alerts/:alertId/locations?apikey=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "alerts",
+                            ":alertId",
+                            "locations"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "apikey",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "alertId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"geometry\": {\n      \"type\": \"Point\"\n    },\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"createdAt\": \"<dateTime>\",\n    \"updatedAt\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"geometry\": {\n      \"type\": \"Polygon\"\n    },\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"createdAt\": \"<dateTime>\",\n    \"updatedAt\": \"<dateTime>\"\n  }\n]",
+                      "createdAt": "2026-07-28T03:17:11.000Z",
+                      "updatedAt": "2026-07-28T03:17:11.000Z",
+                      "uid": "35240-a819415f-78e8-492a-82c3-6fa4de8dc6ee"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:17:11.000Z",
+                  "updatedAt": "2026-07-28T03:17:11.000Z",
+                  "uid": "35240-b50249a7-fbf8-45a2-a1ea-5b2402e68d65"
+                }
+              ],
+              "id": "2d719fc4-7c40-4751-8133-f74f129cb676",
+              "createdAt": "2026-07-28T03:17:11.000Z",
+              "updatedAt": "2026-07-28T03:17:11.000Z",
+              "uid": "35240-2d719fc4-7c40-4751-8133-f74f129cb676"
+            },
+            {
+              "name": "activate",
+              "item": [
+                {
+                  "name": "Tomorrow.io Activate Alert",
+                  "id": "ffebd647-a92b-495d-bb1a-2164c897f611",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/alerts/:alertId/activate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "alerts",
+                        ":alertId",
+                        "activate"
+                      ],
+                      "variable": [
+                        {
+                          "id": "984ac233-06cd-445d-a127-293933862891",
+                          "key": "alertId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Marks an alert as active so its insights begin firing on linked locations."
+                  },
+                  "response": [
+                    {
+                      "id": "91769028-c7b3-466d-b573-3eaa9309591f",
+                      "name": "Alert activated.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/alerts/:alertId/activate?apikey=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "alerts",
+                            ":alertId",
+                            "activate"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "apikey",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "alertId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:17:11.000Z",
+                      "updatedAt": "2026-07-28T03:17:11.000Z",
+                      "uid": "35240-91769028-c7b3-466d-b573-3eaa9309591f"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:17:11.000Z",
+                  "updatedAt": "2026-07-28T03:17:11.000Z",
+                  "uid": "35240-ffebd647-a92b-495d-bb1a-2164c897f611"
+                }
+              ],
+              "id": "bedfa98e-bdc8-442e-a8d1-28875ebe82a7",
+              "createdAt": "2026-07-28T03:17:11.000Z",
+              "updatedAt": "2026-07-28T03:17:11.000Z",
+              "uid": "35240-bedfa98e-bdc8-442e-a8d1-28875ebe82a7"
+            },
+            {
+              "name": "deactivate",
+              "item": [
+                {
+                  "name": "Tomorrow.io Deactivate Alert",
+                  "id": "6ac4842b-d2a2-47e6-a7b6-68f240bf3177",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/alerts/:alertId/deactivate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "alerts",
+                        ":alertId",
+                        "deactivate"
+                      ],
+                      "variable": [
+                        {
+                          "id": "9912da62-d058-408c-8e17-7273eafd03ab",
+                          "key": "alertId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Marks an alert as inactive so its insights stop firing."
+                  },
+                  "response": [
+                    {
+                      "id": "4e4a26ab-f989-48eb-a29b-39fb80ef56b4",
+                      "name": "Alert deactivated.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/alerts/:alertId/deactivate?apikey=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "alerts",
+                            ":alertId",
+                            "deactivate"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "apikey",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "alertId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:17:11.000Z",
+                      "updatedAt": "2026-07-28T03:17:11.000Z",
+                      "uid": "35240-4e4a26ab-f989-48eb-a29b-39fb80ef56b4"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:17:11.000Z",
+                  "updatedAt": "2026-07-28T03:17:11.000Z",
+                  "uid": "35240-6ac4842b-d2a2-47e6-a7b6-68f240bf3177"
+                }
+              ],
+              "id": "495f36d8-2404-4a39-bc60-b38e4fc80430",
+              "createdAt": "2026-07-28T03:17:11.000Z",
+              "updatedAt": "2026-07-28T03:17:11.000Z",
+              "uid": "35240-495f36d8-2404-4a39-bc60-b38e4fc80430"
+            },
+            {
+              "name": "Tomorrow.io Get Alert",
+              "id": "6b1d5e87-6ad9-4ea2-b269-223dc104c707",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/alerts/:alertId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "alerts",
+                    ":alertId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "6a421be1-33db-466e-8de9-a17b232350f3",
+                      "key": "alertId",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "Retrieves a single alert by ID."
+              },
+              "response": [
+                {
+                  "id": "1b0e0a92-17b3-4ae5-9733-583b48c4550b",
+                  "name": "Alert detail.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/alerts/:alertId?apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "alerts",
+                        ":alertId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "alertId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"insightIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"notifications\": [\n    {\n      \"type\": \"webhook\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"webhook\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"active\": \"<boolean>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T03:17:11.000Z",
+                  "updatedAt": "2026-07-28T03:17:11.000Z",
+                  "uid": "35240-1b0e0a92-17b3-4ae5-9733-583b48c4550b"
+                },
+                {
+                  "id": "076f2186-5343-4e1a-a84c-760ee8751aae",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/alerts/:alertId?apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "alerts",
+                        ":alertId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "alertId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:17:11.000Z",
+                  "updatedAt": "2026-07-28T03:17:11.000Z",
+                  "uid": "35240-076f2186-5343-4e1a-a84c-760ee8751aae"
+                }
+              ],
+              "createdAt": "2026-07-28T03:17:11.000Z",
+              "updatedAt": "2026-07-28T03:17:11.000Z",
+              "uid": "35240-6b1d5e87-6ad9-4ea2-b269-223dc104c707"
+            },
+            {
+              "name": "Tomorrow.io Update Alert",
+              "id": "a5314e45-2841-4eac-9f30-6ba1b130bf59",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"insightIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"locationIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notifications\": [\n    {\n      \"type\": \"webhook\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"webhook\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/alerts/:alertId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "alerts",
+                    ":alertId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "d2e08568-5f8a-4a98-89bd-6c7bfd7d05a8",
+                      "key": "alertId",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "Updates an existing alert."
+              },
+              "response": [
+                {
+                  "id": "6bc035d9-1f7f-4b52-9791-648754b7d52f",
+                  "name": "Updated alert.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"insightIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"locationIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notifications\": [\n    {\n      \"type\": \"webhook\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"webhook\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"active\": true\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/alerts/:alertId?apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "alerts",
+                        ":alertId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "alertId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"insightIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"notifications\": [\n    {\n      \"type\": \"webhook\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"webhook\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"active\": \"<boolean>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T03:17:11.000Z",
+                  "updatedAt": "2026-07-28T03:17:11.000Z",
+                  "uid": "35240-6bc035d9-1f7f-4b52-9791-648754b7d52f"
+                },
+                {
+                  "id": "0d27b3b7-958b-4ca0-be18-20db6abcd092",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"insightIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"locationIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notifications\": [\n    {\n      \"type\": \"webhook\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"webhook\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"active\": true\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/alerts/:alertId?apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "alerts",
+                        ":alertId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "alertId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:17:11.000Z",
+                  "updatedAt": "2026-07-28T03:17:11.000Z",
+                  "uid": "35240-0d27b3b7-958b-4ca0-be18-20db6abcd092"
+                }
+              ],
+              "createdAt": "2026-07-28T03:17:11.000Z",
+              "updatedAt": "2026-07-28T03:17:11.000Z",
+              "uid": "35240-a5314e45-2841-4eac-9f30-6ba1b130bf59"
+            },
+            {
+              "name": "Tomorrow.io Delete Alert",
+              "id": "1ea12c4d-b855-473f-9f29-6b79f0a44440",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/alerts/:alertId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "alerts",
+                    ":alertId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "9fec2281-b404-4e04-a73b-dd975e6158c7",
+                      "key": "alertId",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "Deletes an alert by ID."
+              },
+              "response": [
+                {
+                  "id": "598fd627-5db6-40e3-bce1-4f554a1f54e6",
+                  "name": "Alert deleted.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/alerts/:alertId?apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "alerts",
+                        ":alertId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "alertId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T03:17:11.000Z",
+                  "updatedAt": "2026-07-28T03:17:11.000Z",
+                  "uid": "35240-598fd627-5db6-40e3-bce1-4f554a1f54e6"
+                },
+                {
+                  "id": "ec769e32-c17f-4e1a-8bda-69d6d720162c",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/alerts/:alertId?apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "alerts",
+                        ":alertId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "alertId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:17:11.000Z",
+                  "updatedAt": "2026-07-28T03:17:11.000Z",
+                  "uid": "35240-ec769e32-c17f-4e1a-8bda-69d6d720162c"
+                }
+              ],
+              "createdAt": "2026-07-28T03:17:11.000Z",
+              "updatedAt": "2026-07-28T03:17:11.000Z",
+              "uid": "35240-1ea12c4d-b855-473f-9f29-6b79f0a44440"
+            }
+          ],
+          "id": "b5d83a1e-2e21-4ef2-b160-5ff70a43071a",
+          "createdAt": "2026-07-28T03:17:11.000Z",
+          "updatedAt": "2026-07-28T03:17:11.000Z",
+          "uid": "35240-b5d83a1e-2e21-4ef2-b160-5ff70a43071a"
+        },
+        {
+          "name": "Tomorrow.io List Alerts",
+          "id": "abfef1d2-cbf2-4a2c-8273-18d75c1c6bca",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/alerts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "alerts"
+              ]
+            },
+            "description": "Lists alerts configured for the authenticated account."
+          },
+          "response": [
+            {
+              "id": "d776dcc4-675f-4620-a4b8-a8ff90ffb93a",
+              "name": "Alerts list.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/alerts?apikey=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "alerts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"insightIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"description\": \"<string>\",\n    \"notifications\": [\n      {\n        \"type\": \"webhook\",\n        \"url\": \"<uri>\"\n      },\n      {\n        \"type\": \"webhook\",\n        \"url\": \"<uri>\"\n      }\n    ],\n    \"active\": \"<boolean>\",\n    \"createdAt\": \"<dateTime>\",\n    \"updatedAt\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"insightIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"description\": \"<string>\",\n    \"notifications\": [\n      {\n        \"type\": \"webhook\",\n        \"url\": \"<uri>\"\n      },\n      {\n        \"type\": \"webhook\",\n        \"url\": \"<uri>\"\n      }\n    ],\n    \"active\": \"<boolean>\",\n    \"createdAt\": \"<dateTime>\",\n    \"updatedAt\": \"<dateTime>\"\n  }\n]",
+              "createdAt": "2026-07-28T03:17:11.000Z",
+              "updatedAt": "2026-07-28T03:17:11.000Z",
+              "uid": "35240-d776dcc4-675f-4620-a4b8-a8ff90ffb93a"
+            },
+            {
+              "id": "9ea59b74-66e7-4795-bdd3-d70751cdbe6a",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/alerts?apikey=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "alerts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:17:11.000Z",
+              "updatedAt": "2026-07-28T03:17:11.000Z",
+              "uid": "35240-9ea59b74-66e7-4795-bdd3-d70751cdbe6a"
+            }
+          ],
+          "createdAt": "2026-07-28T03:17:11.000Z",
+          "updatedAt": "2026-07-28T03:17:11.000Z",
+          "uid": "35240-abfef1d2-cbf2-4a2c-8273-18d75c1c6bca"
+        },
+        {
+          "name": "Tomorrow.io Create Alert",
+          "id": "1e20b634-4046-4390-a1a9-c2c017f58aa0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"insightIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"locationIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notifications\": [\n    {\n      \"type\": \"webhook\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"webhook\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"active\": true\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/alerts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "alerts"
+              ]
+            },
+            "description": "Creates an alert that links one or more insights to one or more locations and pushes activations to a webhook URL."
+          },
+          "response": [
+            {
+              "id": "ac28b92a-8c47-4c2d-acaa-122967098869",
+              "name": "Alert created.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"insightIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"locationIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notifications\": [\n    {\n      \"type\": \"webhook\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"webhook\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/alerts?apikey=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "alerts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"insightIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"notifications\": [\n    {\n      \"type\": \"webhook\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"webhook\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"active\": \"<boolean>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+              "createdAt": "2026-07-28T03:17:11.000Z",
+              "updatedAt": "2026-07-28T03:17:11.000Z",
+              "uid": "35240-ac28b92a-8c47-4c2d-acaa-122967098869"
+            },
+            {
+              "id": "9cd5e57b-a88f-4541-849d-466c1d7f74bb",
+              "name": "Malformed request.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"insightIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"locationIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notifications\": [\n    {\n      \"type\": \"webhook\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"type\": \"webhook\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/alerts?apikey=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "alerts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:17:11.000Z",
+              "updatedAt": "2026-07-28T03:17:11.000Z",
+              "uid": "35240-9cd5e57b-a88f-4541-849d-466c1d7f74bb"
+            }
+          ],
+          "createdAt": "2026-07-28T03:17:11.000Z",
+          "updatedAt": "2026-07-28T03:17:11.000Z",
+          "uid": "35240-1e20b634-4046-4390-a1a9-c2c017f58aa0"
+        }
+      ],
+      "id": "bbf4ff08-70b8-46de-909e-a069afdb4d49",
+      "createdAt": "2026-07-28T03:17:11.000Z",
+      "updatedAt": "2026-07-28T03:17:11.000Z",
+      "uid": "35240-bbf4ff08-70b8-46de-909e-a069afdb4d49"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.tomorrow.io/v4"
+    }
+  ]
+}

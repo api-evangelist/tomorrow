@@ -1,0 +1,340 @@
+{
+  "info": {
+    "_postman_id": "0b019f30-da47-4a40-91a1-3ba8c3eb1375",
+    "name": "Tomorrow.io Weather Alerts Climate API",
+    "description": "Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.\n\nContact Support:\n Name: Tomorrow.io Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:17:16.000Z",
+    "updatedAt": "2026-07-28T03:17:16.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-0b019f30-da47-4a40-91a1-3ba8c3eb1375"
+  },
+  "item": [
+    {
+      "name": "historical",
+      "item": [
+        {
+          "name": "normals",
+          "item": [
+            {
+              "name": "Tomorrow.io Post Climate Normals",
+              "id": "a428458d-fc77-4a80-9200-2c68ff12da55",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"location\": \"<string>\",\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"units\": \"metric\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/historical/normals",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "historical",
+                    "normals"
+                  ]
+                },
+                "description": "Returns 30-year monthly climate normals for a location."
+              },
+              "response": [
+                {
+                  "id": "8a9408f5-d072-4697-b017-301c8a567bf9",
+                  "name": "Climate normals response.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"location\": \"<string>\",\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"units\": \"metric\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/historical/normals?apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "historical",
+                        "normals"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"normals\": [\n      {\n        \"month\": \"<integer>\",\n        \"values\": {\n          \"temperature\": \"<double>\",\n          \"temperatureApparent\": \"<double>\",\n          \"humidity\": \"<double>\",\n          \"dewPoint\": \"<double>\",\n          \"windSpeed\": \"<double>\",\n          \"windDirection\": \"<double>\",\n          \"windGust\": \"<double>\",\n          \"pressureSeaLevel\": \"<double>\",\n          \"pressureSurfaceLevel\": \"<double>\",\n          \"precipitationIntensity\": \"<double>\",\n          \"precipitationProbability\": \"<double>\",\n          \"precipitationType\": \"<integer>\",\n          \"cloudCover\": \"<double>\",\n          \"cloudBase\": \"<double>\",\n          \"cloudCeiling\": \"<double>\",\n          \"visibility\": \"<double>\",\n          \"weatherCode\": \"<integer>\",\n          \"uvIndex\": \"<integer>\",\n          \"uvHealthConcern\": \"<integer>\",\n          \"epaIndex\": \"<integer>\",\n          \"epaHealthConcern\": \"<integer>\",\n          \"epaPrimaryPollutant\": \"<integer>\",\n          \"particulateMatter25\": \"<double>\",\n          \"particulateMatter10\": \"<double>\",\n          \"pollutantO3\": \"<double>\",\n          \"pollutantNO2\": \"<double>\",\n          \"pollutantCO\": \"<double>\",\n          \"pollutantSO2\": \"<double>\",\n          \"treeIndex\": \"<integer>\",\n          \"grassIndex\": \"<integer>\",\n          \"weedIndex\": \"<integer>\",\n          \"fireIndex\": \"<double>\",\n          \"solarGHI\": \"<double>\",\n          \"solarDIF\": \"<double>\",\n          \"solarDIR\": \"<double>\",\n          \"moonPhase\": \"<integer>\",\n          \"hailBinary\": \"<integer>\"\n        }\n      },\n      {\n        \"month\": \"<integer>\",\n        \"values\": {\n          \"temperature\": \"<double>\",\n          \"temperatureApparent\": \"<double>\",\n          \"humidity\": \"<double>\",\n          \"dewPoint\": \"<double>\",\n          \"windSpeed\": \"<double>\",\n          \"windDirection\": \"<double>\",\n          \"windGust\": \"<double>\",\n          \"pressureSeaLevel\": \"<double>\",\n          \"pressureSurfaceLevel\": \"<double>\",\n          \"precipitationIntensity\": \"<double>\",\n          \"precipitationProbability\": \"<double>\",\n          \"precipitationType\": \"<integer>\",\n          \"cloudCover\": \"<double>\",\n          \"cloudBase\": \"<double>\",\n          \"cloudCeiling\": \"<double>\",\n          \"visibility\": \"<double>\",\n          \"weatherCode\": \"<integer>\",\n          \"uvIndex\": \"<integer>\",\n          \"uvHealthConcern\": \"<integer>\",\n          \"epaIndex\": \"<integer>\",\n          \"epaHealthConcern\": \"<integer>\",\n          \"epaPrimaryPollutant\": \"<integer>\",\n          \"particulateMatter25\": \"<double>\",\n          \"particulateMatter10\": \"<double>\",\n          \"pollutantO3\": \"<double>\",\n          \"pollutantNO2\": \"<double>\",\n          \"pollutantCO\": \"<double>\",\n          \"pollutantSO2\": \"<double>\",\n          \"treeIndex\": \"<integer>\",\n          \"grassIndex\": \"<integer>\",\n          \"weedIndex\": \"<integer>\",\n          \"fireIndex\": \"<double>\",\n          \"solarGHI\": \"<double>\",\n          \"solarDIF\": \"<double>\",\n          \"solarDIR\": \"<double>\",\n          \"moonPhase\": \"<integer>\",\n          \"hailBinary\": \"<integer>\"\n        }\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T03:17:16.000Z",
+                  "updatedAt": "2026-07-28T03:17:16.000Z",
+                  "uid": "35240-8a9408f5-d072-4697-b017-301c8a567bf9"
+                },
+                {
+                  "id": "dc0a2a29-18d2-4dd1-abb2-5c5a096c21aa",
+                  "name": "Malformed request.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"location\": \"<string>\",\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"units\": \"metric\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/historical/normals?apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "historical",
+                        "normals"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:17:16.000Z",
+                  "updatedAt": "2026-07-28T03:17:16.000Z",
+                  "uid": "35240-dc0a2a29-18d2-4dd1-abb2-5c5a096c21aa"
+                },
+                {
+                  "id": "533063a8-9671-4a87-9a2e-679d2202cdad",
+                  "name": "Missing or invalid API key.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"location\": \"<string>\",\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"units\": \"metric\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/historical/normals?apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "historical",
+                        "normals"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:17:16.000Z",
+                  "updatedAt": "2026-07-28T03:17:16.000Z",
+                  "uid": "35240-533063a8-9671-4a87-9a2e-679d2202cdad"
+                },
+                {
+                  "id": "8ed6af9a-a498-4c0f-8e71-60ed91801756",
+                  "name": "Rate limit exceeded.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"location\": \"<string>\",\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"units\": \"metric\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/historical/normals?apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "historical",
+                        "normals"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:17:16.000Z",
+                  "updatedAt": "2026-07-28T03:17:16.000Z",
+                  "uid": "35240-8ed6af9a-a498-4c0f-8e71-60ed91801756"
+                }
+              ],
+              "createdAt": "2026-07-28T03:17:16.000Z",
+              "updatedAt": "2026-07-28T03:17:16.000Z",
+              "uid": "35240-a428458d-fc77-4a80-9200-2c68ff12da55"
+            }
+          ],
+          "id": "d7fb2194-8a90-4f57-9606-6a68aed40698",
+          "createdAt": "2026-07-28T03:17:16.000Z",
+          "updatedAt": "2026-07-28T03:17:16.000Z",
+          "uid": "35240-d7fb2194-8a90-4f57-9606-6a68aed40698"
+        }
+      ],
+      "id": "6212b4c5-9a15-43d0-8f73-ec1297a6dda4",
+      "createdAt": "2026-07-28T03:17:16.000Z",
+      "updatedAt": "2026-07-28T03:17:16.000Z",
+      "uid": "35240-6212b4c5-9a15-43d0-8f73-ec1297a6dda4"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.tomorrow.io/v4"
+    }
+  ]
+}

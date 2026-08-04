@@ -1,0 +1,1178 @@
+{
+  "info": {
+    "_postman_id": "2b1eb1c8-2bcd-432f-b4c2-93791a06a33a",
+    "name": "Tomorrow.io Weather Alerts Insights API",
+    "description": "Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.\n\nContact Support:\n Name: Tomorrow.io Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:17:33.000Z",
+    "updatedAt": "2026-07-28T03:17:33.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2b1eb1c8-2bcd-432f-b4c2-93791a06a33a"
+  },
+  "item": [
+    {
+      "name": "insights",
+      "item": [
+        {
+          "name": "{insightId}",
+          "item": [
+            {
+              "name": "Tomorrow.io Get Insight",
+              "id": "fca70b98-e31d-4caf-adbd-4ac77852a04a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/insights/:insightId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "insights",
+                    ":insightId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "724cc05a-8f26-4f93-a2d0-fa9c4c4100fe",
+                      "key": "insightId",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "Retrieves a single insight by ID."
+              },
+              "response": [
+                {
+                  "id": "5b77f439-1730-4160-a33d-3238b8e5dc29",
+                  "name": "Insight detail.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/insights/:insightId?apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "insights",
+                        ":insightId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "insightId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"conditions\": [\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"gte\",\n      \"value\": \"<double>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"gt\",\n      \"value\": \"<double>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"logical\": \"and\",\n  \"timestep\": \"<string>\",\n  \"units\": \"metric\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T03:17:34.000Z",
+                  "updatedAt": "2026-07-28T03:17:34.000Z",
+                  "uid": "35240-5b77f439-1730-4160-a33d-3238b8e5dc29"
+                },
+                {
+                  "id": "cbc493c3-6f63-46c8-99a5-1c1e4435c474",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/insights/:insightId?apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "insights",
+                        ":insightId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "insightId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:17:34.000Z",
+                  "updatedAt": "2026-07-28T03:17:34.000Z",
+                  "uid": "35240-cbc493c3-6f63-46c8-99a5-1c1e4435c474"
+                },
+                {
+                  "id": "4cfdb785-646d-4530-bd86-3667cd62fe19",
+                  "name": "Rate limit exceeded.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/insights/:insightId?apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "insights",
+                        ":insightId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "insightId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:17:34.000Z",
+                  "updatedAt": "2026-07-28T03:17:34.000Z",
+                  "uid": "35240-4cfdb785-646d-4530-bd86-3667cd62fe19"
+                }
+              ],
+              "createdAt": "2026-07-28T03:17:34.000Z",
+              "updatedAt": "2026-07-28T03:17:34.000Z",
+              "uid": "35240-fca70b98-e31d-4caf-adbd-4ac77852a04a"
+            },
+            {
+              "name": "Tomorrow.io Update Insight",
+              "id": "511b59f3-3e5a-468e-a709-e1e1432e493a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"conditions\": [\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"eq\",\n      \"value\": \"<double>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"eq\",\n      \"value\": \"<double>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"logical\": \"and\",\n  \"timestep\": \"<string>\",\n  \"units\": \"imperial\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/insights/:insightId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "insights",
+                    ":insightId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "5888c9f4-9994-4634-b0cf-53701f0e9238",
+                      "key": "insightId",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "Updates an existing insight."
+              },
+              "response": [
+                {
+                  "id": "12fe7460-9ae6-497d-b9cf-39847d995860",
+                  "name": "Updated insight.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"conditions\": [\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"eq\",\n      \"value\": \"<double>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"eq\",\n      \"value\": \"<double>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"logical\": \"and\",\n  \"timestep\": \"<string>\",\n  \"units\": \"imperial\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/insights/:insightId?apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "insights",
+                        ":insightId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "insightId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"conditions\": [\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"gte\",\n      \"value\": \"<double>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"gt\",\n      \"value\": \"<double>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"logical\": \"and\",\n  \"timestep\": \"<string>\",\n  \"units\": \"metric\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T03:17:34.000Z",
+                  "updatedAt": "2026-07-28T03:17:34.000Z",
+                  "uid": "35240-12fe7460-9ae6-497d-b9cf-39847d995860"
+                },
+                {
+                  "id": "628d61d2-a9ff-4360-9729-53d810141837",
+                  "name": "Malformed request.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"conditions\": [\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"eq\",\n      \"value\": \"<double>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"eq\",\n      \"value\": \"<double>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"logical\": \"and\",\n  \"timestep\": \"<string>\",\n  \"units\": \"imperial\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/insights/:insightId?apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "insights",
+                        ":insightId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "insightId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:17:34.000Z",
+                  "updatedAt": "2026-07-28T03:17:34.000Z",
+                  "uid": "35240-628d61d2-a9ff-4360-9729-53d810141837"
+                },
+                {
+                  "id": "0c6234a4-743d-41c0-9408-e75bfec8652d",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"conditions\": [\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"eq\",\n      \"value\": \"<double>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"eq\",\n      \"value\": \"<double>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"logical\": \"and\",\n  \"timestep\": \"<string>\",\n  \"units\": \"imperial\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/insights/:insightId?apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "insights",
+                        ":insightId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "insightId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:17:34.000Z",
+                  "updatedAt": "2026-07-28T03:17:34.000Z",
+                  "uid": "35240-0c6234a4-743d-41c0-9408-e75bfec8652d"
+                },
+                {
+                  "id": "fd6de851-4697-460d-a896-e880e778641f",
+                  "name": "Rate limit exceeded.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"conditions\": [\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"eq\",\n      \"value\": \"<double>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"eq\",\n      \"value\": \"<double>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"logical\": \"and\",\n  \"timestep\": \"<string>\",\n  \"units\": \"imperial\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/insights/:insightId?apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "insights",
+                        ":insightId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "insightId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:17:34.000Z",
+                  "updatedAt": "2026-07-28T03:17:34.000Z",
+                  "uid": "35240-fd6de851-4697-460d-a896-e880e778641f"
+                }
+              ],
+              "createdAt": "2026-07-28T03:17:34.000Z",
+              "updatedAt": "2026-07-28T03:17:34.000Z",
+              "uid": "35240-511b59f3-3e5a-468e-a709-e1e1432e493a"
+            },
+            {
+              "name": "Tomorrow.io Delete Insight",
+              "id": "c3e2a5e2-7acb-4994-8410-17e02f96ac84",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/insights/:insightId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "insights",
+                    ":insightId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "0561ad25-bacf-46d4-92bc-7d0f38e13529",
+                      "key": "insightId",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "Deletes an insight by ID."
+              },
+              "response": [
+                {
+                  "id": "a6a539cd-9a2a-4182-8c06-122746d3861c",
+                  "name": "Insight deleted.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/insights/:insightId?apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "insights",
+                        ":insightId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "insightId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T03:17:34.000Z",
+                  "updatedAt": "2026-07-28T03:17:34.000Z",
+                  "uid": "35240-a6a539cd-9a2a-4182-8c06-122746d3861c"
+                },
+                {
+                  "id": "617ba25f-d4c0-4365-b343-964bcd66ae1c",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/insights/:insightId?apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "insights",
+                        ":insightId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "insightId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:17:34.000Z",
+                  "updatedAt": "2026-07-28T03:17:34.000Z",
+                  "uid": "35240-617ba25f-d4c0-4365-b343-964bcd66ae1c"
+                },
+                {
+                  "id": "33dc820f-ad3d-4894-9eb4-74e216f876d7",
+                  "name": "Rate limit exceeded.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/insights/:insightId?apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "insights",
+                        ":insightId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "insightId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:17:34.000Z",
+                  "updatedAt": "2026-07-28T03:17:34.000Z",
+                  "uid": "35240-33dc820f-ad3d-4894-9eb4-74e216f876d7"
+                }
+              ],
+              "createdAt": "2026-07-28T03:17:34.000Z",
+              "updatedAt": "2026-07-28T03:17:34.000Z",
+              "uid": "35240-c3e2a5e2-7acb-4994-8410-17e02f96ac84"
+            }
+          ],
+          "id": "f204fbd0-2973-4d12-8fe2-eae280115ff9",
+          "createdAt": "2026-07-28T03:17:33.000Z",
+          "updatedAt": "2026-07-28T03:17:33.000Z",
+          "uid": "35240-f204fbd0-2973-4d12-8fe2-eae280115ff9"
+        },
+        {
+          "name": "Tomorrow.io List Insights",
+          "id": "e89c1f0e-fd95-47e2-99ee-7b0e419a9314",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/insights",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "insights"
+              ]
+            },
+            "description": "Lists user-defined and pre-defined insight definitions available to the account."
+          },
+          "response": [
+            {
+              "id": "c3c6b3a0-5000-41e8-b6eb-c0b8afca3412",
+              "name": "Insights list.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/insights?apikey=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "insights"
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"conditions\": [\n      {\n        \"field\": \"<string>\",\n        \"operator\": \"gt\",\n        \"value\": \"<double>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"operator\": \"lt\",\n        \"value\": \"<double>\"\n      }\n    ],\n    \"description\": \"<string>\",\n    \"logical\": \"and\",\n    \"timestep\": \"<string>\",\n    \"units\": \"imperial\",\n    \"createdAt\": \"<dateTime>\",\n    \"updatedAt\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"conditions\": [\n      {\n        \"field\": \"<string>\",\n        \"operator\": \"eq\",\n        \"value\": \"<double>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"operator\": \"gte\",\n        \"value\": \"<double>\"\n      }\n    ],\n    \"description\": \"<string>\",\n    \"logical\": \"and\",\n    \"timestep\": \"<string>\",\n    \"units\": \"metric\",\n    \"createdAt\": \"<dateTime>\",\n    \"updatedAt\": \"<dateTime>\"\n  }\n]",
+              "createdAt": "2026-07-28T03:17:34.000Z",
+              "updatedAt": "2026-07-28T03:17:34.000Z",
+              "uid": "35240-c3c6b3a0-5000-41e8-b6eb-c0b8afca3412"
+            },
+            {
+              "id": "717d6f78-6950-44ea-97c0-1aa6a7acd73b",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/insights?apikey=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "insights"
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:17:34.000Z",
+              "updatedAt": "2026-07-28T03:17:34.000Z",
+              "uid": "35240-717d6f78-6950-44ea-97c0-1aa6a7acd73b"
+            },
+            {
+              "id": "4018e5f2-b295-4308-8c85-c77a6779f318",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/insights?apikey=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "insights"
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:17:34.000Z",
+              "updatedAt": "2026-07-28T03:17:34.000Z",
+              "uid": "35240-4018e5f2-b295-4308-8c85-c77a6779f318"
+            }
+          ],
+          "createdAt": "2026-07-28T03:17:34.000Z",
+          "updatedAt": "2026-07-28T03:17:34.000Z",
+          "uid": "35240-e89c1f0e-fd95-47e2-99ee-7b0e419a9314"
+        },
+        {
+          "name": "Tomorrow.io Create Insight",
+          "id": "5359d806-3e26-4731-aa68-f5aba6591454",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"conditions\": [\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"eq\",\n      \"value\": \"<double>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"eq\",\n      \"value\": \"<double>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"logical\": \"and\",\n  \"timestep\": \"<string>\",\n  \"units\": \"imperial\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/insights",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "insights"
+              ]
+            },
+            "description": "Creates a new insight that defines a threshold rule over one or more weather data fields."
+          },
+          "response": [
+            {
+              "id": "5673b21c-6b1a-4e91-8cf2-c12ec95a18e6",
+              "name": "Insight created.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"conditions\": [\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"eq\",\n      \"value\": \"<double>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"eq\",\n      \"value\": \"<double>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"logical\": \"and\",\n  \"timestep\": \"<string>\",\n  \"units\": \"imperial\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/insights?apikey=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "insights"
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"conditions\": [\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"gte\",\n      \"value\": \"<double>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"gt\",\n      \"value\": \"<double>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"logical\": \"and\",\n  \"timestep\": \"<string>\",\n  \"units\": \"metric\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+              "createdAt": "2026-07-28T03:17:34.000Z",
+              "updatedAt": "2026-07-28T03:17:34.000Z",
+              "uid": "35240-5673b21c-6b1a-4e91-8cf2-c12ec95a18e6"
+            },
+            {
+              "id": "6dbda586-f964-4ac8-8709-8bf7d9e92aba",
+              "name": "Malformed request.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"conditions\": [\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"eq\",\n      \"value\": \"<double>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"eq\",\n      \"value\": \"<double>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"logical\": \"and\",\n  \"timestep\": \"<string>\",\n  \"units\": \"imperial\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/insights?apikey=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "insights"
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:17:34.000Z",
+              "updatedAt": "2026-07-28T03:17:34.000Z",
+              "uid": "35240-6dbda586-f964-4ac8-8709-8bf7d9e92aba"
+            },
+            {
+              "id": "56d22423-1558-4a6e-af12-79dfb1e2f53c",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"conditions\": [\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"eq\",\n      \"value\": \"<double>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"eq\",\n      \"value\": \"<double>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"logical\": \"and\",\n  \"timestep\": \"<string>\",\n  \"units\": \"imperial\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/insights?apikey=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "insights"
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:17:34.000Z",
+              "updatedAt": "2026-07-28T03:17:34.000Z",
+              "uid": "35240-56d22423-1558-4a6e-af12-79dfb1e2f53c"
+            },
+            {
+              "id": "5404b2d1-dd4c-4436-b885-758d0a59f5e5",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"conditions\": [\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"eq\",\n      \"value\": \"<double>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"eq\",\n      \"value\": \"<double>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"logical\": \"and\",\n  \"timestep\": \"<string>\",\n  \"units\": \"imperial\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/insights?apikey=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "insights"
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:17:34.000Z",
+              "updatedAt": "2026-07-28T03:17:34.000Z",
+              "uid": "35240-5404b2d1-dd4c-4436-b885-758d0a59f5e5"
+            }
+          ],
+          "createdAt": "2026-07-28T03:17:34.000Z",
+          "updatedAt": "2026-07-28T03:17:34.000Z",
+          "uid": "35240-5359d806-3e26-4731-aa68-f5aba6591454"
+        }
+      ],
+      "id": "4dc516fb-1867-464b-bea9-ff427418336e",
+      "createdAt": "2026-07-28T03:17:33.000Z",
+      "updatedAt": "2026-07-28T03:17:33.000Z",
+      "uid": "35240-4dc516fb-1867-464b-bea9-ff427418336e"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.tomorrow.io/v4"
+    }
+  ]
+}

@@ -1,0 +1,326 @@
+{
+  "info": {
+    "_postman_id": "b900b72b-2fe9-421b-88b4-ae43d94b1ae4",
+    "name": "Tomorrow.io Weather Alerts Routes API",
+    "description": "Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.\n\nContact Support:\n Name: Tomorrow.io Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:17:43.000Z",
+    "updatedAt": "2026-07-28T03:17:43.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b900b72b-2fe9-421b-88b4-ae43d94b1ae4"
+  },
+  "item": [
+    {
+      "name": "route",
+      "item": [
+        {
+          "name": "Tomorrow.io Post Route",
+          "id": "70d5b864-92aa-4cad-91f6-885b433803bc",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"route\": {\n    \"waypoints\": [\n      {\n        \"location\": [\n          \"<double>\",\n          \"<double>\"\n        ],\n        \"arrivalTime\": \"<dateTime>\"\n      },\n      {\n        \"location\": [\n          \"<double>\",\n          \"<double>\"\n        ],\n        \"arrivalTime\": \"<dateTime>\"\n      }\n    ]\n  },\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"units\": \"metric\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/route",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "route"
+              ]
+            },
+            "description": "Returns weather along the route for a polyline or list of waypoints with arrival-time interpolation."
+          },
+          "response": [
+            {
+              "id": "312f77e1-5215-4327-a3e8-ad7f13b3704c",
+              "name": "Weather-on-route response.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"route\": {\n    \"waypoints\": [\n      {\n        \"location\": [\n          \"<double>\",\n          \"<double>\"\n        ],\n        \"arrivalTime\": \"<dateTime>\"\n      },\n      {\n        \"location\": [\n          \"<double>\",\n          \"<double>\"\n        ],\n        \"arrivalTime\": \"<dateTime>\"\n      }\n    ]\n  },\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"units\": \"metric\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/route?apikey=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "route"
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": {\n    \"timelines\": [\n      {\n        \"timestep\": \"<string>\",\n        \"startTime\": \"<dateTime>\",\n        \"endTime\": \"<dateTime>\",\n        \"intervals\": [\n          {\n            \"startTime\": \"<dateTime>\",\n            \"values\": {\n              \"temperature\": \"<double>\",\n              \"temperatureApparent\": \"<double>\",\n              \"humidity\": \"<double>\",\n              \"dewPoint\": \"<double>\",\n              \"windSpeed\": \"<double>\",\n              \"windDirection\": \"<double>\",\n              \"windGust\": \"<double>\",\n              \"pressureSeaLevel\": \"<double>\",\n              \"pressureSurfaceLevel\": \"<double>\",\n              \"precipitationIntensity\": \"<double>\",\n              \"precipitationProbability\": \"<double>\",\n              \"precipitationType\": \"<integer>\",\n              \"cloudCover\": \"<double>\",\n              \"cloudBase\": \"<double>\",\n              \"cloudCeiling\": \"<double>\",\n              \"visibility\": \"<double>\",\n              \"weatherCode\": \"<integer>\",\n              \"uvIndex\": \"<integer>\",\n              \"uvHealthConcern\": \"<integer>\",\n              \"epaIndex\": \"<integer>\",\n              \"epaHealthConcern\": \"<integer>\",\n              \"epaPrimaryPollutant\": \"<integer>\",\n              \"particulateMatter25\": \"<double>\",\n              \"particulateMatter10\": \"<double>\",\n              \"pollutantO3\": \"<double>\",\n              \"pollutantNO2\": \"<double>\",\n              \"pollutantCO\": \"<double>\",\n              \"pollutantSO2\": \"<double>\",\n              \"treeIndex\": \"<integer>\",\n              \"grassIndex\": \"<integer>\",\n              \"weedIndex\": \"<integer>\",\n              \"fireIndex\": \"<double>\",\n              \"solarGHI\": \"<double>\",\n              \"solarDIF\": \"<double>\",\n              \"solarDIR\": \"<double>\",\n              \"moonPhase\": \"<integer>\",\n              \"hailBinary\": \"<integer>\"\n            }\n          },\n          {\n            \"startTime\": \"<dateTime>\",\n            \"values\": {\n              \"temperature\": \"<double>\",\n              \"temperatureApparent\": \"<double>\",\n              \"humidity\": \"<double>\",\n              \"dewPoint\": \"<double>\",\n              \"windSpeed\": \"<double>\",\n              \"windDirection\": \"<double>\",\n              \"windGust\": \"<double>\",\n              \"pressureSeaLevel\": \"<double>\",\n              \"pressureSurfaceLevel\": \"<double>\",\n              \"precipitationIntensity\": \"<double>\",\n              \"precipitationProbability\": \"<double>\",\n              \"precipitationType\": \"<integer>\",\n              \"cloudCover\": \"<double>\",\n              \"cloudBase\": \"<double>\",\n              \"cloudCeiling\": \"<double>\",\n              \"visibility\": \"<double>\",\n              \"weatherCode\": \"<integer>\",\n              \"uvIndex\": \"<integer>\",\n              \"uvHealthConcern\": \"<integer>\",\n              \"epaIndex\": \"<integer>\",\n              \"epaHealthConcern\": \"<integer>\",\n              \"epaPrimaryPollutant\": \"<integer>\",\n              \"particulateMatter25\": \"<double>\",\n              \"particulateMatter10\": \"<double>\",\n              \"pollutantO3\": \"<double>\",\n              \"pollutantNO2\": \"<double>\",\n              \"pollutantCO\": \"<double>\",\n              \"pollutantSO2\": \"<double>\",\n              \"treeIndex\": \"<integer>\",\n              \"grassIndex\": \"<integer>\",\n              \"weedIndex\": \"<integer>\",\n              \"fireIndex\": \"<double>\",\n              \"solarGHI\": \"<double>\",\n              \"solarDIF\": \"<double>\",\n              \"solarDIR\": \"<double>\",\n              \"moonPhase\": \"<integer>\",\n              \"hailBinary\": \"<integer>\"\n            }\n          }\n        ]\n      },\n      {\n        \"timestep\": \"<string>\",\n        \"startTime\": \"<dateTime>\",\n        \"endTime\": \"<dateTime>\",\n        \"intervals\": [\n          {\n            \"startTime\": \"<dateTime>\",\n            \"values\": {\n              \"temperature\": \"<double>\",\n              \"temperatureApparent\": \"<double>\",\n              \"humidity\": \"<double>\",\n              \"dewPoint\": \"<double>\",\n              \"windSpeed\": \"<double>\",\n              \"windDirection\": \"<double>\",\n              \"windGust\": \"<double>\",\n              \"pressureSeaLevel\": \"<double>\",\n              \"pressureSurfaceLevel\": \"<double>\",\n              \"precipitationIntensity\": \"<double>\",\n              \"precipitationProbability\": \"<double>\",\n              \"precipitationType\": \"<integer>\",\n              \"cloudCover\": \"<double>\",\n              \"cloudBase\": \"<double>\",\n              \"cloudCeiling\": \"<double>\",\n              \"visibility\": \"<double>\",\n              \"weatherCode\": \"<integer>\",\n              \"uvIndex\": \"<integer>\",\n              \"uvHealthConcern\": \"<integer>\",\n              \"epaIndex\": \"<integer>\",\n              \"epaHealthConcern\": \"<integer>\",\n              \"epaPrimaryPollutant\": \"<integer>\",\n              \"particulateMatter25\": \"<double>\",\n              \"particulateMatter10\": \"<double>\",\n              \"pollutantO3\": \"<double>\",\n              \"pollutantNO2\": \"<double>\",\n              \"pollutantCO\": \"<double>\",\n              \"pollutantSO2\": \"<double>\",\n              \"treeIndex\": \"<integer>\",\n              \"grassIndex\": \"<integer>\",\n              \"weedIndex\": \"<integer>\",\n              \"fireIndex\": \"<double>\",\n              \"solarGHI\": \"<double>\",\n              \"solarDIF\": \"<double>\",\n              \"solarDIR\": \"<double>\",\n              \"moonPhase\": \"<integer>\",\n              \"hailBinary\": \"<integer>\"\n            }\n          },\n          {\n            \"startTime\": \"<dateTime>\",\n            \"values\": {\n              \"temperature\": \"<double>\",\n              \"temperatureApparent\": \"<double>\",\n              \"humidity\": \"<double>\",\n              \"dewPoint\": \"<double>\",\n              \"windSpeed\": \"<double>\",\n              \"windDirection\": \"<double>\",\n              \"windGust\": \"<double>\",\n              \"pressureSeaLevel\": \"<double>\",\n              \"pressureSurfaceLevel\": \"<double>\",\n              \"precipitationIntensity\": \"<double>\",\n              \"precipitationProbability\": \"<double>\",\n              \"precipitationType\": \"<integer>\",\n              \"cloudCover\": \"<double>\",\n              \"cloudBase\": \"<double>\",\n              \"cloudCeiling\": \"<double>\",\n              \"visibility\": \"<double>\",\n              \"weatherCode\": \"<integer>\",\n              \"uvIndex\": \"<integer>\",\n              \"uvHealthConcern\": \"<integer>\",\n              \"epaIndex\": \"<integer>\",\n              \"epaHealthConcern\": \"<integer>\",\n              \"epaPrimaryPollutant\": \"<integer>\",\n              \"particulateMatter25\": \"<double>\",\n              \"particulateMatter10\": \"<double>\",\n              \"pollutantO3\": \"<double>\",\n              \"pollutantNO2\": \"<double>\",\n              \"pollutantCO\": \"<double>\",\n              \"pollutantSO2\": \"<double>\",\n              \"treeIndex\": \"<integer>\",\n              \"grassIndex\": \"<integer>\",\n              \"weedIndex\": \"<integer>\",\n              \"fireIndex\": \"<double>\",\n              \"solarGHI\": \"<double>\",\n              \"solarDIF\": \"<double>\",\n              \"solarDIR\": \"<double>\",\n              \"moonPhase\": \"<integer>\",\n              \"hailBinary\": \"<integer>\"\n            }\n          }\n        ]\n      }\n    ],\n    \"route\": [\n      {\n        \"location\": [\n          \"<double>\",\n          \"<double>\"\n        ],\n        \"arrivalTime\": \"<dateTime>\"\n      },\n      {\n        \"location\": [\n          \"<double>\",\n          \"<double>\"\n        ],\n        \"arrivalTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T03:17:43.000Z",
+              "updatedAt": "2026-07-28T03:17:43.000Z",
+              "uid": "35240-312f77e1-5215-4327-a3e8-ad7f13b3704c"
+            },
+            {
+              "id": "80806b6f-8497-4433-b395-0fa96ba8aad5",
+              "name": "Malformed request.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"route\": {\n    \"waypoints\": [\n      {\n        \"location\": [\n          \"<double>\",\n          \"<double>\"\n        ],\n        \"arrivalTime\": \"<dateTime>\"\n      },\n      {\n        \"location\": [\n          \"<double>\",\n          \"<double>\"\n        ],\n        \"arrivalTime\": \"<dateTime>\"\n      }\n    ]\n  },\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"units\": \"metric\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/route?apikey=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "route"
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:17:43.000Z",
+              "updatedAt": "2026-07-28T03:17:43.000Z",
+              "uid": "35240-80806b6f-8497-4433-b395-0fa96ba8aad5"
+            },
+            {
+              "id": "b29281bd-1f9a-4d7e-8a4d-1dd2b72cea7d",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"route\": {\n    \"waypoints\": [\n      {\n        \"location\": [\n          \"<double>\",\n          \"<double>\"\n        ],\n        \"arrivalTime\": \"<dateTime>\"\n      },\n      {\n        \"location\": [\n          \"<double>\",\n          \"<double>\"\n        ],\n        \"arrivalTime\": \"<dateTime>\"\n      }\n    ]\n  },\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"units\": \"metric\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/route?apikey=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "route"
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:17:43.000Z",
+              "updatedAt": "2026-07-28T03:17:43.000Z",
+              "uid": "35240-b29281bd-1f9a-4d7e-8a4d-1dd2b72cea7d"
+            },
+            {
+              "id": "47f1a0f4-30cb-457d-8882-a765e9233377",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"route\": {\n    \"waypoints\": [\n      {\n        \"location\": [\n          \"<double>\",\n          \"<double>\"\n        ],\n        \"arrivalTime\": \"<dateTime>\"\n      },\n      {\n        \"location\": [\n          \"<double>\",\n          \"<double>\"\n        ],\n        \"arrivalTime\": \"<dateTime>\"\n      }\n    ]\n  },\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"units\": \"metric\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/route?apikey=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "route"
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:17:43.000Z",
+              "updatedAt": "2026-07-28T03:17:43.000Z",
+              "uid": "35240-47f1a0f4-30cb-457d-8882-a765e9233377"
+            }
+          ],
+          "createdAt": "2026-07-28T03:17:43.000Z",
+          "updatedAt": "2026-07-28T03:17:43.000Z",
+          "uid": "35240-70d5b864-92aa-4cad-91f6-885b433803bc"
+        }
+      ],
+      "id": "0d52d897-909a-4840-bbd2-fbb6ee4cbcfe",
+      "createdAt": "2026-07-28T03:17:43.000Z",
+      "updatedAt": "2026-07-28T03:17:43.000Z",
+      "uid": "35240-0d52d897-909a-4840-bbd2-fbb6ee4cbcfe"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.tomorrow.io/v4"
+    }
+  ]
+}

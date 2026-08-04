@@ -1,0 +1,347 @@
+{
+  "info": {
+    "_postman_id": "4167e8c6-3f2e-48a6-9a54-e26264f940e9",
+    "name": "Tomorrow.io Weather Alerts Forecast API",
+    "description": "Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.\n\nContact Support:\n Name: Tomorrow.io Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:17:18.000Z",
+    "updatedAt": "2026-07-28T03:17:18.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4167e8c6-3f2e-48a6-9a54-e26264f940e9"
+  },
+  "item": [
+    {
+      "name": "weather",
+      "item": [
+        {
+          "name": "forecast",
+          "item": [
+            {
+              "name": "Tomorrow.io Get Weather Forecast",
+              "id": "205231c8-6344-4380-8083-8b98fe9b3076",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/weather/forecast?location=<string>&timesteps=1h&timesteps=1d&units=metric",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "weather",
+                    "forecast"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Place name, latlong array, GeoJSON, or saved location ID.",
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated forecast resolutions.",
+                      "key": "timesteps",
+                      "value": "1h"
+                    },
+                    {
+                      "description": "Comma-separated forecast resolutions.",
+                      "key": "timesteps",
+                      "value": "1d"
+                    },
+                    {
+                      "key": "units",
+                      "value": "metric"
+                    }
+                  ]
+                },
+                "description": "Returns hourly and daily forecast timelines for a single location."
+              },
+              "response": [
+                {
+                  "id": "884c8211-bb47-45eb-92b2-bb8b6223aed2",
+                  "name": "Forecast timelines.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/weather/forecast?location=<string>&timesteps=1d&units=metric&apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "weather",
+                        "forecast"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Place name, latlong array, GeoJSON, or saved location ID.",
+                          "key": "location",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated forecast resolutions.",
+                          "key": "timesteps",
+                          "value": "1d"
+                        },
+                        {
+                          "key": "units",
+                          "value": "metric"
+                        },
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"timelines\": {\n    \"hourly\": [\n      {\n        \"startTime\": \"<dateTime>\",\n        \"values\": {\n          \"temperature\": \"<double>\",\n          \"temperatureApparent\": \"<double>\",\n          \"humidity\": \"<double>\",\n          \"dewPoint\": \"<double>\",\n          \"windSpeed\": \"<double>\",\n          \"windDirection\": \"<double>\",\n          \"windGust\": \"<double>\",\n          \"pressureSeaLevel\": \"<double>\",\n          \"pressureSurfaceLevel\": \"<double>\",\n          \"precipitationIntensity\": \"<double>\",\n          \"precipitationProbability\": \"<double>\",\n          \"precipitationType\": \"<integer>\",\n          \"cloudCover\": \"<double>\",\n          \"cloudBase\": \"<double>\",\n          \"cloudCeiling\": \"<double>\",\n          \"visibility\": \"<double>\",\n          \"weatherCode\": \"<integer>\",\n          \"uvIndex\": \"<integer>\",\n          \"uvHealthConcern\": \"<integer>\",\n          \"epaIndex\": \"<integer>\",\n          \"epaHealthConcern\": \"<integer>\",\n          \"epaPrimaryPollutant\": \"<integer>\",\n          \"particulateMatter25\": \"<double>\",\n          \"particulateMatter10\": \"<double>\",\n          \"pollutantO3\": \"<double>\",\n          \"pollutantNO2\": \"<double>\",\n          \"pollutantCO\": \"<double>\",\n          \"pollutantSO2\": \"<double>\",\n          \"treeIndex\": \"<integer>\",\n          \"grassIndex\": \"<integer>\",\n          \"weedIndex\": \"<integer>\",\n          \"fireIndex\": \"<double>\",\n          \"solarGHI\": \"<double>\",\n          \"solarDIF\": \"<double>\",\n          \"solarDIR\": \"<double>\",\n          \"moonPhase\": \"<integer>\",\n          \"hailBinary\": \"<integer>\"\n        }\n      },\n      {\n        \"startTime\": \"<dateTime>\",\n        \"values\": {\n          \"temperature\": \"<double>\",\n          \"temperatureApparent\": \"<double>\",\n          \"humidity\": \"<double>\",\n          \"dewPoint\": \"<double>\",\n          \"windSpeed\": \"<double>\",\n          \"windDirection\": \"<double>\",\n          \"windGust\": \"<double>\",\n          \"pressureSeaLevel\": \"<double>\",\n          \"pressureSurfaceLevel\": \"<double>\",\n          \"precipitationIntensity\": \"<double>\",\n          \"precipitationProbability\": \"<double>\",\n          \"precipitationType\": \"<integer>\",\n          \"cloudCover\": \"<double>\",\n          \"cloudBase\": \"<double>\",\n          \"cloudCeiling\": \"<double>\",\n          \"visibility\": \"<double>\",\n          \"weatherCode\": \"<integer>\",\n          \"uvIndex\": \"<integer>\",\n          \"uvHealthConcern\": \"<integer>\",\n          \"epaIndex\": \"<integer>\",\n          \"epaHealthConcern\": \"<integer>\",\n          \"epaPrimaryPollutant\": \"<integer>\",\n          \"particulateMatter25\": \"<double>\",\n          \"particulateMatter10\": \"<double>\",\n          \"pollutantO3\": \"<double>\",\n          \"pollutantNO2\": \"<double>\",\n          \"pollutantCO\": \"<double>\",\n          \"pollutantSO2\": \"<double>\",\n          \"treeIndex\": \"<integer>\",\n          \"grassIndex\": \"<integer>\",\n          \"weedIndex\": \"<integer>\",\n          \"fireIndex\": \"<double>\",\n          \"solarGHI\": \"<double>\",\n          \"solarDIF\": \"<double>\",\n          \"solarDIR\": \"<double>\",\n          \"moonPhase\": \"<integer>\",\n          \"hailBinary\": \"<integer>\"\n        }\n      }\n    ],\n    \"daily\": [\n      {\n        \"startTime\": \"<dateTime>\",\n        \"values\": {\n          \"temperature\": \"<double>\",\n          \"temperatureApparent\": \"<double>\",\n          \"humidity\": \"<double>\",\n          \"dewPoint\": \"<double>\",\n          \"windSpeed\": \"<double>\",\n          \"windDirection\": \"<double>\",\n          \"windGust\": \"<double>\",\n          \"pressureSeaLevel\": \"<double>\",\n          \"pressureSurfaceLevel\": \"<double>\",\n          \"precipitationIntensity\": \"<double>\",\n          \"precipitationProbability\": \"<double>\",\n          \"precipitationType\": \"<integer>\",\n          \"cloudCover\": \"<double>\",\n          \"cloudBase\": \"<double>\",\n          \"cloudCeiling\": \"<double>\",\n          \"visibility\": \"<double>\",\n          \"weatherCode\": \"<integer>\",\n          \"uvIndex\": \"<integer>\",\n          \"uvHealthConcern\": \"<integer>\",\n          \"epaIndex\": \"<integer>\",\n          \"epaHealthConcern\": \"<integer>\",\n          \"epaPrimaryPollutant\": \"<integer>\",\n          \"particulateMatter25\": \"<double>\",\n          \"particulateMatter10\": \"<double>\",\n          \"pollutantO3\": \"<double>\",\n          \"pollutantNO2\": \"<double>\",\n          \"pollutantCO\": \"<double>\",\n          \"pollutantSO2\": \"<double>\",\n          \"treeIndex\": \"<integer>\",\n          \"grassIndex\": \"<integer>\",\n          \"weedIndex\": \"<integer>\",\n          \"fireIndex\": \"<double>\",\n          \"solarGHI\": \"<double>\",\n          \"solarDIF\": \"<double>\",\n          \"solarDIR\": \"<double>\",\n          \"moonPhase\": \"<integer>\",\n          \"hailBinary\": \"<integer>\"\n        }\n      },\n      {\n        \"startTime\": \"<dateTime>\",\n        \"values\": {\n          \"temperature\": \"<double>\",\n          \"temperatureApparent\": \"<double>\",\n          \"humidity\": \"<double>\",\n          \"dewPoint\": \"<double>\",\n          \"windSpeed\": \"<double>\",\n          \"windDirection\": \"<double>\",\n          \"windGust\": \"<double>\",\n          \"pressureSeaLevel\": \"<double>\",\n          \"pressureSurfaceLevel\": \"<double>\",\n          \"precipitationIntensity\": \"<double>\",\n          \"precipitationProbability\": \"<double>\",\n          \"precipitationType\": \"<integer>\",\n          \"cloudCover\": \"<double>\",\n          \"cloudBase\": \"<double>\",\n          \"cloudCeiling\": \"<double>\",\n          \"visibility\": \"<double>\",\n          \"weatherCode\": \"<integer>\",\n          \"uvIndex\": \"<integer>\",\n          \"uvHealthConcern\": \"<integer>\",\n          \"epaIndex\": \"<integer>\",\n          \"epaHealthConcern\": \"<integer>\",\n          \"epaPrimaryPollutant\": \"<integer>\",\n          \"particulateMatter25\": \"<double>\",\n          \"particulateMatter10\": \"<double>\",\n          \"pollutantO3\": \"<double>\",\n          \"pollutantNO2\": \"<double>\",\n          \"pollutantCO\": \"<double>\",\n          \"pollutantSO2\": \"<double>\",\n          \"treeIndex\": \"<integer>\",\n          \"grassIndex\": \"<integer>\",\n          \"weedIndex\": \"<integer>\",\n          \"fireIndex\": \"<double>\",\n          \"solarGHI\": \"<double>\",\n          \"solarDIF\": \"<double>\",\n          \"solarDIR\": \"<double>\",\n          \"moonPhase\": \"<integer>\",\n          \"hailBinary\": \"<integer>\"\n        }\n      }\n    ]\n  },\n  \"location\": {\n    \"lat\": \"<double>\",\n    \"lon\": \"<double>\",\n    \"name\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T03:17:18.000Z",
+                  "updatedAt": "2026-07-28T03:17:18.000Z",
+                  "uid": "35240-884c8211-bb47-45eb-92b2-bb8b6223aed2"
+                },
+                {
+                  "id": "684264c0-573a-4df5-9c5a-d5224090f83c",
+                  "name": "Malformed request.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/weather/forecast?location=<string>&timesteps=1d&units=metric&apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "weather",
+                        "forecast"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Place name, latlong array, GeoJSON, or saved location ID.",
+                          "key": "location",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated forecast resolutions.",
+                          "key": "timesteps",
+                          "value": "1d"
+                        },
+                        {
+                          "key": "units",
+                          "value": "metric"
+                        },
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:17:18.000Z",
+                  "updatedAt": "2026-07-28T03:17:18.000Z",
+                  "uid": "35240-684264c0-573a-4df5-9c5a-d5224090f83c"
+                },
+                {
+                  "id": "a9e42387-4c11-4dd1-b6cf-90f4f200dfe7",
+                  "name": "Missing or invalid API key.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/weather/forecast?location=<string>&timesteps=1d&units=metric&apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "weather",
+                        "forecast"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Place name, latlong array, GeoJSON, or saved location ID.",
+                          "key": "location",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated forecast resolutions.",
+                          "key": "timesteps",
+                          "value": "1d"
+                        },
+                        {
+                          "key": "units",
+                          "value": "metric"
+                        },
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:17:18.000Z",
+                  "updatedAt": "2026-07-28T03:17:18.000Z",
+                  "uid": "35240-a9e42387-4c11-4dd1-b6cf-90f4f200dfe7"
+                },
+                {
+                  "id": "f8c57477-9fc2-4af3-b04f-30fd30da335b",
+                  "name": "Rate limit exceeded.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/weather/forecast?location=<string>&timesteps=1d&units=metric&apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "weather",
+                        "forecast"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Place name, latlong array, GeoJSON, or saved location ID.",
+                          "key": "location",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated forecast resolutions.",
+                          "key": "timesteps",
+                          "value": "1d"
+                        },
+                        {
+                          "key": "units",
+                          "value": "metric"
+                        },
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:17:18.000Z",
+                  "updatedAt": "2026-07-28T03:17:18.000Z",
+                  "uid": "35240-f8c57477-9fc2-4af3-b04f-30fd30da335b"
+                }
+              ],
+              "createdAt": "2026-07-28T03:17:18.000Z",
+              "updatedAt": "2026-07-28T03:17:18.000Z",
+              "uid": "35240-205231c8-6344-4380-8083-8b98fe9b3076"
+            }
+          ],
+          "id": "579f029c-ff16-4ae3-8ca3-b25c198b8af1",
+          "createdAt": "2026-07-28T03:17:18.000Z",
+          "updatedAt": "2026-07-28T03:17:18.000Z",
+          "uid": "35240-579f029c-ff16-4ae3-8ca3-b25c198b8af1"
+        }
+      ],
+      "id": "65e84f31-c436-493f-a79a-8e14679b8668",
+      "createdAt": "2026-07-28T03:17:18.000Z",
+      "updatedAt": "2026-07-28T03:17:18.000Z",
+      "uid": "35240-65e84f31-c436-493f-a79a-8e14679b8668"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.tomorrow.io/v4"
+    }
+  ]
+}

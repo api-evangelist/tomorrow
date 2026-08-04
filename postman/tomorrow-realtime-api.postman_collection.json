@@ -1,0 +1,322 @@
+{
+  "info": {
+    "_postman_id": "1644fce6-a58d-45e2-96e8-cb8458c6f3aa",
+    "name": "Tomorrow.io Weather Alerts Realtime API",
+    "description": "Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.\n\nContact Support:\n Name: Tomorrow.io Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:17:42.000Z",
+    "updatedAt": "2026-07-28T03:17:42.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1644fce6-a58d-45e2-96e8-cb8458c6f3aa"
+  },
+  "item": [
+    {
+      "name": "weather",
+      "item": [
+        {
+          "name": "realtime",
+          "item": [
+            {
+              "name": "Tomorrow.io Get Realtime Weather",
+              "id": "df79a2fe-9c5c-4f66-ab3d-2d9fafbbde24",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/weather/realtime?location=<string>&units=metric",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "weather",
+                    "realtime"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Place name, latlong array as `lat,lng`, GeoJSON, or a saved location ID.",
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Unit system for returned values.",
+                      "key": "units",
+                      "value": "metric"
+                    }
+                  ]
+                },
+                "description": "Returns the current observed weather for a single location."
+              },
+              "response": [
+                {
+                  "id": "1da1600d-84fc-44a3-82d1-5a9a86493dd9",
+                  "name": "Realtime weather snapshot.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/weather/realtime?location=<string>&units=metric&apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "weather",
+                        "realtime"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Place name, latlong array as `lat,lng`, GeoJSON, or a saved location ID.",
+                          "key": "location",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Unit system for returned values.",
+                          "key": "units",
+                          "value": "metric"
+                        },
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"time\": \"<dateTime>\",\n    \"values\": {\n      \"temperature\": \"<double>\",\n      \"temperatureApparent\": \"<double>\",\n      \"humidity\": \"<double>\",\n      \"dewPoint\": \"<double>\",\n      \"windSpeed\": \"<double>\",\n      \"windDirection\": \"<double>\",\n      \"windGust\": \"<double>\",\n      \"pressureSeaLevel\": \"<double>\",\n      \"pressureSurfaceLevel\": \"<double>\",\n      \"precipitationIntensity\": \"<double>\",\n      \"precipitationProbability\": \"<double>\",\n      \"precipitationType\": \"<integer>\",\n      \"cloudCover\": \"<double>\",\n      \"cloudBase\": \"<double>\",\n      \"cloudCeiling\": \"<double>\",\n      \"visibility\": \"<double>\",\n      \"weatherCode\": \"<integer>\",\n      \"uvIndex\": \"<integer>\",\n      \"uvHealthConcern\": \"<integer>\",\n      \"epaIndex\": \"<integer>\",\n      \"epaHealthConcern\": \"<integer>\",\n      \"epaPrimaryPollutant\": \"<integer>\",\n      \"particulateMatter25\": \"<double>\",\n      \"particulateMatter10\": \"<double>\",\n      \"pollutantO3\": \"<double>\",\n      \"pollutantNO2\": \"<double>\",\n      \"pollutantCO\": \"<double>\",\n      \"pollutantSO2\": \"<double>\",\n      \"treeIndex\": \"<integer>\",\n      \"grassIndex\": \"<integer>\",\n      \"weedIndex\": \"<integer>\",\n      \"fireIndex\": \"<double>\",\n      \"solarGHI\": \"<double>\",\n      \"solarDIF\": \"<double>\",\n      \"solarDIR\": \"<double>\",\n      \"moonPhase\": \"<integer>\",\n      \"hailBinary\": \"<integer>\"\n    }\n  },\n  \"location\": {\n    \"lat\": \"<double>\",\n    \"lon\": \"<double>\",\n    \"name\": \"<string>\",\n    \"type\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T03:17:43.000Z",
+                  "updatedAt": "2026-07-28T03:17:43.000Z",
+                  "uid": "35240-1da1600d-84fc-44a3-82d1-5a9a86493dd9"
+                },
+                {
+                  "id": "5825d6f0-9055-49c5-aae0-4d668dd68760",
+                  "name": "Malformed request.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/weather/realtime?location=<string>&units=metric&apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "weather",
+                        "realtime"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Place name, latlong array as `lat,lng`, GeoJSON, or a saved location ID.",
+                          "key": "location",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Unit system for returned values.",
+                          "key": "units",
+                          "value": "metric"
+                        },
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:17:43.000Z",
+                  "updatedAt": "2026-07-28T03:17:43.000Z",
+                  "uid": "35240-5825d6f0-9055-49c5-aae0-4d668dd68760"
+                },
+                {
+                  "id": "ffde71bd-1ec9-469c-8a0d-0d6d3b08e162",
+                  "name": "Missing or invalid API key.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/weather/realtime?location=<string>&units=metric&apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "weather",
+                        "realtime"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Place name, latlong array as `lat,lng`, GeoJSON, or a saved location ID.",
+                          "key": "location",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Unit system for returned values.",
+                          "key": "units",
+                          "value": "metric"
+                        },
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:17:43.000Z",
+                  "updatedAt": "2026-07-28T03:17:43.000Z",
+                  "uid": "35240-ffde71bd-1ec9-469c-8a0d-0d6d3b08e162"
+                },
+                {
+                  "id": "b5046953-2126-4519-8147-8d175e5dc45f",
+                  "name": "Rate limit exceeded.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/weather/realtime?location=<string>&units=metric&apikey=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "weather",
+                        "realtime"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Place name, latlong array as `lat,lng`, GeoJSON, or a saved location ID.",
+                          "key": "location",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Unit system for returned values.",
+                          "key": "units",
+                          "value": "metric"
+                        },
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "apikey",
+                          "value": "<API Key>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:17:43.000Z",
+                  "updatedAt": "2026-07-28T03:17:43.000Z",
+                  "uid": "35240-b5046953-2126-4519-8147-8d175e5dc45f"
+                }
+              ],
+              "createdAt": "2026-07-28T03:17:43.000Z",
+              "updatedAt": "2026-07-28T03:17:43.000Z",
+              "uid": "35240-df79a2fe-9c5c-4f66-ab3d-2d9fafbbde24"
+            }
+          ],
+          "id": "c9641b03-deaa-4df1-8884-1531e46fe609",
+          "createdAt": "2026-07-28T03:17:43.000Z",
+          "updatedAt": "2026-07-28T03:17:43.000Z",
+          "uid": "35240-c9641b03-deaa-4df1-8884-1531e46fe609"
+        }
+      ],
+      "id": "dbfd5298-ea0b-4547-9027-d0040a548dcc",
+      "createdAt": "2026-07-28T03:17:43.000Z",
+      "updatedAt": "2026-07-28T03:17:43.000Z",
+      "uid": "35240-dbfd5298-ea0b-4547-9027-d0040a548dcc"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.tomorrow.io/v4"
+    }
+  ]
+}

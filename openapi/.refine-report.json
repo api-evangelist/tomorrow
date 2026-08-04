@@ -1,0 +1,34 @@
+{
+  "provider": "tomorrow",
+  "sources": [
+    "tomorrow-alerts-api-openapi.yml",
+    "tomorrow-climate-api-openapi.yml",
+    "tomorrow-events-api-openapi.yml",
+    "tomorrow-forecast-api-openapi.yml",
+    "tomorrow-historical-api-openapi.yml",
+    "tomorrow-insights-api-openapi.yml",
+    "tomorrow-locations-api-openapi.yml",
+    "tomorrow-map-tiles-api-openapi.yml",
+    "tomorrow-realtime-api-openapi.yml",
+    "tomorrow-routes-api-openapi.yml",
+    "tomorrow-timelines-api-openapi.yml"
+  ],
+  "outputs": [
+    "tomorrow-alerts-api-openapi.yml",
+    "tomorrow-climate-api-openapi.yml",
+    "tomorrow-events-api-openapi.yml",
+    "tomorrow-forecast-api-openapi.yml",
+    "tomorrow-historical-api-openapi.yml",
+    "tomorrow-insights-api-openapi.yml",
+    "tomorrow-locations-api-openapi.yml",
+    "tomorrow-map-tiles-api-openapi.yml",
+    "tomorrow-realtime-api-openapi.yml",
+    "tomorrow-routes-api-openapi.yml",
+    "tomorrow-timelines-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

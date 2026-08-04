@@ -1,0 +1,440 @@
+{
+  "info": {
+    "_postman_id": "9ada8436-2bec-43da-bf8c-c6d8cc7b8bc3",
+    "name": "Tomorrow.io Weather Alerts Map Tiles API",
+    "description": "Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.\n\nContact Support:\n Name: Tomorrow.io Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:17:41.000Z",
+    "updatedAt": "2026-07-28T03:17:41.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9ada8436-2bec-43da-bf8c-c6d8cc7b8bc3"
+  },
+  "item": [
+    {
+      "name": "map",
+      "item": [
+        {
+          "name": "tile",
+          "item": [
+            {
+              "name": "{zoom}",
+              "item": [
+                {
+                  "name": "{x}",
+                  "item": [
+                    {
+                      "name": "{y}",
+                      "item": [
+                        {
+                          "name": "{field}",
+                          "item": [
+                            {
+                              "name": "{timeFormat}",
+                              "item": [
+                                {
+                                  "name": "Tomorrow.io Get Map Tile",
+                                  "id": "fc7bb4b5-5797-4b27-9da5-0bb4adb1195b",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "image/png"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/map/tile/:zoom/:x/:y/:field/:timeFormat",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "map",
+                                        "tile",
+                                        ":zoom",
+                                        ":x",
+                                        ":y",
+                                        ":field",
+                                        ":timeFormat"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "7ca03cae-618a-4ab1-bce9-74b5b7989306",
+                                          "key": "zoom",
+                                          "value": "<integer>",
+                                          "description": "(Required) Web Mercator zoom level (typically 0-12)."
+                                        },
+                                        {
+                                          "id": "902e2ee5-0260-48a5-b712-7c5950356d08",
+                                          "key": "x",
+                                          "value": "<integer>",
+                                          "description": "(Required) Tile column."
+                                        },
+                                        {
+                                          "id": "042bc9e6-c293-4206-aec4-ecc12b5ab2ec",
+                                          "key": "y",
+                                          "value": "<integer>",
+                                          "description": "(Required) Tile row."
+                                        },
+                                        {
+                                          "id": "09f73f0c-25bf-4915-97e5-5496826806e9",
+                                          "key": "field",
+                                          "value": "<string>",
+                                          "description": "(Required) Data field name to render (e.g. temperature, precipitationIntensity)."
+                                        },
+                                        {
+                                          "id": "6b2f6cb8-a535-479b-83c3-ee178df7efa5",
+                                          "key": "timeFormat",
+                                          "value": "<string>",
+                                          "description": "(Required) ISO 8601 time or relative offset."
+                                        }
+                                      ]
+                                    },
+                                    "description": "Returns a raster tile for a weather field at a given time and zoom level."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "eb2a6e7d-3348-41dd-bdaa-b8fd7dac4b7e",
+                                      "name": "PNG raster tile.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "image/png"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/map/tile/:zoom/:x/:y/:field/:timeFormat?apikey=<API Key>",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "map",
+                                            "tile",
+                                            ":zoom",
+                                            ":x",
+                                            ":y",
+                                            ":field",
+                                            ":timeFormat"
+                                          ],
+                                          "query": [
+                                            {
+                                              "description": "Added as a part of security scheme: apikey",
+                                              "key": "apikey",
+                                              "value": "<API Key>"
+                                            }
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "zoom"
+                                            },
+                                            {
+                                              "key": "x"
+                                            },
+                                            {
+                                              "key": "y"
+                                            },
+                                            {
+                                              "key": "field"
+                                            },
+                                            {
+                                              "key": "timeFormat"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "image/png"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "<binary>",
+                                      "createdAt": "2026-07-28T03:17:42.000Z",
+                                      "updatedAt": "2026-07-28T03:17:42.000Z",
+                                      "uid": "35240-eb2a6e7d-3348-41dd-bdaa-b8fd7dac4b7e"
+                                    },
+                                    {
+                                      "id": "132d33ed-e37e-43ab-a32e-38ff630f875d",
+                                      "name": "Malformed request.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/map/tile/:zoom/:x/:y/:field/:timeFormat?apikey=<API Key>",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "map",
+                                            "tile",
+                                            ":zoom",
+                                            ":x",
+                                            ":y",
+                                            ":field",
+                                            ":timeFormat"
+                                          ],
+                                          "query": [
+                                            {
+                                              "description": "Added as a part of security scheme: apikey",
+                                              "key": "apikey",
+                                              "value": "<API Key>"
+                                            }
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "zoom"
+                                            },
+                                            {
+                                              "key": "x"
+                                            },
+                                            {
+                                              "key": "y"
+                                            },
+                                            {
+                                              "key": "field"
+                                            },
+                                            {
+                                              "key": "timeFormat"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Bad Request",
+                                      "code": 400,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T03:17:42.000Z",
+                                      "updatedAt": "2026-07-28T03:17:42.000Z",
+                                      "uid": "35240-132d33ed-e37e-43ab-a32e-38ff630f875d"
+                                    },
+                                    {
+                                      "id": "7e0a50c2-7393-4f2b-8a66-1c12c9ef1d82",
+                                      "name": "Missing or invalid API key.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/map/tile/:zoom/:x/:y/:field/:timeFormat?apikey=<API Key>",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "map",
+                                            "tile",
+                                            ":zoom",
+                                            ":x",
+                                            ":y",
+                                            ":field",
+                                            ":timeFormat"
+                                          ],
+                                          "query": [
+                                            {
+                                              "description": "Added as a part of security scheme: apikey",
+                                              "key": "apikey",
+                                              "value": "<API Key>"
+                                            }
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "zoom"
+                                            },
+                                            {
+                                              "key": "x"
+                                            },
+                                            {
+                                              "key": "y"
+                                            },
+                                            {
+                                              "key": "field"
+                                            },
+                                            {
+                                              "key": "timeFormat"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T03:17:42.000Z",
+                                      "updatedAt": "2026-07-28T03:17:42.000Z",
+                                      "uid": "35240-7e0a50c2-7393-4f2b-8a66-1c12c9ef1d82"
+                                    },
+                                    {
+                                      "id": "61c932c3-14ff-44bb-b0ff-69f71ad22072",
+                                      "name": "Rate limit exceeded.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/map/tile/:zoom/:x/:y/:field/:timeFormat?apikey=<API Key>",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "map",
+                                            "tile",
+                                            ":zoom",
+                                            ":x",
+                                            ":y",
+                                            ":field",
+                                            ":timeFormat"
+                                          ],
+                                          "query": [
+                                            {
+                                              "description": "Added as a part of security scheme: apikey",
+                                              "key": "apikey",
+                                              "value": "<API Key>"
+                                            }
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "zoom"
+                                            },
+                                            {
+                                              "key": "x"
+                                            },
+                                            {
+                                              "key": "y"
+                                            },
+                                            {
+                                              "key": "field"
+                                            },
+                                            {
+                                              "key": "timeFormat"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Too Many Requests",
+                                      "code": 429,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"code\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T03:17:42.000Z",
+                                      "updatedAt": "2026-07-28T03:17:42.000Z",
+                                      "uid": "35240-61c932c3-14ff-44bb-b0ff-69f71ad22072"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T03:17:42.000Z",
+                                  "updatedAt": "2026-07-28T03:17:42.000Z",
+                                  "uid": "35240-fc7bb4b5-5797-4b27-9da5-0bb4adb1195b"
+                                }
+                              ],
+                              "id": "3be1da6a-03bd-4010-afeb-ed3c4551ab9f",
+                              "createdAt": "2026-07-28T03:17:42.000Z",
+                              "updatedAt": "2026-07-28T03:17:42.000Z",
+                              "uid": "35240-3be1da6a-03bd-4010-afeb-ed3c4551ab9f"
+                            }
+                          ],
+                          "id": "ab76504e-eaf6-4065-9869-76e3efc54167",
+                          "createdAt": "2026-07-28T03:17:42.000Z",
+                          "updatedAt": "2026-07-28T03:17:42.000Z",
+                          "uid": "35240-ab76504e-eaf6-4065-9869-76e3efc54167"
+                        }
+                      ],
+                      "id": "b1211fd4-3f23-4c3f-a8df-4040a5abbbd6",
+                      "createdAt": "2026-07-28T03:17:42.000Z",
+                      "updatedAt": "2026-07-28T03:17:42.000Z",
+                      "uid": "35240-b1211fd4-3f23-4c3f-a8df-4040a5abbbd6"
+                    }
+                  ],
+                  "id": "a2639a6a-25a0-4663-9830-112513706340",
+                  "createdAt": "2026-07-28T03:17:42.000Z",
+                  "updatedAt": "2026-07-28T03:17:42.000Z",
+                  "uid": "35240-a2639a6a-25a0-4663-9830-112513706340"
+                }
+              ],
+              "id": "2bd5c578-18ac-40de-b50a-3037d157e3d5",
+              "createdAt": "2026-07-28T03:17:42.000Z",
+              "updatedAt": "2026-07-28T03:17:42.000Z",
+              "uid": "35240-2bd5c578-18ac-40de-b50a-3037d157e3d5"
+            }
+          ],
+          "id": "2ecca339-6655-4ab0-8bc2-8c5b01f03c6a",
+          "createdAt": "2026-07-28T03:17:42.000Z",
+          "updatedAt": "2026-07-28T03:17:42.000Z",
+          "uid": "35240-2ecca339-6655-4ab0-8bc2-8c5b01f03c6a"
+        }
+      ],
+      "id": "80d90d5f-fc36-4bf7-aab7-08739025970d",
+      "createdAt": "2026-07-28T03:17:42.000Z",
+      "updatedAt": "2026-07-28T03:17:42.000Z",
+      "uid": "35240-80d90d5f-fc36-4bf7-aab7-08739025970d"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.tomorrow.io/v4"
+    }
+  ]
+}

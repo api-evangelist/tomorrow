@@ -1,0 +1,289 @@
+{
+  "item": [
+    {
+      "id": "0b54ddf3-a56e-48ca-a07b-8bd4a56de768",
+      "name": "Routes",
+      "description": {
+        "content": "Weather along a polyline / list of waypoints with arrival-time interpolation.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "88894d95-f3dc-4427-a2cd-f1a00e61a8e7",
+          "name": "Tomorrow.io Post Route",
+          "request": {
+            "name": "Tomorrow.io Post Route",
+            "description": {
+              "content": "Returns weather along the route for a polyline or list of waypoints with arrival-time interpolation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "route"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"route\": {\n    \"waypoints\": [\n      {\n        \"location\": [\n          \"<double>\",\n          \"<double>\"\n        ],\n        \"arrivalTime\": \"<dateTime>\"\n      },\n      {\n        \"location\": [\n          \"<double>\",\n          \"<double>\"\n        ],\n        \"arrivalTime\": \"<dateTime>\"\n      }\n    ]\n  },\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"units\": \"metric\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9039810f-f54a-4d94-aee4-093b09b4e365",
+              "name": "Weather-on-route response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "route"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"route\": {\n    \"waypoints\": [\n      {\n        \"location\": [\n          -71.0466,\n          42.3478\n        ],\n        \"arrivalTime\": \"2026-05-30T13:30:00Z\"\n      }\n    ]\n  },\n  \"fields\": [\n    \"temperature\",\n    \"precipitationIntensity\",\n    \"visibility\",\n    \"windSpeed\"\n  ],\n  \"units\": \"metric\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"timelines\": [\n      {\n        \"timestep\": \"1h\",\n        \"startTime\": \"2026-05-30T13:00:00Z\",\n        \"endTime\": \"2026-05-30T13:00:00Z\",\n        \"intervals\": [\n          {\n            \"startTime\": \"2026-05-30T13:00:00Z\",\n            \"values\": {\n              \"temperature\": 21.2,\n              \"temperatureApparent\": 20.4,\n              \"humidity\": 64,\n              \"dewPoint\": 13.4,\n              \"windSpeed\": 3.1,\n              \"windDirection\": 220,\n              \"windGust\": 6.2,\n              \"pressureSeaLevel\": 1013.2,\n              \"pressureSurfaceLevel\": 1010.5,\n              \"precipitationIntensity\": 0,\n              \"precipitationProbability\": 5,\n              \"precipitationType\": 0,\n              \"cloudCover\": 12,\n              \"cloudBase\": 1.5,\n              \"cloudCeiling\": 2.4,\n              \"visibility\": 16,\n              \"weatherCode\": 1000,\n              \"uvIndex\": 6,\n              \"uvHealthConcern\": 2,\n              \"epaIndex\": 42,\n              \"epaHealthConcern\": 1,\n              \"epaPrimaryPollutant\": 0,\n              \"particulateMatter25\": 8.4,\n              \"particulateMatter10\": 14.1,\n              \"pollutantO3\": 28,\n              \"pollutantNO2\": 11,\n              \"pollutantCO\": 0.4,\n              \"pollutantSO2\": 1,\n              \"treeIndex\": 2,\n              \"grassIndex\": 1,\n              \"weedIndex\": 1,\n              \"fireIndex\": 8.2,\n              \"solarGHI\": 480,\n              \"solarDIF\": 120,\n              \"solarDIR\": 360,\n              \"moonPhase\": 3,\n              \"hailBinary\": 0\n            }\n          }\n        ]\n      }\n    ],\n    \"route\": [\n      {\n        \"location\": [\n          -71.0466,\n          42.3478\n        ],\n        \"arrivalTime\": \"2026-05-30T13:30:00Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "47484e9a-bbdf-46e5-b76b-195f6e398f21",
+              "name": "Malformed request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "route"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"route\": {\n    \"waypoints\": [\n      {\n        \"location\": [\n          -71.0466,\n          42.3478\n        ],\n        \"arrivalTime\": \"2026-05-30T13:30:00Z\"\n      }\n    ]\n  },\n  \"fields\": [\n    \"temperature\",\n    \"precipitationIntensity\",\n    \"visibility\",\n    \"windSpeed\"\n  ],\n  \"units\": \"metric\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400001,\n  \"type\": \"Invalid Body Parameters\",\n  \"message\": \"The provided parameters are invalid.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9471e84-c65e-4753-b7cd-f95c82029291",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "route"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"route\": {\n    \"waypoints\": [\n      {\n        \"location\": [\n          -71.0466,\n          42.3478\n        ],\n        \"arrivalTime\": \"2026-05-30T13:30:00Z\"\n      }\n    ]\n  },\n  \"fields\": [\n    \"temperature\",\n    \"precipitationIntensity\",\n    \"visibility\",\n    \"windSpeed\"\n  ],\n  \"units\": \"metric\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400001,\n  \"type\": \"Invalid Body Parameters\",\n  \"message\": \"The provided parameters are invalid.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f080bc1e-d53e-41d0-8001-9a263f62a4da",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "route"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"route\": {\n    \"waypoints\": [\n      {\n        \"location\": [\n          -71.0466,\n          42.3478\n        ],\n        \"arrivalTime\": \"2026-05-30T13:30:00Z\"\n      }\n    ]\n  },\n  \"fields\": [\n    \"temperature\",\n    \"precipitationIntensity\",\n    \"visibility\",\n    \"windSpeed\"\n  ],\n  \"units\": \"metric\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400001,\n  \"type\": \"Invalid Body Parameters\",\n  \"message\": \"The provided parameters are invalid.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.tomorrow.io/v4",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "56047214-5d72-42dc-856c-d56e8129d27d",
+    "name": "Tomorrow.io Weather Alerts Routes API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.\n\nContact Support:\n Name: Tomorrow.io Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tomorrow.io Weather Alerts Events API",
+    "version": "4.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tomorrow.io Get Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/events",
+            "params": [
+              {
+                "name": "location",
+                "value": "42.3478,-71.0466",
+                "type": "query"
+              },
+              {
+                "name": "insights",
+                "value": "hail,thunderstorm",
+                "type": "query",
+                "description": "Comma-separated insight IDs or pre-defined category names."
+              },
+              {
+                "name": "buffer",
+                "value": "1",
+                "type": "query",
+                "description": "Radius around the location in kilometers."
+              }
+            ]
+          },
+          "docs": "Returns events matching the supplied insights at a location, optionally with a kilometer-radius buffer."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Post Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Advanced POST variant of the Events endpoint accepting a full JSON body with GeoJSON geometries."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

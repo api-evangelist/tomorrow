@@ -1,0 +1,208 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tomorrow.io Weather Alerts API",
+    "version": "4.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Alerts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tomorrow.io List Alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/alerts"
+          },
+          "docs": "Lists alerts configured for the authenticated account."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Create Alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/alerts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an alert that links one or more insights to one or more locations and pushes activations to a webhook URL."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Get Alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/alerts/:alertId",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "6183d156022c1b0008686b14",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a single alert by ID."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Update Alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tomorrow.io/v4/alerts/:alertId",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "6183d156022c1b0008686b14",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing alert."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Delete Alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tomorrow.io/v4/alerts/:alertId",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "6183d156022c1b0008686b14",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes an alert by ID."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io List Alert Locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/alerts/:alertId/locations",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "6183d156022c1b0008686b14",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists locations linked to an alert."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Link Alert Locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/alerts/:alertId/locations/link",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "6183d156022c1b0008686b14",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Links one or more locations to the alert."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Unlink Alert Locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/alerts/:alertId/locations/unlink",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "6183d156022c1b0008686b14",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Unlinks one or more locations from the alert."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Activate Alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/alerts/:alertId/activate",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "6183d156022c1b0008686b14",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Marks an alert as active so its insights begin firing on linked locations."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Deactivate Alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/alerts/:alertId/deactivate",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "6183d156022c1b0008686b14",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Marks an alert as inactive so its insights stop firing."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

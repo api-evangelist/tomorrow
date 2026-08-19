@@ -1,0 +1,337 @@
+{
+  "item": [
+    {
+      "id": "7667cc67-0c1e-4e23-8e61-558f98ff2350",
+      "name": "Forecast",
+      "description": {
+        "content": "Hourly and daily forecast timelines via a simple GET interface.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8da9f327-56dc-4b40-b2e2-37a06cc1a10c",
+          "name": "Tomorrow.io Get Weather Forecast",
+          "request": {
+            "name": "Tomorrow.io Get Weather Forecast",
+            "description": {
+              "content": "Returns hourly and daily forecast timelines for a single location.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "weather",
+                "forecast"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "location",
+                  "value": "<string>",
+                  "description": "(Required) Place name, latlong array, GeoJSON, or saved location ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "timesteps",
+                  "value": "1h",
+                  "description": "Comma-separated forecast resolutions."
+                },
+                {
+                  "disabled": false,
+                  "key": "timesteps",
+                  "value": "1d",
+                  "description": "Comma-separated forecast resolutions."
+                },
+                {
+                  "disabled": false,
+                  "key": "units",
+                  "value": "metric"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ee76107e-b17b-464a-9283-baef97f73732",
+              "name": "Forecast timelines.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "weather",
+                    "forecast"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "location",
+                      "value": "new york"
+                    },
+                    {
+                      "key": "timesteps",
+                      "value": "1h"
+                    },
+                    {
+                      "key": "timesteps",
+                      "value": "1d"
+                    },
+                    {
+                      "key": "units",
+                      "value": "metric"
+                    },
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timelines\": {\n    \"hourly\": [\n      {\n        \"startTime\": \"2026-05-30T13:00:00Z\",\n        \"values\": {\n          \"temperature\": 21.2,\n          \"temperatureApparent\": 20.4,\n          \"humidity\": 64,\n          \"dewPoint\": 13.4,\n          \"windSpeed\": 3.1,\n          \"windDirection\": 220,\n          \"windGust\": 6.2,\n          \"pressureSeaLevel\": 1013.2,\n          \"pressureSurfaceLevel\": 1010.5,\n          \"precipitationIntensity\": 0,\n          \"precipitationProbability\": 5,\n          \"precipitationType\": 0,\n          \"cloudCover\": 12,\n          \"cloudBase\": 1.5,\n          \"cloudCeiling\": 2.4,\n          \"visibility\": 16,\n          \"weatherCode\": 1000,\n          \"uvIndex\": 6,\n          \"uvHealthConcern\": 2,\n          \"epaIndex\": 42,\n          \"epaHealthConcern\": 1,\n          \"epaPrimaryPollutant\": 0,\n          \"particulateMatter25\": 8.4,\n          \"particulateMatter10\": 14.1,\n          \"pollutantO3\": 28,\n          \"pollutantNO2\": 11,\n          \"pollutantCO\": 0.4,\n          \"pollutantSO2\": 1,\n          \"treeIndex\": 2,\n          \"grassIndex\": 1,\n          \"weedIndex\": 1,\n          \"fireIndex\": 8.2,\n          \"solarGHI\": 480,\n          \"solarDIF\": 120,\n          \"solarDIR\": 360,\n          \"moonPhase\": 3,\n          \"hailBinary\": 0\n        }\n      }\n    ],\n    \"daily\": [\n      {\n        \"startTime\": \"2026-05-30T13:00:00Z\",\n        \"values\": {\n          \"temperature\": 21.2,\n          \"temperatureApparent\": 20.4,\n          \"humidity\": 64,\n          \"dewPoint\": 13.4,\n          \"windSpeed\": 3.1,\n          \"windDirection\": 220,\n          \"windGust\": 6.2,\n          \"pressureSeaLevel\": 1013.2,\n          \"pressureSurfaceLevel\": 1010.5,\n          \"precipitationIntensity\": 0,\n          \"precipitationProbability\": 5,\n          \"precipitationType\": 0,\n          \"cloudCover\": 12,\n          \"cloudBase\": 1.5,\n          \"cloudCeiling\": 2.4,\n          \"visibility\": 16,\n          \"weatherCode\": 1000,\n          \"uvIndex\": 6,\n          \"uvHealthConcern\": 2,\n          \"epaIndex\": 42,\n          \"epaHealthConcern\": 1,\n          \"epaPrimaryPollutant\": 0,\n          \"particulateMatter25\": 8.4,\n          \"particulateMatter10\": 14.1,\n          \"pollutantO3\": 28,\n          \"pollutantNO2\": 11,\n          \"pollutantCO\": 0.4,\n          \"pollutantSO2\": 1,\n          \"treeIndex\": 2,\n          \"grassIndex\": 1,\n          \"weedIndex\": 1,\n          \"fireIndex\": 8.2,\n          \"solarGHI\": 480,\n          \"solarDIF\": 120,\n          \"solarDIR\": 360,\n          \"moonPhase\": 3,\n          \"hailBinary\": 0\n        }\n      }\n    ]\n  },\n  \"location\": {\n    \"lat\": 1,\n    \"lon\": 1,\n    \"name\": \"example\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ccf5a7d-c3f8-4f47-8ec1-17b5378eac90",
+              "name": "Malformed request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "weather",
+                    "forecast"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "location",
+                      "value": "new york"
+                    },
+                    {
+                      "key": "timesteps",
+                      "value": "1h"
+                    },
+                    {
+                      "key": "timesteps",
+                      "value": "1d"
+                    },
+                    {
+                      "key": "units",
+                      "value": "metric"
+                    },
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400001,\n  \"type\": \"Invalid Body Parameters\",\n  \"message\": \"The provided parameters are invalid.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd83284c-fb49-4dc4-b7df-963b3b185838",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "weather",
+                    "forecast"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "location",
+                      "value": "new york"
+                    },
+                    {
+                      "key": "timesteps",
+                      "value": "1h"
+                    },
+                    {
+                      "key": "timesteps",
+                      "value": "1d"
+                    },
+                    {
+                      "key": "units",
+                      "value": "metric"
+                    },
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400001,\n  \"type\": \"Invalid Body Parameters\",\n  \"message\": \"The provided parameters are invalid.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d583a9d-9814-4b8b-87cd-0c33d52a45df",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "weather",
+                    "forecast"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "location",
+                      "value": "new york"
+                    },
+                    {
+                      "key": "timesteps",
+                      "value": "1h"
+                    },
+                    {
+                      "key": "timesteps",
+                      "value": "1d"
+                    },
+                    {
+                      "key": "units",
+                      "value": "metric"
+                    },
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400001,\n  \"type\": \"Invalid Body Parameters\",\n  \"message\": \"The provided parameters are invalid.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.tomorrow.io/v4",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "07b203bc-6ac7-4f2f-a9f4-1c97fc326e36",
+    "name": "Tomorrow.io Weather Alerts Forecast API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.\n\nContact Support:\n Name: Tomorrow.io Support",
+      "type": "text/plain"
+    }
+  }
+}

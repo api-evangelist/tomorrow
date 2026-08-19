@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tomorrow.io Weather Alerts Insights API",
+    "version": "4.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Insights",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tomorrow.io List Insights",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/insights"
+          },
+          "docs": "Lists user-defined and pre-defined insight definitions available to the account."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Create Insight",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/insights",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new insight that defines a threshold rule over one or more weather data fields."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Get Insight",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/insights/:insightId",
+            "params": [
+              {
+                "name": "insightId",
+                "value": "6183d156022c1b00086860a1",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a single insight by ID."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Update Insight",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tomorrow.io/v4/insights/:insightId",
+            "params": [
+              {
+                "name": "insightId",
+                "value": "6183d156022c1b00086860a1",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing insight."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Delete Insight",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tomorrow.io/v4/insights/:insightId",
+            "params": [
+              {
+                "name": "insightId",
+                "value": "6183d156022c1b00086860a1",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes an insight by ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

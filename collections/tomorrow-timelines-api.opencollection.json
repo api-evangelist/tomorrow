@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tomorrow.io Weather Alerts Timelines API",
+    "version": "4.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Timelines",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tomorrow.io Get Timelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/timelines",
+            "params": [
+              {
+                "name": "location",
+                "value": "42.3478,-71.0466",
+                "type": "query",
+                "description": "Latlong, place name, GeoJSON, or saved location ID."
+              },
+              {
+                "name": "fields",
+                "value": "temperature,humidity,windSpeed",
+                "type": "query",
+                "description": "Comma-separated list of weather data fields to return."
+              },
+              {
+                "name": "startTime",
+                "value": "now",
+                "type": "query"
+              },
+              {
+                "name": "endTime",
+                "value": "nowPlus6h",
+                "type": "query"
+              },
+              {
+                "name": "timesteps",
+                "value": "1h",
+                "type": "query"
+              },
+              {
+                "name": "units",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timezone",
+                "value": "America/New_York",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Basic GET form of the Timelines endpoint. Returns one or more timesteps for a single location."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Post Timelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/timelines",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Advanced POST form of Timelines accepting a full JSON body, including GeoJSON geometries."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

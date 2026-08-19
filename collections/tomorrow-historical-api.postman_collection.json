@@ -1,0 +1,289 @@
+{
+  "item": [
+    {
+      "id": "7950d923-f4df-4009-9978-9173918085b8",
+      "name": "Historical",
+      "description": {
+        "content": "Historical weather data for a point or polygon, up to 20 years back.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f2a579aa-ada1-41a2-b9c0-0de17f29edfb",
+          "name": "Tomorrow.io Post Historical Timeline",
+          "request": {
+            "name": "Tomorrow.io Post Historical Timeline",
+            "description": {
+              "content": "Returns historical weather timelines for a location, up to 20 years back.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "historical"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"location\": \"<string>\",\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"startTime\": \"<dateTime>\",\n  \"endTime\": \"<dateTime>\",\n  \"units\": \"metric\",\n  \"timesteps\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timezone\": \"UTC\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a1a68232-39d1-4912-a8f3-0eb851149114",
+              "name": "Historical timeline response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "historical"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"temperature\",\n    \"precipitationIntensity\"\n  ],\n  \"units\": \"metric\",\n  \"timesteps\": [\n    \"1d\"\n  ],\n  \"startTime\": \"2024-01-01T00:00:00Z\",\n  \"endTime\": \"2024-01-31T23:59:59Z\",\n  \"timezone\": \"example\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"timelines\": [\n      {\n        \"timestep\": \"1h\",\n        \"startTime\": \"2026-05-30T13:00:00Z\",\n        \"endTime\": \"2026-05-30T13:00:00Z\",\n        \"intervals\": [\n          {\n            \"startTime\": \"2026-05-30T13:00:00Z\",\n            \"values\": {\n              \"temperature\": 21.2,\n              \"temperatureApparent\": 20.4,\n              \"humidity\": 64,\n              \"dewPoint\": 13.4,\n              \"windSpeed\": 3.1,\n              \"windDirection\": 220,\n              \"windGust\": 6.2,\n              \"pressureSeaLevel\": 1013.2,\n              \"pressureSurfaceLevel\": 1010.5,\n              \"precipitationIntensity\": 0,\n              \"precipitationProbability\": 5,\n              \"precipitationType\": 0,\n              \"cloudCover\": 12,\n              \"cloudBase\": 1.5,\n              \"cloudCeiling\": 2.4,\n              \"visibility\": 16,\n              \"weatherCode\": 1000,\n              \"uvIndex\": 6,\n              \"uvHealthConcern\": 2,\n              \"epaIndex\": 42,\n              \"epaHealthConcern\": 1,\n              \"epaPrimaryPollutant\": 0,\n              \"particulateMatter25\": 8.4,\n              \"particulateMatter10\": 14.1,\n              \"pollutantO3\": 28,\n              \"pollutantNO2\": 11,\n              \"pollutantCO\": 0.4,\n              \"pollutantSO2\": 1,\n              \"treeIndex\": 2,\n              \"grassIndex\": 1,\n              \"weedIndex\": 1,\n              \"fireIndex\": 8.2,\n              \"solarGHI\": 480,\n              \"solarDIF\": 120,\n              \"solarDIR\": 360,\n              \"moonPhase\": 3,\n              \"hailBinary\": 0\n            }\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94b2b91b-5694-4846-a2f9-56080d00fb66",
+              "name": "Malformed request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "historical"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"temperature\",\n    \"precipitationIntensity\"\n  ],\n  \"units\": \"metric\",\n  \"timesteps\": [\n    \"1d\"\n  ],\n  \"startTime\": \"2024-01-01T00:00:00Z\",\n  \"endTime\": \"2024-01-31T23:59:59Z\",\n  \"timezone\": \"example\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400001,\n  \"type\": \"Invalid Body Parameters\",\n  \"message\": \"The provided parameters are invalid.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "109f78ab-f753-4550-8ebd-b4b5086c033f",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "historical"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"temperature\",\n    \"precipitationIntensity\"\n  ],\n  \"units\": \"metric\",\n  \"timesteps\": [\n    \"1d\"\n  ],\n  \"startTime\": \"2024-01-01T00:00:00Z\",\n  \"endTime\": \"2024-01-31T23:59:59Z\",\n  \"timezone\": \"example\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400001,\n  \"type\": \"Invalid Body Parameters\",\n  \"message\": \"The provided parameters are invalid.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62c85957-857f-4203-8b2d-60969749a926",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "historical"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"temperature\",\n    \"precipitationIntensity\"\n  ],\n  \"units\": \"metric\",\n  \"timesteps\": [\n    \"1d\"\n  ],\n  \"startTime\": \"2024-01-01T00:00:00Z\",\n  \"endTime\": \"2024-01-31T23:59:59Z\",\n  \"timezone\": \"example\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400001,\n  \"type\": \"Invalid Body Parameters\",\n  \"message\": \"The provided parameters are invalid.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.tomorrow.io/v4",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a1838e4e-1e4e-4b0f-83f6-5a806efb5404",
+    "name": "Tomorrow.io Weather Alerts Historical API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.\n\nContact Support:\n Name: Tomorrow.io Support",
+      "type": "text/plain"
+    }
+  }
+}

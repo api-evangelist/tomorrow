@@ -1,0 +1,143 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tomorrow.io Weather Alerts Locations API",
+    "version": "4.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Locations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tomorrow.io List Locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/locations"
+          },
+          "docs": "Lists saved locations for the authenticated account."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Create Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/locations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new saved location (point, polygon, or polyline) with optional tags."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Get Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/locations/:locationId",
+            "params": [
+              {
+                "name": "locationId",
+                "value": "6183d156022c1b0008685cc6",
+                "type": "path",
+                "description": "Tomorrow.io location identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves a single saved location by ID."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Update Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tomorrow.io/v4/locations/:locationId",
+            "params": [
+              {
+                "name": "locationId",
+                "value": "6183d156022c1b0008685cc6",
+                "type": "path",
+                "description": "Tomorrow.io location identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing saved location."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Delete Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tomorrow.io/v4/locations/:locationId",
+            "params": [
+              {
+                "name": "locationId",
+                "value": "6183d156022c1b0008685cc6",
+                "type": "path",
+                "description": "Tomorrow.io location identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a saved location by ID."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Add Location Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/locations/tags/add",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds one or more tags to a set of locations."
+        },
+        {
+          "info": {
+            "name": "Tomorrow.io Remove Location Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tomorrow.io/v4/locations/tags/remove",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes one or more tags from a set of locations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

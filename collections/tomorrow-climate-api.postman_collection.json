@@ -1,0 +1,294 @@
+{
+  "item": [
+    {
+      "id": "e8df6348-4d1b-4554-8d4e-f08d5f1e5dc1",
+      "name": "Climate",
+      "description": {
+        "content": "30-year climate normals for a location.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "335b9dbf-d409-47bb-96c2-f41fedb1a204",
+          "name": "Tomorrow.io Post Climate Normals",
+          "request": {
+            "name": "Tomorrow.io Post Climate Normals",
+            "description": {
+              "content": "Returns 30-year monthly climate normals for a location.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "historical",
+                "normals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"location\": \"<string>\",\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"units\": \"metric\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "018d39dc-5da3-4b6c-9647-f66a2c9a8f3f",
+              "name": "Climate normals response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "historical",
+                    "normals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"temperatureAvg\",\n    \"precipitationAccumulationSum\"\n  ],\n  \"units\": \"metric\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"normals\": [\n      {\n        \"month\": 6,\n        \"values\": {\n          \"temperature\": 21.2,\n          \"temperatureApparent\": 20.4,\n          \"humidity\": 64,\n          \"dewPoint\": 13.4,\n          \"windSpeed\": 3.1,\n          \"windDirection\": 220,\n          \"windGust\": 6.2,\n          \"pressureSeaLevel\": 1013.2,\n          \"pressureSurfaceLevel\": 1010.5,\n          \"precipitationIntensity\": 0,\n          \"precipitationProbability\": 5,\n          \"precipitationType\": 0,\n          \"cloudCover\": 12,\n          \"cloudBase\": 1.5,\n          \"cloudCeiling\": 2.4,\n          \"visibility\": 16,\n          \"weatherCode\": 1000,\n          \"uvIndex\": 6,\n          \"uvHealthConcern\": 2,\n          \"epaIndex\": 42,\n          \"epaHealthConcern\": 1,\n          \"epaPrimaryPollutant\": 0,\n          \"particulateMatter25\": 8.4,\n          \"particulateMatter10\": 14.1,\n          \"pollutantO3\": 28,\n          \"pollutantNO2\": 11,\n          \"pollutantCO\": 0.4,\n          \"pollutantSO2\": 1,\n          \"treeIndex\": 2,\n          \"grassIndex\": 1,\n          \"weedIndex\": 1,\n          \"fireIndex\": 8.2,\n          \"solarGHI\": 480,\n          \"solarDIF\": 120,\n          \"solarDIR\": 360,\n          \"moonPhase\": 3,\n          \"hailBinary\": 0\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63fac35d-dbb5-4001-a651-d447bc9adc74",
+              "name": "Malformed request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "historical",
+                    "normals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"temperatureAvg\",\n    \"precipitationAccumulationSum\"\n  ],\n  \"units\": \"metric\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400001,\n  \"type\": \"Invalid Body Parameters\",\n  \"message\": \"The provided parameters are invalid.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59a87b82-3da2-4ce8-9903-783727c72c9e",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "historical",
+                    "normals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"temperatureAvg\",\n    \"precipitationAccumulationSum\"\n  ],\n  \"units\": \"metric\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400001,\n  \"type\": \"Invalid Body Parameters\",\n  \"message\": \"The provided parameters are invalid.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5236219f-9660-416b-b54d-bc640cf5b7ed",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "historical",
+                    "normals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apikey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"temperatureAvg\",\n    \"precipitationAccumulationSum\"\n  ],\n  \"units\": \"metric\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400001,\n  \"type\": \"Invalid Body Parameters\",\n  \"message\": \"The provided parameters are invalid.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.tomorrow.io/v4",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "522100e2-3427-4d71-974b-d4aa9176460e",
+    "name": "Tomorrow.io Weather Alerts Climate API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.\n\nContact Support:\n Name: Tomorrow.io Support",
+      "type": "text/plain"
+    }
+  }
+}

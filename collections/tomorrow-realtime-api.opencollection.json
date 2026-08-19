@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tomorrow.io Weather Alerts Realtime API",
+    "version": "4.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Realtime",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tomorrow.io Get Realtime Weather",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/weather/realtime",
+            "params": [
+              {
+                "name": "location",
+                "value": "42.3478,-71.0466",
+                "type": "query",
+                "description": "Place name, latlong array as `lat,lng`, GeoJSON, or a saved location ID."
+              },
+              {
+                "name": "units",
+                "value": "metric",
+                "type": "query",
+                "description": "Unit system for returned values."
+              }
+            ]
+          },
+          "docs": "Returns the current observed weather for a single location."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

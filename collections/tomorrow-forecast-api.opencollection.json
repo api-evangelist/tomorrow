@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tomorrow.io Weather Alerts Forecast API",
+    "version": "4.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Forecast",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tomorrow.io Get Weather Forecast",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tomorrow.io/v4/weather/forecast",
+            "params": [
+              {
+                "name": "location",
+                "value": "new york",
+                "type": "query",
+                "description": "Place name, latlong array, GeoJSON, or saved location ID."
+              },
+              {
+                "name": "timesteps",
+                "value": "1h,1d",
+                "type": "query",
+                "description": "Comma-separated forecast resolutions."
+              },
+              {
+                "name": "units",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns hourly and daily forecast timelines for a single location."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

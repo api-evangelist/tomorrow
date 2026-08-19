@@ -21,7 +21,7 @@ description: >-
   raster map tiles. 60+ data layers cover core weather, air quality, pollen, fire, flood, soil, solar, aviation,
   maritime, and lightning.
 url: https://docs.tomorrow.io
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-05-28'
 modified: '2026-05-30'
 x-type: company

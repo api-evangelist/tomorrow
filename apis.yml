@@ -122,6 +122,8 @@ apis:
   humanURL: https://docs.tomorrow.io/reference/welcome
   baseURL: https://api.tomorrow.io/v4
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -338,6 +340,8 @@ apis:
   humanURL: https://docs.tomorrow.io/reference/welcome
   baseURL: https://api.tomorrow.io/v4
   tags:
+  - Real-Time
+  tags_raw:
   - Realtime
   properties:
   - type: OpenAPI

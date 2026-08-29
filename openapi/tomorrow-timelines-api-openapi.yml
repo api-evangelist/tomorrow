@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Tomorrow.io Weather Alerts Timelines API
   description: Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.
@@ -252,54 +252,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    TimelinesResponse:
-      type: object
-      description: Tomorrow.io Timelines response envelope.
-      properties:
-        data:
-          type: object
-          properties:
-            timelines:
-              type: array
-              items:
-                $ref: '#/components/schemas/Timeline'
-    GeoJSONGeometry:
-      type: object
-      description: GeoJSON geometry — Point, LineString, or Polygon.
-      properties:
-        type:
-          type: string
-          enum:
-          - Point
-          - LineString
-          - Polygon
-          example: Point
-        coordinates:
-          type: array
-          items: {}
-          example:
-          - -71.0466
-          - 42.3478
-      required:
-      - type
-      - coordinates
-    Timeline:
-      type: object
-      description: One timeline at a specific resolution.
-      properties:
-        timestep:
-          type: string
-          example: 1h
-        startTime:
-          type: string
-          format: date-time
-        endTime:
-          type: string
-          format: date-time
-        intervals:
-          type: array
-          items:
-            $ref: '#/components/schemas/TimelineInterval'
     WeatherValues:
       type: object
       description: Map of weather data field names to numeric values for one timestep.
@@ -442,16 +394,17 @@ components:
         hailBinary:
           type: integer
           example: 0
-    TimelineInterval:
+    TimelinesResponse:
       type: object
-      description: A single timestep entry in a timeline.
+      description: Tomorrow.io Timelines response envelope.
       properties:
-        startTime:
-          type: string
-          format: date-time
-          example: '2026-05-30T13:00:00Z'
-        values:
-          $ref: '#/components/schemas/WeatherValues'
+        data:
+          type: object
+          properties:
+            timelines:
+              type: array
+              items:
+                $ref: '#/components/schemas/Timeline'
     TimelinesRequest:
       type: object
       description: Advanced Timelines request body.
@@ -509,6 +462,26 @@ components:
       required:
       - location
       - fields
+    GeoJSONGeometry:
+      type: object
+      description: GeoJSON geometry — Point, LineString, or Polygon.
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+          - LineString
+          - Polygon
+          example: Point
+        coordinates:
+          type: array
+          items: {}
+          example:
+          - -71.0466
+          - 42.3478
+      required:
+      - type
+      - coordinates
     Error:
       type: object
       description: Standard Tomorrow.io error envelope.
@@ -529,15 +502,42 @@ components:
       - code
       - type
       - message
+    Timeline:
+      type: object
+      description: One timeline at a specific resolution.
+      properties:
+        timestep:
+          type: string
+          example: 1h
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimelineInterval'
+    TimelineInterval:
+      type: object
+      description: A single timestep entry in a timeline.
+      properties:
+        startTime:
+          type: string
+          format: date-time
+          example: '2026-05-30T13:00:00Z'
+        values:
+          $ref: '#/components/schemas/WeatherValues'
   responses:
-    TooManyRequests:
-      description: Rate limit exceeded.
+    Unauthorized:
+      description: Missing or invalid API key.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
+    TooManyRequests:
+      description: Rate limit exceeded.
       content:
         application/json:
           schema:

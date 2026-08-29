@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Tomorrow.io Weather Alerts Climate API
   description: Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.
@@ -105,70 +105,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    TooManyRequests:
-      description: Rate limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Malformed request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    GeoJSONGeometry:
-      type: object
-      description: GeoJSON geometry — Point, LineString, or Polygon.
-      properties:
-        type:
-          type: string
-          enum:
-          - Point
-          - LineString
-          - Polygon
-          example: Point
-        coordinates:
-          type: array
-          items: {}
-          example:
-          - -71.0466
-          - 42.3478
-      required:
-      - type
-      - coordinates
-    ClimateNormalsRequest:
-      type: object
-      description: Climate Normals request body.
-      properties:
-        location:
-          oneOf:
-          - type: string
-          - $ref: '#/components/schemas/GeoJSONGeometry'
-        fields:
-          type: array
-          items:
-            type: string
-          example:
-          - temperatureAvg
-          - precipitationAccumulationSum
-        units:
-          type: string
-          enum:
-          - metric
-          - imperial
-          default: metric
-      required:
-      - location
-      - fields
     WeatherValues:
       type: object
       description: Map of weather data field names to numeric values for one timestep.
@@ -311,6 +248,30 @@ components:
         hailBinary:
           type: integer
           example: 0
+    ClimateNormalsRequest:
+      type: object
+      description: Climate Normals request body.
+      properties:
+        location:
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/GeoJSONGeometry'
+        fields:
+          type: array
+          items:
+            type: string
+          example:
+          - temperatureAvg
+          - precipitationAccumulationSum
+        units:
+          type: string
+          enum:
+          - metric
+          - imperial
+          default: metric
+      required:
+      - location
+      - fields
     ClimateNormalsResponse:
       type: object
       properties:
@@ -329,6 +290,26 @@ components:
                     example: 6
                   values:
                     $ref: '#/components/schemas/WeatherValues'
+    GeoJSONGeometry:
+      type: object
+      description: GeoJSON geometry — Point, LineString, or Polygon.
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+          - LineString
+          - Polygon
+          example: Point
+        coordinates:
+          type: array
+          items: {}
+          example:
+          - -71.0466
+          - 42.3478
+      required:
+      - type
+      - coordinates
     Error:
       type: object
       description: Standard Tomorrow.io error envelope.
@@ -349,6 +330,25 @@ components:
       - code
       - type
       - message
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Malformed request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyQuery:
       type: apiKey

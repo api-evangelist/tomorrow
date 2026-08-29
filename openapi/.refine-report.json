@@ -29,6 +29,19 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "tomorrow-alerts-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tomorrow-climate-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tomorrow-events-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tomorrow-forecast-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tomorrow-historical-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tomorrow-insights-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tomorrow-locations-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tomorrow-map-tiles-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tomorrow-realtime-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tomorrow-routes-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tomorrow-timelines-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Tomorrow.io Weather Alerts Realtime API
   description: Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.
@@ -113,55 +113,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    TooManyRequests:
-      description: Rate limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Malformed request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    RealtimeWeatherResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            time:
-              type: string
-              format: date-time
-              example: '2026-05-30T13:00:00Z'
-            values:
-              $ref: '#/components/schemas/WeatherValues'
-        location:
-          type: object
-          properties:
-            lat:
-              type: number
-              format: double
-              example: 42.3478
-            lon:
-              type: number
-              format: double
-              example: -71.0466
-            name:
-              type: string
-              example: Cambridge, MA
-            type:
-              type: string
-              example: place
     WeatherValues:
       type: object
       description: Map of weather data field names to numeric values for one timestep.
@@ -304,6 +256,35 @@ components:
         hailBinary:
           type: integer
           example: 0
+    RealtimeWeatherResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            time:
+              type: string
+              format: date-time
+              example: '2026-05-30T13:00:00Z'
+            values:
+              $ref: '#/components/schemas/WeatherValues'
+        location:
+          type: object
+          properties:
+            lat:
+              type: number
+              format: double
+              example: 42.3478
+            lon:
+              type: number
+              format: double
+              example: -71.0466
+            name:
+              type: string
+              example: Cambridge, MA
+            type:
+              type: string
+              example: place
     Error:
       type: object
       description: Standard Tomorrow.io error envelope.
@@ -324,6 +305,25 @@ components:
       - code
       - type
       - message
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Malformed request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyQuery:
       type: apiKey

@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Tomorrow.io Weather Alerts API
   description: Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.
@@ -418,6 +418,12 @@ paths:
         dispatcher: FALLBACK
 components:
   responses:
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Missing or invalid API key.
       content:
@@ -430,99 +436,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Location:
-      type: object
-      description: A saved location resource.
-      properties:
-        id:
-          type: string
-          example: 6183d156022c1b0008685cc6
-        name:
-          type: string
-          example: Boston HQ Rooftop
-        geometry:
-          $ref: '#/components/schemas/GeoJSONGeometry'
-        tags:
-          type: array
-          items:
-            type: string
-          example:
-          - field-asset
-          - rooftop
-        createdAt:
-          type: string
-          format: date-time
-          example: '2026-05-30T12:34:56Z'
-        updatedAt:
-          type: string
-          format: date-time
-          example: '2026-05-30T12:34:56Z'
-      required:
-      - id
-      - name
-      - geometry
-    AlertCreateRequest:
-      type: object
-      description: Payload to create or update an alert.
-      properties:
-        name:
-          type: string
-          example: Hail Watch — Northeast Region
-        description:
-          type: string
-        insightIds:
-          type: array
-          items:
-            type: string
-        locationIds:
-          type: array
-          items:
-            type: string
-        notifications:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-                enum:
-                - webhook
-              url:
-                type: string
-                format: uri
-        active:
-          type: boolean
-          default: true
-      required:
-      - name
-      - insightIds
-    GeoJSONGeometry:
-      type: object
-      description: GeoJSON geometry — Point, LineString, or Polygon.
-      properties:
-        type:
-          type: string
-          enum:
-          - Point
-          - LineString
-          - Polygon
-          example: Point
-        coordinates:
-          type: array
-          items: {}
-          example:
-          - -71.0466
-          - 42.3478
-      required:
-      - type
-      - coordinates
     SimpleAck:
       type: object
       description: Generic success acknowledgement.
@@ -589,6 +503,92 @@ components:
       - id
       - name
       - insightIds
+    AlertCreateRequest:
+      type: object
+      description: Payload to create or update an alert.
+      properties:
+        name:
+          type: string
+          example: Hail Watch — Northeast Region
+        description:
+          type: string
+        insightIds:
+          type: array
+          items:
+            type: string
+        locationIds:
+          type: array
+          items:
+            type: string
+        notifications:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum:
+                - webhook
+              url:
+                type: string
+                format: uri
+        active:
+          type: boolean
+          default: true
+      required:
+      - name
+      - insightIds
+    GeoJSONGeometry:
+      type: object
+      description: GeoJSON geometry — Point, LineString, or Polygon.
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+          - LineString
+          - Polygon
+          example: Point
+        coordinates:
+          type: array
+          items: {}
+          example:
+          - -71.0466
+          - 42.3478
+      required:
+      - type
+      - coordinates
+    Location:
+      type: object
+      description: A saved location resource.
+      properties:
+        id:
+          type: string
+          example: 6183d156022c1b0008685cc6
+        name:
+          type: string
+          example: Boston HQ Rooftop
+        geometry:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+        tags:
+          type: array
+          items:
+            type: string
+          example:
+          - field-asset
+          - rooftop
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
+      required:
+      - id
+      - name
+      - geometry
     Error:
       type: object
       description: Standard Tomorrow.io error envelope.

@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Tomorrow.io Weather Alerts Events API
   description: Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.
@@ -135,29 +135,31 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    EventsRequest:
+    Event:
       type: object
-      description: Advanced Events request body.
+      description: A single insight match.
       properties:
+        insightId:
+          type: string
+          example: 6183d156022c1b00086860a1
+        startTime:
+          type: string
+          format: date-time
+          example: '2026-05-30T15:00:00Z'
+        endTime:
+          type: string
+          format: date-time
+          example: '2026-05-30T17:00:00Z'
+        severity:
+          type: string
+          enum:
+          - low
+          - medium
+          - high
+          - critical
+          example: high
         location:
-          oneOf:
-          - type: string
-          - $ref: '#/components/schemas/GeoJSONGeometry'
-        insights:
-          type: array
-          items:
-            type: string
-          example:
-          - hail
-          - thunderstorm
-        buffer:
-          type: number
-          format: float
-          default: 1
-          description: Radius around the location in km.
-      required:
-      - location
-      - insights
+          $ref: '#/components/schemas/GeoJSONGeometry'
     EventsResponse:
       type: object
       properties:
@@ -208,31 +210,29 @@ components:
       - code
       - type
       - message
-    Event:
+    EventsRequest:
       type: object
-      description: A single insight match.
+      description: Advanced Events request body.
       properties:
-        insightId:
-          type: string
-          example: 6183d156022c1b00086860a1
-        startTime:
-          type: string
-          format: date-time
-          example: '2026-05-30T15:00:00Z'
-        endTime:
-          type: string
-          format: date-time
-          example: '2026-05-30T17:00:00Z'
-        severity:
-          type: string
-          enum:
-          - low
-          - medium
-          - high
-          - critical
-          example: high
         location:
-          $ref: '#/components/schemas/GeoJSONGeometry'
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/GeoJSONGeometry'
+        insights:
+          type: array
+          items:
+            type: string
+          example:
+          - hail
+          - thunderstorm
+        buffer:
+          type: number
+          format: float
+          default: 1
+          description: Radius around the location in km.
+      required:
+      - location
+      - insights
   responses:
     TooManyRequests:
       description: Rate limit exceeded.

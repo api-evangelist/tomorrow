@@ -280,6 +280,8 @@ apis:
   humanURL: https://docs.tomorrow.io/reference/welcome
   baseURL: https://api.tomorrow.io/v4
   tags:
+  - Location
+  tags_raw:
   - Locations
   properties:
   - type: OpenAPI

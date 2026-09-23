@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Tomorrow.io Weather Alerts Forecast API
+  title: Tomorrow.io Weather Forecast API
   description: Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.
   version: 4.0.1
   contact:
@@ -167,7 +167,46 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    BadRequest:
+      description: Malformed request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      description: Standard Tomorrow.io error envelope.
+      properties:
+        code:
+          type: integer
+          example: 400001
+          description: Internal error code.
+        type:
+          type: string
+          example: Invalid Body Parameters
+          description: Short error type label.
+        message:
+          type: string
+          example: The provided parameters are invalid.
+          description: Human-readable error message.
+      required:
+      - code
+      - type
+      - message
     WeatherValues:
       type: object
       description: Map of weather data field names to numeric values for one timestep.
@@ -310,36 +349,6 @@ components:
         hailBinary:
           type: integer
           example: 0
-    TimelineInterval:
-      type: object
-      description: A single timestep entry in a timeline.
-      properties:
-        startTime:
-          type: string
-          format: date-time
-          example: '2026-05-30T13:00:00Z'
-        values:
-          $ref: '#/components/schemas/WeatherValues'
-    Error:
-      type: object
-      description: Standard Tomorrow.io error envelope.
-      properties:
-        code:
-          type: integer
-          example: 400001
-          description: Internal error code.
-        type:
-          type: string
-          example: Invalid Body Parameters
-          description: Short error type label.
-        message:
-          type: string
-          example: The provided parameters are invalid.
-          description: Human-readable error message.
-      required:
-      - code
-      - type
-      - message
     ForecastResponse:
       type: object
       properties:
@@ -365,25 +374,16 @@ components:
               format: double
             name:
               type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Malformed request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    TimelineInterval:
+      type: object
+      description: A single timestep entry in a timeline.
+      properties:
+        startTime:
+          type: string
+          format: date-time
+          example: '2026-05-30T13:00:00Z'
+        values:
+          $ref: '#/components/schemas/WeatherValues'
   securitySchemes:
     apiKeyQuery:
       type: apiKey

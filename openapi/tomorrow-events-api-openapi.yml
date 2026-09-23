@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Tomorrow.io Weather Alerts Events API
+  title: Tomorrow.io Weather Events API
   description: Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.
   version: 4.0.1
   contact:
@@ -135,6 +135,59 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    EventsRequest:
+      type: object
+      description: Advanced Events request body.
+      properties:
+        location:
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/GeoJSONGeometry'
+        insights:
+          type: array
+          items:
+            type: string
+          example:
+          - hail
+          - thunderstorm
+        buffer:
+          type: number
+          format: float
+          default: 1
+          description: Radius around the location in km.
+      required:
+      - location
+      - insights
+    Error:
+      type: object
+      description: Standard Tomorrow.io error envelope.
+      properties:
+        code:
+          type: integer
+          example: 400001
+          description: Internal error code.
+        type:
+          type: string
+          example: Invalid Body Parameters
+          description: Short error type label.
+        message:
+          type: string
+          example: The provided parameters are invalid.
+          description: Human-readable error message.
+      required:
+      - code
+      - type
+      - message
+    EventsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            events:
+              type: array
+              items:
+                $ref: '#/components/schemas/Event'
     Event:
       type: object
       description: A single insight match.
@@ -160,16 +213,6 @@ components:
           example: high
         location:
           $ref: '#/components/schemas/GeoJSONGeometry'
-    EventsResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            events:
-              type: array
-              items:
-                $ref: '#/components/schemas/Event'
     GeoJSONGeometry:
       type: object
       description: GeoJSON geometry — Point, LineString, or Polygon.
@@ -190,58 +233,15 @@ components:
       required:
       - type
       - coordinates
-    Error:
-      type: object
-      description: Standard Tomorrow.io error envelope.
-      properties:
-        code:
-          type: integer
-          example: 400001
-          description: Internal error code.
-        type:
-          type: string
-          example: Invalid Body Parameters
-          description: Short error type label.
-        message:
-          type: string
-          example: The provided parameters are invalid.
-          description: Human-readable error message.
-      required:
-      - code
-      - type
-      - message
-    EventsRequest:
-      type: object
-      description: Advanced Events request body.
-      properties:
-        location:
-          oneOf:
-          - type: string
-          - $ref: '#/components/schemas/GeoJSONGeometry'
-        insights:
-          type: array
-          items:
-            type: string
-          example:
-          - hail
-          - thunderstorm
-        buffer:
-          type: number
-          format: float
-          default: 1
-          description: Radius around the location in km.
-      required:
-      - location
-      - insights
   responses:
-    TooManyRequests:
-      description: Rate limit exceeded.
+    BadRequest:
+      description: Malformed request.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Malformed request.
+    TooManyRequests:
+      description: Rate limit exceeded.
       content:
         application/json:
           schema:

@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Tomorrow.io Weather Alerts Map Tiles API
+  title: Tomorrow.io Weather Map Tiles API
   description: Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.
   version: 4.0.1
   contact:
@@ -84,14 +84,14 @@ paths:
         dispatcher: FALLBACK
 components:
   responses:
-    BadRequest:
-      description: Malformed request.
+    Unauthorized:
+      description: Missing or invalid API key.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
+    BadRequest:
+      description: Malformed request.
       content:
         application/json:
           schema:

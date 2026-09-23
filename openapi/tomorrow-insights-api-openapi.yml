@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Tomorrow.io Weather Alerts Insights API
+  title: Tomorrow.io Weather Insights API
   description: Unified Tomorrow.io v4 HTTP API for weather and climate intelligence. Combines realtime observations, forecast timelines (minutely, hourly, daily, current), historical data up to 20 years, weather along a route, raster map tiles, plus management surfaces for Locations, Insights, Alerts, and Events.
   version: 4.0.1
   contact:
@@ -241,8 +241,8 @@ paths:
         dispatcher: FALLBACK
 components:
   responses:
-    NotFound:
-      description: Resource not found.
+    BadRequest:
+      description: Malformed request.
       content:
         application/json:
           schema:
@@ -253,14 +253,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
+    NotFound:
+      description: Resource not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Malformed request.
+    Unauthorized:
+      description: Missing or invalid API key.
       content:
         application/json:
           schema:
@@ -307,6 +307,31 @@ components:
       - id
       - name
       - conditions
+    InsightCondition:
+      type: object
+      description: A single condition that must hold for an insight to fire.
+      properties:
+        field:
+          type: string
+          example: windSpeed
+        operator:
+          type: string
+          enum:
+          - eq
+          - neq
+          - gt
+          - gte
+          - lt
+          - lte
+          example: gt
+        value:
+          type: number
+          format: double
+          example: 15
+      required:
+      - field
+      - operator
+      - value
     InsightCreateRequest:
       type: object
       description: Payload to create or update an insight.
@@ -356,31 +381,6 @@ components:
       - code
       - type
       - message
-    InsightCondition:
-      type: object
-      description: A single condition that must hold for an insight to fire.
-      properties:
-        field:
-          type: string
-          example: windSpeed
-        operator:
-          type: string
-          enum:
-          - eq
-          - neq
-          - gt
-          - gte
-          - lt
-          - lte
-          example: gt
-        value:
-          type: number
-          format: double
-          example: 15
-      required:
-      - field
-      - operator
-      - value
   securitySchemes:
     apiKeyQuery:
       type: apiKey

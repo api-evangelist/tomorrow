@@ -1,17 +1,7 @@
 {
   "provider": "tomorrow",
   "sources": [
-    "tomorrow-alerts-api-openapi.yml",
-    "tomorrow-climate-api-openapi.yml",
-    "tomorrow-events-api-openapi.yml",
-    "tomorrow-forecast-api-openapi.yml",
-    "tomorrow-historical-api-openapi.yml",
-    "tomorrow-insights-api-openapi.yml",
-    "tomorrow-locations-api-openapi.yml",
-    "tomorrow-map-tiles-api-openapi.yml",
-    "tomorrow-realtime-api-openapi.yml",
-    "tomorrow-routes-api-openapi.yml",
-    "tomorrow-timelines-api-openapi.yml"
+    "_ae-authored/tomorrow-openapi.yml"
   ],
   "outputs": [
     "tomorrow-alerts-api-openapi.yml",
@@ -30,18 +20,21 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "tomorrow-alerts-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "tomorrow-climate-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "tomorrow-events-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "tomorrow-forecast-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "tomorrow-historical-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "tomorrow-insights-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "tomorrow-locations-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "tomorrow-map-tiles-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "tomorrow-realtime-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "tomorrow-routes-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "tomorrow-timelines-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "tomorrow-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "tomorrow-alerts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tomorrow-climate-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tomorrow-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tomorrow-forecast-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tomorrow-historical-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tomorrow-insights-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tomorrow-locations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tomorrow-map-tiles-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tomorrow-realtime-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tomorrow-routes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tomorrow-timelines-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

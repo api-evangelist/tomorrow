@@ -417,26 +417,58 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    NotFound:
-      description: Resource not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Malformed request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Location:
+      type: object
+      description: A saved location resource.
+      properties:
+        id:
+          type: string
+          example: 6183d156022c1b0008685cc6
+        name:
+          type: string
+          example: Boston HQ Rooftop
+        geometry:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+        tags:
+          type: array
+          items:
+            type: string
+          example:
+          - field-asset
+          - rooftop
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
+      required:
+      - id
+      - name
+      - geometry
+    GeoJSONGeometry:
+      type: object
+      description: GeoJSON geometry — Point, LineString, or Polygon.
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+          - LineString
+          - Polygon
+          example: Point
+        coordinates:
+          type: array
+          items: {}
+          example:
+          - -71.0466
+          - 42.3478
+      required:
+      - type
+      - coordinates
     SimpleAck:
       type: object
       description: Generic success acknowledgement.
@@ -447,6 +479,26 @@ components:
         message:
           type: string
           example: Operation completed successfully.
+    Error:
+      type: object
+      description: Standard Tomorrow.io error envelope.
+      properties:
+        code:
+          type: integer
+          example: 400001
+          description: Internal error code.
+        type:
+          type: string
+          example: Invalid Body Parameters
+          description: Short error type label.
+        message:
+          type: string
+          example: The provided parameters are invalid.
+          description: Human-readable error message.
+      required:
+      - code
+      - type
+      - message
     AlertLocationLinkRequest:
       type: object
       properties:
@@ -458,6 +510,41 @@ components:
           - 6183d156022c1b0008685cc6
       required:
       - locationIds
+    AlertCreateRequest:
+      type: object
+      description: Payload to create or update an alert.
+      properties:
+        name:
+          type: string
+          example: Hail Watch — Northeast Region
+        description:
+          type: string
+        insightIds:
+          type: array
+          items:
+            type: string
+        locationIds:
+          type: array
+          items:
+            type: string
+        notifications:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum:
+                - webhook
+              url:
+                type: string
+                format: uri
+        active:
+          type: boolean
+          default: true
+      required:
+      - name
+      - insightIds
     Alert:
       type: object
       description: A persistent alert that fires insights over linked locations and pushes activations to a webhook.
@@ -503,112 +590,25 @@ components:
       - id
       - name
       - insightIds
-    AlertCreateRequest:
-      type: object
-      description: Payload to create or update an alert.
-      properties:
-        name:
-          type: string
-          example: Hail Watch — Northeast Region
-        description:
-          type: string
-        insightIds:
-          type: array
-          items:
-            type: string
-        locationIds:
-          type: array
-          items:
-            type: string
-        notifications:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-                enum:
-                - webhook
-              url:
-                type: string
-                format: uri
-        active:
-          type: boolean
-          default: true
-      required:
-      - name
-      - insightIds
-    GeoJSONGeometry:
-      type: object
-      description: GeoJSON geometry — Point, LineString, or Polygon.
-      properties:
-        type:
-          type: string
-          enum:
-          - Point
-          - LineString
-          - Polygon
-          example: Point
-        coordinates:
-          type: array
-          items: {}
-          example:
-          - -71.0466
-          - 42.3478
-      required:
-      - type
-      - coordinates
-    Location:
-      type: object
-      description: A saved location resource.
-      properties:
-        id:
-          type: string
-          example: 6183d156022c1b0008685cc6
-        name:
-          type: string
-          example: Boston HQ Rooftop
-        geometry:
-          $ref: '#/components/schemas/GeoJSONGeometry'
-        tags:
-          type: array
-          items:
-            type: string
-          example:
-          - field-asset
-          - rooftop
-        createdAt:
-          type: string
-          format: date-time
-          example: '2026-05-30T12:34:56Z'
-        updatedAt:
-          type: string
-          format: date-time
-          example: '2026-05-30T12:34:56Z'
-      required:
-      - id
-      - name
-      - geometry
-    Error:
-      type: object
-      description: Standard Tomorrow.io error envelope.
-      properties:
-        code:
-          type: integer
-          example: 400001
-          description: Internal error code.
-        type:
-          type: string
-          example: Invalid Body Parameters
-          description: Short error type label.
-        message:
-          type: string
-          example: The provided parameters are invalid.
-          description: Human-readable error message.
-      required:
-      - code
-      - type
-      - message
+  responses:
+    BadRequest:
+      description: Malformed request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyQuery:
       type: apiKey

@@ -418,6 +418,37 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    GeoJSONGeometry:
+      type: object
+      description: GeoJSON geometry — Point, LineString, or Polygon.
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+          - LineString
+          - Polygon
+          example: Point
+        coordinates:
+          type: array
+          items: {}
+          example:
+          - -71.0466
+          - 42.3478
+      required:
+      - type
+      - coordinates
+    AlertLocationLinkRequest:
+      type: object
+      properties:
+        locationIds:
+          type: array
+          items:
+            type: string
+          example:
+          - 6183d156022c1b0008685cc6
+      required:
+      - locationIds
     Location:
       type: object
       description: A saved location resource.
@@ -449,67 +480,6 @@ components:
       - id
       - name
       - geometry
-    GeoJSONGeometry:
-      type: object
-      description: GeoJSON geometry — Point, LineString, or Polygon.
-      properties:
-        type:
-          type: string
-          enum:
-          - Point
-          - LineString
-          - Polygon
-          example: Point
-        coordinates:
-          type: array
-          items: {}
-          example:
-          - -71.0466
-          - 42.3478
-      required:
-      - type
-      - coordinates
-    SimpleAck:
-      type: object
-      description: Generic success acknowledgement.
-      properties:
-        status:
-          type: string
-          example: ok
-        message:
-          type: string
-          example: Operation completed successfully.
-    Error:
-      type: object
-      description: Standard Tomorrow.io error envelope.
-      properties:
-        code:
-          type: integer
-          example: 400001
-          description: Internal error code.
-        type:
-          type: string
-          example: Invalid Body Parameters
-          description: Short error type label.
-        message:
-          type: string
-          example: The provided parameters are invalid.
-          description: Human-readable error message.
-      required:
-      - code
-      - type
-      - message
-    AlertLocationLinkRequest:
-      type: object
-      properties:
-        locationIds:
-          type: array
-          items:
-            type: string
-          example:
-          - 6183d156022c1b0008685cc6
-      required:
-      - locationIds
     AlertCreateRequest:
       type: object
       description: Payload to create or update an alert.
@@ -545,6 +515,16 @@ components:
       required:
       - name
       - insightIds
+    SimpleAck:
+      type: object
+      description: Generic success acknowledgement.
+      properties:
+        status:
+          type: string
+          example: ok
+        message:
+          type: string
+          example: Operation completed successfully.
     Alert:
       type: object
       description: A persistent alert that fires insights over linked locations and pushes activations to a webhook.
@@ -590,7 +570,33 @@ components:
       - id
       - name
       - insightIds
+    Error:
+      type: object
+      description: Standard Tomorrow.io error envelope.
+      properties:
+        code:
+          type: integer
+          example: 400001
+          description: Internal error code.
+        type:
+          type: string
+          example: Invalid Body Parameters
+          description: Short error type label.
+        message:
+          type: string
+          example: The provided parameters are invalid.
+          description: Human-readable error message.
+      required:
+      - code
+      - type
+      - message
   responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Malformed request.
       content:
@@ -599,12 +605,6 @@ components:
             $ref: '#/components/schemas/Error'
     NotFound:
       description: Resource not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
       content:
         application/json:
           schema:

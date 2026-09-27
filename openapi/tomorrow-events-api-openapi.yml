@@ -135,49 +135,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    EventsRequest:
-      type: object
-      description: Advanced Events request body.
-      properties:
-        location:
-          oneOf:
-          - type: string
-          - $ref: '#/components/schemas/GeoJSONGeometry'
-        insights:
-          type: array
-          items:
-            type: string
-          example:
-          - hail
-          - thunderstorm
-        buffer:
-          type: number
-          format: float
-          default: 1
-          description: Radius around the location in km.
-      required:
-      - location
-      - insights
-    Error:
-      type: object
-      description: Standard Tomorrow.io error envelope.
-      properties:
-        code:
-          type: integer
-          example: 400001
-          description: Internal error code.
-        type:
-          type: string
-          example: Invalid Body Parameters
-          description: Short error type label.
-        message:
-          type: string
-          example: The provided parameters are invalid.
-          description: Human-readable error message.
-      required:
-      - code
-      - type
-      - message
     EventsResponse:
       type: object
       properties:
@@ -233,15 +190,58 @@ components:
       required:
       - type
       - coordinates
+    EventsRequest:
+      type: object
+      description: Advanced Events request body.
+      properties:
+        location:
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/GeoJSONGeometry'
+        insights:
+          type: array
+          items:
+            type: string
+          example:
+          - hail
+          - thunderstorm
+        buffer:
+          type: number
+          format: float
+          default: 1
+          description: Radius around the location in km.
+      required:
+      - location
+      - insights
+    Error:
+      type: object
+      description: Standard Tomorrow.io error envelope.
+      properties:
+        code:
+          type: integer
+          example: 400001
+          description: Internal error code.
+        type:
+          type: string
+          example: Invalid Body Parameters
+          description: Short error type label.
+        message:
+          type: string
+          example: The provided parameters are invalid.
+          description: Human-readable error message.
+      required:
+      - code
+      - type
+      - message
   responses:
-    BadRequest:
-      description: Malformed request.
+    TooManyRequests:
+      description: Rate limit exceeded.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded.
+    BadRequest:
+      description: Malformed request.
       content:
         application/json:
           schema:

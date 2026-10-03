@@ -135,16 +135,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    EventsResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            events:
-              type: array
-              items:
-                $ref: '#/components/schemas/Event'
     Event:
       type: object
       description: A single insight match.
@@ -170,26 +160,6 @@ components:
           example: high
         location:
           $ref: '#/components/schemas/GeoJSONGeometry'
-    GeoJSONGeometry:
-      type: object
-      description: GeoJSON geometry — Point, LineString, or Polygon.
-      properties:
-        type:
-          type: string
-          enum:
-          - Point
-          - LineString
-          - Polygon
-          example: Point
-        coordinates:
-          type: array
-          items: {}
-          example:
-          - -71.0466
-          - 42.3478
-      required:
-      - type
-      - coordinates
     EventsRequest:
       type: object
       description: Advanced Events request body.
@@ -213,6 +183,36 @@ components:
       required:
       - location
       - insights
+    EventsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            events:
+              type: array
+              items:
+                $ref: '#/components/schemas/Event'
+    GeoJSONGeometry:
+      type: object
+      description: GeoJSON geometry — Point, LineString, or Polygon.
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+          - LineString
+          - Polygon
+          example: Point
+        coordinates:
+          type: array
+          items: {}
+          example:
+          - -71.0466
+          - 42.3478
+      required:
+      - type
+      - coordinates
     Error:
       type: object
       description: Standard Tomorrow.io error envelope.
@@ -234,14 +234,14 @@ components:
       - type
       - message
   responses:
-    TooManyRequests:
-      description: Rate limit exceeded.
+    BadRequest:
+      description: Malformed request.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Malformed request.
+    TooManyRequests:
+      description: Rate limit exceeded.
       content:
         application/json:
           schema:

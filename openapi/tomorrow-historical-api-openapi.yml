@@ -115,6 +115,130 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Timeline:
+      type: object
+      description: One timeline at a specific resolution.
+      properties:
+        timestep:
+          type: string
+          example: 1h
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimelineInterval'
+    TimelinesResponse:
+      type: object
+      description: Tomorrow.io Timelines response envelope.
+      properties:
+        data:
+          type: object
+          properties:
+            timelines:
+              type: array
+              items:
+                $ref: '#/components/schemas/Timeline'
+    HistoricalRequest:
+      type: object
+      description: Historical Timelines request body.
+      properties:
+        location:
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/GeoJSONGeometry'
+        fields:
+          type: array
+          items:
+            type: string
+          example:
+          - temperature
+          - precipitationIntensity
+        units:
+          type: string
+          enum:
+          - metric
+          - imperial
+          default: metric
+        timesteps:
+          type: array
+          items:
+            type: string
+            enum:
+            - 1h
+            - 1d
+          example:
+          - 1d
+        startTime:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        endTime:
+          type: string
+          format: date-time
+          example: '2024-01-31T23:59:59Z'
+        timezone:
+          type: string
+          default: UTC
+      required:
+      - location
+      - fields
+      - startTime
+      - endTime
+    Error:
+      type: object
+      description: Standard Tomorrow.io error envelope.
+      properties:
+        code:
+          type: integer
+          example: 400001
+          description: Internal error code.
+        type:
+          type: string
+          example: Invalid Body Parameters
+          description: Short error type label.
+        message:
+          type: string
+          example: The provided parameters are invalid.
+          description: Human-readable error message.
+      required:
+      - code
+      - type
+      - message
+    GeoJSONGeometry:
+      type: object
+      description: GeoJSON geometry — Point, LineString, or Polygon.
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+          - LineString
+          - Polygon
+          example: Point
+        coordinates:
+          type: array
+          items: {}
+          example:
+          - -71.0466
+          - 42.3478
+      required:
+      - type
+      - coordinates
+    TimelineInterval:
+      type: object
+      description: A single timestep entry in a timeline.
+      properties:
+        startTime:
+          type: string
+          format: date-time
+          example: '2026-05-30T13:00:00Z'
+        values:
+          $ref: '#/components/schemas/WeatherValues'
     WeatherValues:
       type: object
       description: Map of weather data field names to numeric values for one timestep.
@@ -257,133 +381,9 @@ components:
         hailBinary:
           type: integer
           example: 0
-    TimelinesResponse:
-      type: object
-      description: Tomorrow.io Timelines response envelope.
-      properties:
-        data:
-          type: object
-          properties:
-            timelines:
-              type: array
-              items:
-                $ref: '#/components/schemas/Timeline'
-    GeoJSONGeometry:
-      type: object
-      description: GeoJSON geometry — Point, LineString, or Polygon.
-      properties:
-        type:
-          type: string
-          enum:
-          - Point
-          - LineString
-          - Polygon
-          example: Point
-        coordinates:
-          type: array
-          items: {}
-          example:
-          - -71.0466
-          - 42.3478
-      required:
-      - type
-      - coordinates
-    Timeline:
-      type: object
-      description: One timeline at a specific resolution.
-      properties:
-        timestep:
-          type: string
-          example: 1h
-        startTime:
-          type: string
-          format: date-time
-        endTime:
-          type: string
-          format: date-time
-        intervals:
-          type: array
-          items:
-            $ref: '#/components/schemas/TimelineInterval'
-    HistoricalRequest:
-      type: object
-      description: Historical Timelines request body.
-      properties:
-        location:
-          oneOf:
-          - type: string
-          - $ref: '#/components/schemas/GeoJSONGeometry'
-        fields:
-          type: array
-          items:
-            type: string
-          example:
-          - temperature
-          - precipitationIntensity
-        units:
-          type: string
-          enum:
-          - metric
-          - imperial
-          default: metric
-        timesteps:
-          type: array
-          items:
-            type: string
-            enum:
-            - 1h
-            - 1d
-          example:
-          - 1d
-        startTime:
-          type: string
-          format: date-time
-          example: '2024-01-01T00:00:00Z'
-        endTime:
-          type: string
-          format: date-time
-          example: '2024-01-31T23:59:59Z'
-        timezone:
-          type: string
-          default: UTC
-      required:
-      - location
-      - fields
-      - startTime
-      - endTime
-    TimelineInterval:
-      type: object
-      description: A single timestep entry in a timeline.
-      properties:
-        startTime:
-          type: string
-          format: date-time
-          example: '2026-05-30T13:00:00Z'
-        values:
-          $ref: '#/components/schemas/WeatherValues'
-    Error:
-      type: object
-      description: Standard Tomorrow.io error envelope.
-      properties:
-        code:
-          type: integer
-          example: 400001
-          description: Internal error code.
-        type:
-          type: string
-          example: Invalid Body Parameters
-          description: Short error type label.
-        message:
-          type: string
-          example: The provided parameters are invalid.
-          description: Human-readable error message.
-      required:
-      - code
-      - type
-      - message
   responses:
-    Unauthorized:
-      description: Missing or invalid API key.
+    BadRequest:
+      description: Malformed request.
       content:
         application/json:
           schema:
@@ -394,8 +394,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Malformed request.
+    Unauthorized:
+      description: Missing or invalid API key.
       content:
         application/json:
           schema:

@@ -241,60 +241,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    InsightCreateRequest:
-      type: object
-      description: Payload to create or update an insight.
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        conditions:
-          type: array
-          items:
-            $ref: '#/components/schemas/InsightCondition'
-        logical:
-          type: string
-          enum:
-          - and
-          - or
-          default: and
-        timestep:
-          type: string
-          example: 1h
-        units:
-          type: string
-          enum:
-          - metric
-          - imperial
-      required:
-      - name
-      - conditions
-    InsightCondition:
-      type: object
-      description: A single condition that must hold for an insight to fire.
-      properties:
-        field:
-          type: string
-          example: windSpeed
-        operator:
-          type: string
-          enum:
-          - eq
-          - neq
-          - gt
-          - gte
-          - lt
-          - lte
-          example: gt
-        value:
-          type: number
-          format: double
-          example: 15
-      required:
-      - field
-      - operator
-      - value
     Insight:
       type: object
       description: A named threshold definition over one or more weather fields.
@@ -336,6 +282,35 @@ components:
       - id
       - name
       - conditions
+    InsightCreateRequest:
+      type: object
+      description: Payload to create or update an insight.
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        conditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/InsightCondition'
+        logical:
+          type: string
+          enum:
+          - and
+          - or
+          default: and
+        timestep:
+          type: string
+          example: 1h
+        units:
+          type: string
+          enum:
+          - metric
+          - imperial
+      required:
+      - name
+      - conditions
     Error:
       type: object
       description: Standard Tomorrow.io error envelope.
@@ -356,9 +331,34 @@ components:
       - code
       - type
       - message
+    InsightCondition:
+      type: object
+      description: A single condition that must hold for an insight to fire.
+      properties:
+        field:
+          type: string
+          example: windSpeed
+        operator:
+          type: string
+          enum:
+          - eq
+          - neq
+          - gt
+          - gte
+          - lt
+          - lte
+          example: gt
+        value:
+          type: number
+          format: double
+          example: 15
+      required:
+      - field
+      - operator
+      - value
   responses:
-    Unauthorized:
-      description: Missing or invalid API key.
+    BadRequest:
+      description: Malformed request.
       content:
         application/json:
           schema:
@@ -369,14 +369,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Malformed request.
+    NotFound:
+      description: Resource not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found.
+    Unauthorized:
+      description: Missing or invalid API key.
       content:
         application/json:
           schema:

@@ -241,6 +241,51 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Error:
+      type: object
+      description: Standard Tomorrow.io error envelope.
+      properties:
+        code:
+          type: integer
+          example: 400001
+          description: Internal error code.
+        type:
+          type: string
+          example: Invalid Body Parameters
+          description: Short error type label.
+        message:
+          type: string
+          example: The provided parameters are invalid.
+          description: Human-readable error message.
+      required:
+      - code
+      - type
+      - message
+    InsightCondition:
+      type: object
+      description: A single condition that must hold for an insight to fire.
+      properties:
+        field:
+          type: string
+          example: windSpeed
+        operator:
+          type: string
+          enum:
+          - eq
+          - neq
+          - gt
+          - gte
+          - lt
+          - lte
+          example: gt
+        value:
+          type: number
+          format: double
+          example: 15
+      required:
+      - field
+      - operator
+      - value
     Insight:
       type: object
       description: A named threshold definition over one or more weather fields.
@@ -311,60 +356,9 @@ components:
       required:
       - name
       - conditions
-    Error:
-      type: object
-      description: Standard Tomorrow.io error envelope.
-      properties:
-        code:
-          type: integer
-          example: 400001
-          description: Internal error code.
-        type:
-          type: string
-          example: Invalid Body Parameters
-          description: Short error type label.
-        message:
-          type: string
-          example: The provided parameters are invalid.
-          description: Human-readable error message.
-      required:
-      - code
-      - type
-      - message
-    InsightCondition:
-      type: object
-      description: A single condition that must hold for an insight to fire.
-      properties:
-        field:
-          type: string
-          example: windSpeed
-        operator:
-          type: string
-          enum:
-          - eq
-          - neq
-          - gt
-          - gte
-          - lt
-          - lte
-          example: gt
-        value:
-          type: number
-          format: double
-          example: 15
-      required:
-      - field
-      - operator
-      - value
   responses:
-    BadRequest:
-      description: Malformed request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded.
+    Unauthorized:
+      description: Missing or invalid API key.
       content:
         application/json:
           schema:
@@ -375,8 +369,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
+    BadRequest:
+      description: Malformed request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
       content:
         application/json:
           schema:

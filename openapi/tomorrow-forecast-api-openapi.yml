@@ -167,36 +167,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    BadRequest:
-      description: Malformed request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    TimelineInterval:
-      type: object
-      description: A single timestep entry in a timeline.
-      properties:
-        startTime:
-          type: string
-          format: date-time
-          example: '2026-05-30T13:00:00Z'
-        values:
-          $ref: '#/components/schemas/WeatherValues'
     Error:
       type: object
       description: Standard Tomorrow.io error envelope.
@@ -384,6 +355,35 @@ components:
         hailBinary:
           type: integer
           example: 0
+    TimelineInterval:
+      type: object
+      description: A single timestep entry in a timeline.
+      properties:
+        startTime:
+          type: string
+          format: date-time
+          example: '2026-05-30T13:00:00Z'
+        values:
+          $ref: '#/components/schemas/WeatherValues'
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Malformed request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyQuery:
       type: apiKey

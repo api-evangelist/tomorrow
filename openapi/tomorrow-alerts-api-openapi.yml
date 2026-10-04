@@ -418,68 +418,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Location:
-      type: object
-      description: A saved location resource.
-      properties:
-        id:
-          type: string
-          example: 6183d156022c1b0008685cc6
-        name:
-          type: string
-          example: Boston HQ Rooftop
-        geometry:
-          $ref: '#/components/schemas/GeoJSONGeometry'
-        tags:
-          type: array
-          items:
-            type: string
-          example:
-          - field-asset
-          - rooftop
-        createdAt:
-          type: string
-          format: date-time
-          example: '2026-05-30T12:34:56Z'
-        updatedAt:
-          type: string
-          format: date-time
-          example: '2026-05-30T12:34:56Z'
-      required:
-      - id
-      - name
-      - geometry
-    AlertLocationLinkRequest:
-      type: object
-      properties:
-        locationIds:
-          type: array
-          items:
-            type: string
-          example:
-          - 6183d156022c1b0008685cc6
-      required:
-      - locationIds
-    GeoJSONGeometry:
-      type: object
-      description: GeoJSON geometry — Point, LineString, or Polygon.
-      properties:
-        type:
-          type: string
-          enum:
-          - Point
-          - LineString
-          - Polygon
-          example: Point
-        coordinates:
-          type: array
-          items: {}
-          example:
-          - -71.0466
-          - 42.3478
-      required:
-      - type
-      - coordinates
     Error:
       type: object
       description: Standard Tomorrow.io error envelope.
@@ -500,41 +438,6 @@ components:
       - code
       - type
       - message
-    AlertCreateRequest:
-      type: object
-      description: Payload to create or update an alert.
-      properties:
-        name:
-          type: string
-          example: Hail Watch — Northeast Region
-        description:
-          type: string
-        insightIds:
-          type: array
-          items:
-            type: string
-        locationIds:
-          type: array
-          items:
-            type: string
-        notifications:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-                enum:
-                - webhook
-              url:
-                type: string
-                format: uri
-        active:
-          type: boolean
-          default: true
-      required:
-      - name
-      - insightIds
     SimpleAck:
       type: object
       description: Generic success acknowledgement.
@@ -590,9 +493,106 @@ components:
       - id
       - name
       - insightIds
+    AlertLocationLinkRequest:
+      type: object
+      properties:
+        locationIds:
+          type: array
+          items:
+            type: string
+          example:
+          - 6183d156022c1b0008685cc6
+      required:
+      - locationIds
+    Location:
+      type: object
+      description: A saved location resource.
+      properties:
+        id:
+          type: string
+          example: 6183d156022c1b0008685cc6
+        name:
+          type: string
+          example: Boston HQ Rooftop
+        geometry:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+        tags:
+          type: array
+          items:
+            type: string
+          example:
+          - field-asset
+          - rooftop
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2026-05-30T12:34:56Z'
+      required:
+      - id
+      - name
+      - geometry
+    GeoJSONGeometry:
+      type: object
+      description: GeoJSON geometry — Point, LineString, or Polygon.
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+          - LineString
+          - Polygon
+          example: Point
+        coordinates:
+          type: array
+          items: {}
+          example:
+          - -71.0466
+          - 42.3478
+      required:
+      - type
+      - coordinates
+    AlertCreateRequest:
+      type: object
+      description: Payload to create or update an alert.
+      properties:
+        name:
+          type: string
+          example: Hail Watch — Northeast Region
+        description:
+          type: string
+        insightIds:
+          type: array
+          items:
+            type: string
+        locationIds:
+          type: array
+          items:
+            type: string
+        notifications:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum:
+                - webhook
+              url:
+                type: string
+                format: uri
+        active:
+          type: boolean
+          default: true
+      required:
+      - name
+      - insightIds
   responses:
-    BadRequest:
-      description: Malformed request.
+    Unauthorized:
+      description: Missing or invalid API key.
       content:
         application/json:
           schema:
@@ -603,8 +603,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
+    BadRequest:
+      description: Malformed request.
       content:
         application/json:
           schema:
